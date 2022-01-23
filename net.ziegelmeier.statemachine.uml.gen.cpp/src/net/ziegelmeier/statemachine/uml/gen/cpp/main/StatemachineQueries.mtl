@@ -1,0 +1,44 @@
+[comment encoding = UTF-8 /]
+[module StatemachineQueries('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[query public getInitialState(aState : Pseudostate) : State = if (aState.oclIsUndefined()) then null else aState.outgoing.target->asSequence()->first().oclAsType(State) endif /]
+
+[query public getInitialPseudoState(aRegion : Region) : Pseudostate = if (aRegion.oclIsUndefined()) then null else aRegion.eContents(Pseudostate)->select(s | (s.kind = PseudostateKind::initial) or (s.kind = PseudostateKind::shallowHistory))->first() endif /]
+
+[query public getSubRegion(aState : State) : Region = if (aState.eContents(Region)->isEmpty()) then null else aState.eContents(Region)->asSequence()->first() endif /]
+
+[query public getEvent(aTransition : Transition) : Event = aTransition.trigger->asSequence()->first().event /]
+
+[query public getExternalTransitions(aState : State) : Set(Transition) = aState.outgoing->select(t | t.kind = TransitionKind::external)->asOrderedSet() /]
+
+[query public getInternalTransitions(aState : State) : Set(Transition) = aState.outgoing->select(t | t.kind = TransitionKind::internal)->asOrderedSet() /]
+
+[query public getAllTransitions(aState : State) : Set(Transition) = aState.outgoing->asOrderedSet() /]
+
+[template public getOwnerType(aStatemachine : StateMachine) post(trim())]
+[aStatemachine.name/]::Owner
+[/template]
+
+[template public getStateVariable(aState : Vertex) post(trim())]
+k[aState.name/]
+[/template]
+
+[template public getStateType(aStatemachine : StateMachine) post(trim())]
+[aStatemachine.name/]::State
+[/template]
+
+[template public getStatePtrType(aStatemachine : StateMachine) post(trim())]
+[aStatemachine.name/]::StatePtr
+[/template]
+
+[template public getTransitionType(aStatemachine : StateMachine) post(trim())]
+[aStatemachine.name/]::Transition
+[/template]
+
+[template public getEventType(aStatemachine : StateMachine) post(trim())]
+[aStatemachine.name/]::Event
+[/template]
+
+[template public getTransitionVariable(aTransition : Transition, aStartTransition : Transition) post(trim())]
+k[aStartTransition.source.name/]To[aTransition.target.name/]By[aStartTransition.getEvent().name/]
+[/template]

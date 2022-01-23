@@ -21,3 +21,10 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Eclipse
+/.metadata
+
+# Binaries
+/net.ziegelmeier.statemachine.uml.gen.cpp/bin
+/net.ziegelmeier.statemachine.uml.gen.cpp.ui/bin

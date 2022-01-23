@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Dirk Ziegelmeiers Statemachine Framework">
+      
+   </description>
+   <feature url="features/net.ziegelmeier.statemachine.uml.gen.cpp.feature_1.0.0.202201050925.jar" id="net.ziegelmeier.statemachine.uml.gen.cpp.feature" version="1.0.0.202201050925"/>
+</site>

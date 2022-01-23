@@ -1,0 +1,105 @@
+[comment encoding = UTF-8 /]
+[module StatemachineInstance('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[import net::ziegelmeier::statemachine::uml::gen::cpp::main::StatemachineQueries/]
+
+[template public generateInstance(aStatemachine : StateMachine)]
+[file (aStatemachine.name.concat('Instance.hxx'), false, 'UTF-8')]
+// Statemachine [aStatemachine.name/] instance
+
+// Include this file in .cxx or in .hxx below Owner declaration
+// *******
+// Note: All referenced functions must be instance member functions that
+// are either public OR [aStatemachine.name/] must be a friend class of [aStatemachine.getOwnerType()/] (add "friend class [aStatemachine.name/];" in your class)
+// *******
+
+#pragma once
+
+[aStatemachine.region->asSequence()->first().generateInitialState(aStatemachine)/]
+
+[aStatemachine.region->asSequence()->first().generateRegion(aStatemachine)/]
+[/file]
+[/template]
+
+[comment --------------------------------------------------- /]
+
+[template private generateRegion(aRegion : Region, aStatemachine : StateMachine) post (trim())]
+[aRegion.eContents(Vertex).generateVertex(aStatemachine)/]
+[/template]
+
+[template private generateInitialState(aRegion : Region, aStatemachine : StateMachine)]
+// Initial state
+template <>
+typename [aStatemachine.getStatePtrType()/] const [aStatemachine.name/]Base::kInitialState = &[aStatemachine.name/]::[aRegion.eContents(Pseudostate)->select(s | s.kind = PseudostateKind::initial)->first().outgoing->asSequence()->first().target.name/];
+[/template]
+
+[template private generateVertex(aState : Vertex, aStatemachine : StateMachine)]
+[/template]
+
+[template private generateVertex(aState : State, aStatemachine : StateMachine)]
+// State [aState.name/]
+const [aStatemachine.getStateType()/] [aStatemachine.name/]::[aState.getStateVariable()/]("[aState.name/]",
+    std::mem_fn(&[aStatemachine.getOwnerType()/]::[aStatemachine.name/][aState.name/]Handler), // Handler
+    [generateParent(aState, aStatemachine)/], // Parent
+    [generateInitial(aState, aStatemachine)/], // Initial
+    [generateEntryExit(aState.entry, aStatemachine)/], // Entry
+    [generateEntryExit(aState.exit, aStatemachine)/], // Exit
+    [generateFlags(aState, aStatemachine)/]); // Flags
+[aState.getExternalTransitions().generateExternalTransition(aStatemachine)/]
+[aState.getInternalTransitions().generateInternalTransition(aStatemachine)/]
+
+[aState.eContents(Region).generateRegion(aStatemachine)/]
+[/template]
+
+[template private generateEntryExit(aBehavior : Behavior, aStatemachine : StateMachine) post (trim())]
+[if (aBehavior.oclIsUndefined())]
+nullptr
+[else]
+std::mem_fn(&[aStatemachine.getOwnerType()/]::[aBehavior.name/])
+[/if]
+[/template]
+
+[template private generateParent(aState : State, aStatemachine : StateMachine) post (trim())]
+[if (aState.container.state.oclIsUndefined())]
+nullptr
+[else]
+&[aStatemachine.name/]::[aState.container.state.name/]
+[/if]
+[/template]
+
+[template private generateInitial(aState : State, aStatemachine : StateMachine) post (trim())]
+[if (aState.getSubRegion().getInitialPseudoState().getInitialState().oclIsUndefined())]
+nullptr
+[else]
+&[aStatemachine.name/]::[aState.getSubRegion().getInitialPseudoState().getInitialState().name/]
+[/if]
+[/template]
+
+[template private generateFlags(aState : State, aStatemachine : StateMachine) post (trim())]
+[if (not aState.getSubRegion().getInitialPseudoState().oclIsUndefined() and (aState.getSubRegion().getInitialPseudoState().kind = PseudostateKind::shallowHistory))]
+[aStatemachine.name/]::EFlags::kHistory
+[else]
+[aStatemachine.name/]::EFlags::kNone
+[/if]
+[/template]
+
+[template private generateExternalTransition(aTransition : Transition, aStatemachine : StateMachine)]
+[aTransition.generateTransitionRecursive(aTransition, aStatemachine, Sequence(Behavior){})/]
+[/template]
+
+[template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine, actions : Sequence(Behavior))]
+[if (aTransition.target.oclIsKindOf(State))]
+const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/]([aTransition.target.getStateVariable()/][generateTransitionActions(actions->append(aTransition.effect), aStatemachine)/]);
+[elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)]
+[aTransition.target.oclAsType(Pseudostate).outgoing.generateTransitionRecursive(aStartTransition, aStatemachine, actions->append(aTransition.effect))/]
+[/if]
+[/template]
+
+[template private generateTransitionActions(actions : Sequence(Behavior), aStatemachine : StateMachine)]
+[for (action : Behavior | actions->filter(Behavior)) before (', {') separator (', ') after ('}')]std::mem_fn(&[aStatemachine.getOwnerType()/]::[action.name/])[/for]
+[/template]
+
+[template private generateInternalTransition(aTransition : Transition, aStatemachine : StateMachine)]
+const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aTransition)/]([aStatemachine.name/]::kNone[generateTransitionActions(Sequence(Behavior){aTransition.effect}, aStatemachine)/]);
+
+[/template]

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IFile"
+            nameFilter="*.uml"
+            id="net.ziegelmeier.statemachine.ui.popupMenus.contribution.IFile">
+         <menu id="org.eclipse.acceleo.module.menu" label="Dirk Ziegelmeiers UML to C++ Generator" path="additionsAcceleo">
+               <groupMarker name="acceleo"/> 
+         </menu>
+         <action
+               class="net.ziegelmeier.statemachine.ui.popupMenus.AcceleoGenerateStatemachineAction"
+               enablesFor="+"
+               id="net.ziegelmeier.statemachine.ui.popupMenus.acceleoGenerateStatemachineAction"
+               icon="icons/default.gif"
+               label="Generate"
+               menubarPath="org.eclipse.acceleo.module.menu/acceleo"/>
+      </objectContribution>
+   </extension>
+</plugin>
