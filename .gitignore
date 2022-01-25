@@ -28,4 +28,10 @@ hs_err_pid*
 # Binaries
 /net.ziegelmeier.statemachine.uml.gen.cpp/bin
 /net.ziegelmeier.statemachine.uml.gen.cpp.ui/bin
-/net.ziegelmeier.statemachine.uml.gen.cpp/generated
+
+Statemachine Test/generated
+
+# C++ compile test
+.cache
+build
+compile_commands.json

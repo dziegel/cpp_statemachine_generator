@@ -25,7 +25,7 @@
 
 [template private generateVertex(aState : State, aStatemachine : StateMachine)]
 // State [aState.name/]
-[aStatemachine.getTransitionType()/] [aState.name/]Handler([aStatemachine.getStatePtrType()/] state, [aStatemachine.getEventType()/] event);
+[aStatemachine.getTransitionType()/] [aStatemachine.name/][aState.name/]Handler([aStatemachine.getStatePtrType()/] state, [aStatemachine.getEventType()/] event);
 
 [aState.eContents(Region).generateRegion(aStatemachine)/]
 [/template]

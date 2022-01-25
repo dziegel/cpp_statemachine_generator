@@ -10,13 +10,15 @@
 //
 // Before including this header, add the following using declaration in your file:
 // class MyClassContainingThisStatemachine;
-// using [aStatemachine.name/]Base = moldau::event_framework::Statemachine<MyClassContainingThisStatemachine, const moldau::event_framework::Signal::SPtr&>;
+// using [aStatemachine.name/]Base = cpp_event_framework::Statemachine<MyClassContainingThisStatemachine, const cpp_event_framework::Signal::SPtr&>;
 
 #pragma once
 
 class [aStatemachine.name/] : public [aStatemachine.name/]Base
 {
 public:
+	static const StatePtr kInitialState;
+
 [aStatemachine.region.generateRegion()/]
 };
 [/file]
@@ -33,7 +35,7 @@ public:
 
 [template private generateVertex(aState : State)]
     // State [aState.name/]
-    static State [aState.getStateVariable()/];
+    static const State [aState.getStateVariable()/];
 [aState.getExternalTransitions().generateTransition()/]
 [aState.getInternalTransitions().generateInternalTransition()/]
 [aState.eContents(Region).generateRegion()/]
@@ -45,11 +47,11 @@ public:
 
 [template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition)]
 [if (aTransition.target.oclIsKindOf(State))]
-    static Transition [aTransition.getTransitionVariable(aStartTransition)/];
+    static const Transition [aTransition.getTransitionVariable(aStartTransition)/];
 [elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)][aTransition.target.oclAsType(Pseudostate).outgoing.generateTransitionRecursive(aStartTransition)/][/if]
 [/template]
 
 [template private generateInternalTransition(aTransition : Transition)]
-    static Transition [aTransition.getTransitionVariable(aTransition)/];
+    static const Transition [aTransition.getTransitionVariable(aTransition)/];
 
 [/template]

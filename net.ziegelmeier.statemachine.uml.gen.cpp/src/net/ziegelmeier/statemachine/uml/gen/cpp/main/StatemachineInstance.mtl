@@ -29,8 +29,7 @@
 
 [template private generateInitialState(aRegion : Region, aStatemachine : StateMachine)]
 // Initial state
-template <>
-typename [aStatemachine.getStatePtrType()/] const [aStatemachine.name/]Base::kInitialState = &[aStatemachine.name/]::[aRegion.eContents(Pseudostate)->select(s | s.kind = PseudostateKind::initial)->first().outgoing->asSequence()->first().target.name/];
+const [aStatemachine.getStatePtrType()/] [aStatemachine.name/]::kInitialState = &[aStatemachine.name/]::k[aRegion.eContents(Pseudostate)->select(s | s.kind = PseudostateKind::initial)->first().outgoing->asSequence()->first().target.name/];
 [/template]
 
 [template private generateVertex(aState : Vertex, aStatemachine : StateMachine)]
@@ -38,13 +37,12 @@ typename [aStatemachine.getStatePtrType()/] const [aStatemachine.name/]Base::kIn
 
 [template private generateVertex(aState : State, aStatemachine : StateMachine)]
 // State [aState.name/]
-const [aStatemachine.getStateType()/] [aStatemachine.name/]::[aState.getStateVariable()/]("[aState.name/]",
-    std::mem_fn(&[aStatemachine.getOwnerType()/]::[aStatemachine.name/][aState.name/]Handler), // Handler
+const [aState.generateStateType(aStatemachine)/] [aStatemachine.name/]::[aState.getStateVariable()/]("[aState.name/]",
+    &[aStatemachine.getOwnerType()/]::[aStatemachine.name/][aState.name/]Handler, // Handler
     [generateParent(aState, aStatemachine)/], // Parent
     [generateInitial(aState, aStatemachine)/], // Initial
     [generateEntryExit(aState.entry, aStatemachine)/], // Entry
-    [generateEntryExit(aState.exit, aStatemachine)/], // Exit
-    [generateFlags(aState, aStatemachine)/]); // Flags
+    [generateEntryExit(aState.exit, aStatemachine)/]); // Exit
 [aState.getExternalTransitions().generateExternalTransition(aStatemachine)/]
 [aState.getInternalTransitions().generateInternalTransition(aStatemachine)/]
 
@@ -55,7 +53,7 @@ const [aStatemachine.getStateType()/] [aStatemachine.name/]::[aState.getStateVar
 [if (aBehavior.oclIsUndefined())]
 nullptr
 [else]
-std::mem_fn(&[aStatemachine.getOwnerType()/]::[aBehavior.name/])
+&[aStatemachine.getOwnerType()/]::[aBehavior.name/]
 [/if]
 [/template]
 
@@ -71,15 +69,15 @@ nullptr
 [if (aState.getSubRegion().getInitialPseudoState().getInitialState().oclIsUndefined())]
 nullptr
 [else]
-&[aStatemachine.name/]::[aState.getSubRegion().getInitialPseudoState().getInitialState().name/]
+&[aStatemachine.name/]::k[aState.getSubRegion().getInitialPseudoState().getInitialState().name/]
 [/if]
 [/template]
 
-[template private generateFlags(aState : State, aStatemachine : StateMachine) post (trim())]
+[template private generateStateType(aState : State, aStatemachine : StateMachine) post (trim())]
 [if (not aState.getSubRegion().getInitialPseudoState().oclIsUndefined() and (aState.getSubRegion().getInitialPseudoState().kind = PseudostateKind::shallowHistory))]
-[aStatemachine.name/]::EFlags::kHistory
+[aStatemachine.name/]::HistoryState
 [else]
-[aStatemachine.name/]::EFlags::kNone
+[aStatemachine.name/]::State
 [/if]
 [/template]
 
@@ -96,7 +94,7 @@ const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.g
 [/template]
 
 [template private generateTransitionActions(actions : Sequence(Behavior), aStatemachine : StateMachine)]
-[for (action : Behavior | actions->filter(Behavior)) before (', {') separator (', ') after ('}')]std::mem_fn(&[aStatemachine.getOwnerType()/]::[action.name/])[/for]
+, std::vector<[aStatemachine.name/]::Transition::ActionType>({[for (action : Behavior | actions->filter(Behavior)) separator (', ')]std::mem_fn(&[aStatemachine.getOwnerType()/]::[action.name/])[/for]})
 [/template]
 
 [template private generateInternalTransition(aTransition : Transition, aStatemachine : StateMachine)]
