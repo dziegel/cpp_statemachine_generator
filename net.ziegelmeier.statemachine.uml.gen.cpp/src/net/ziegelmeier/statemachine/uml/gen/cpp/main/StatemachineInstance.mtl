@@ -61,7 +61,7 @@ nullptr
 [if (aState.container.state.oclIsUndefined())]
 nullptr
 [else]
-&[aStatemachine.name/]::[aState.container.state.name/]
+&[aStatemachine.name/]::k[aState.container.state.name/]
 [/if]
 [/template]
 
