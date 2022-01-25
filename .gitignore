@@ -29,7 +29,7 @@ hs_err_pid*
 /net.ziegelmeier.statemachine.uml.gen.cpp/bin
 /net.ziegelmeier.statemachine.uml.gen.cpp.ui/bin
 
-Statemachine Test/generated
+Statemachine Test/generated/*.hxx
 
 # C++ compile test
 .cache
