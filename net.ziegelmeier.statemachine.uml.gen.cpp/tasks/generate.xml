@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generate" name="net.ziegelmeier.statemachine.uml.gen.cpp">
-    <property name="ECLIPSE_HOME" value="../../../../Downloads/eclipse"/>
-    <property name="ECLIPSE_WORKSPACE" value="../../.."/>
+    <property name="ECLIPSE_HOME" value="../../../../eclipse"/>
+    <property name="ECLIPSE_WORKSPACE" value="../../../eclipse-workspace"/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="net.ziegelmeier.statemachine.uml.gen.cpp.libraryclasspath">

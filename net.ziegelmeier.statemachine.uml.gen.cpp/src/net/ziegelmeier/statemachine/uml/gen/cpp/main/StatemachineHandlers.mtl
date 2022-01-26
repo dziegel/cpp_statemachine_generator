@@ -35,27 +35,6 @@
     // [/protected]
 }
 [/let]
-[if (not aState.entry.oclIsUndefined())]
-
-[aState.entry.generateEntryExit(aState, aStatemachine, 'Entry')/]
-[/if]
-[if (not aState.exit.oclIsUndefined())]
-
-[aState.exit.generateEntryExit(aState, aStatemachine, 'Exit')/]
-[/if]
 
 [aState.eContents(Region).generateRegion(aStatemachine)/]
-[/template]
-
-[template private generateEntryExit(aBehavior : Behavior, aState : State, aStatemachine : StateMachine, kind : String)]
-[let aFunctionName : String = aStatemachine.name + aState.name + kind]
-void [aStatemachine.getOwnerType()/]::[aFunctionName/]([aStatemachine.getStatePtrType()/] /* state */)
-{
-    // [protected (aFunctionName)]
-
-    // To be implemented
-
-    // [/protected]
-}
-[/let]
 [/template]

@@ -68,7 +68,7 @@
             <trigger xmi:type="uml:Trigger" xmi:id="_6stfAExkEeyrNMHETnA5Fg" event="_6eZ9QExkEeyrNMHETnA5Fg"/>
           </transition>
           <transition xmi:type="uml:Transition" xmi:id="_7rfmAExlEeyrNMHETnA5Fg" kind="internal" source="_gf6gIExSEeyrNMHETnA5Fg" target="_gf6gIExSEeyrNMHETnA5Fg">
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_UsYLMHq2EeyONPl2unTijw" name="StartTimer"/>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_UsYLMHq2EeyONPl2unTijw" name="StartWaitApplicationReadyTimer2"/>
             <trigger xmi:type="uml:Trigger" xmi:id="_964OsExlEeyrNMHETnA5Fg" event="_6eZ9QExkEeyrNMHETnA5Fg"/>
           </transition>
           <transition xmi:type="uml:Transition" xmi:id="_TO6NAExmEeyrNMHETnA5Fg" guard="_haJjsExmEeyrNMHETnA5Fg" source="_iNzgIExkEeyrNMHETnA5Fg" target="_NEXWUExmEeyrNMHETnA5Fg">
@@ -84,8 +84,8 @@
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_U-7JMExSEeyrNMHETnA5Fg" name=""/>
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_YSKbkExSEeyrNMHETnA5Fg" name="" kind="choice"/>
           <subvertex xmi:type="uml:State" xmi:id="_gf6gIExSEeyrNMHETnA5Fg" name="WaitApplicationReady">
-            <entry xmi:type="uml:FunctionBehavior" xmi:id="_l1otAExlEeyrNMHETnA5Fg" name="StartTimer"/>
-            <exit xmi:type="uml:FunctionBehavior" xmi:id="_pUbvIExlEeyrNMHETnA5Fg" name="StopTimer"/>
+            <entry xmi:type="uml:FunctionBehavior" xmi:id="_l1otAExlEeyrNMHETnA5Fg" name="StartWaitApplicationReadyTimer"/>
+            <exit xmi:type="uml:FunctionBehavior" xmi:id="_pUbvIExlEeyrNMHETnA5Fg" name="StopWaitApplicationReadyTimer"/>
           </subvertex>
           <subvertex xmi:type="uml:State" xmi:id="_iNzgIExkEeyrNMHETnA5Fg" name="WaitApplicationReadyCnf">
             <entry xmi:type="uml:FunctionBehavior" xmi:id="_eS-z4ExlEeyrNMHETnA5Fg" name="SendApplicationReady"/>
@@ -121,7 +121,7 @@
                   </transition>
                   <transition xmi:type="uml:Transition" xmi:id="_RbNDcHq4EeyONPl2unTijw" guard="_-4GE4ExlEeyrNMHETnA5Fg" kind="internal" source="_ijN0oHq1EeyONPl2unTijw" target="_ijN0oHq1EeyONPl2unTijw">
                     <ownedRule xmi:type="uml:Constraint" xmi:id="_-4GE4ExlEeyrNMHETnA5Fg" name="else"/>
-                    <effect xmi:type="uml:FunctionBehavior" xmi:id="_pglIAHq4EeyONPl2unTijw" name="StartTimer"/>
+                    <effect xmi:type="uml:FunctionBehavior" xmi:id="_pglIAHq4EeyONPl2unTijw" name="StartWaitApplicationReadyTimer2"/>
                     <trigger xmi:type="uml:Trigger" xmi:id="_TaKqgHq4EeyONPl2unTijw" event="_6eZ9QExkEeyrNMHETnA5Fg"/>
                   </transition>
                   <transition xmi:type="uml:Transition" xmi:id="_6xcBQHq3EeyONPl2unTijw" source="_hIyeAHq1EeyONPl2unTijw" target="_ijN0oHq1EeyONPl2unTijw">
@@ -139,8 +139,8 @@
                   <subvertex xmi:type="uml:State" xmi:id="_njeCcHq1EeyONPl2unTijw" name="DrWaitPullCnf"/>
                   <subvertex xmi:type="uml:State" xmi:id="_kwHxEHq1EeyONPl2unTijw" name="DrWaitApplicationReadyCnfPlugSubmodule"/>
                   <subvertex xmi:type="uml:State" xmi:id="_ijN0oHq1EeyONPl2unTijw" name="DrWaitApplicationReadyPlugSubmodule">
-                    <entry xmi:type="uml:FunctionBehavior" xmi:id="_GEzy8Hq4EeyONPl2unTijw" name="StartTimer"/>
-                    <exit xmi:type="uml:FunctionBehavior" xmi:id="_HNFpoHq4EeyONPl2unTijw" name="StopTimer"/>
+                    <entry xmi:type="uml:FunctionBehavior" xmi:id="_GEzy8Hq4EeyONPl2unTijw" name="StartWaitApplicationReadyTimer"/>
+                    <exit xmi:type="uml:FunctionBehavior" xmi:id="_HNFpoHq4EeyONPl2unTijw" name="StopWaitApplicationReadyTimer"/>
                   </subvertex>
                   <subvertex xmi:type="uml:State" xmi:id="_hIyeAHq1EeyONPl2unTijw" name="DrPlugPrmSequence"/>
                   <subvertex xmi:type="uml:State" xmi:id="_fGyxEHq1EeyONPl2unTijw" name="DrWaitPlugCnf"/>
