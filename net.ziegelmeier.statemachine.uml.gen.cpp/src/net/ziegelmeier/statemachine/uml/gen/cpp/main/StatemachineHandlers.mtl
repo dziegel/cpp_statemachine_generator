@@ -34,7 +34,7 @@
 	[for (anEvent : Event | allEvents)]
 	case EEvent::[anEvent.name/]:
 	{
-	[let allTransitions : Set(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)]
+	[let allTransitions : Sequence(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else'))]
 	[for (aTrans : Transition | allTransitions)]
 		[aTrans.generateTransition(aStatemachine)/]
 	[/for]
