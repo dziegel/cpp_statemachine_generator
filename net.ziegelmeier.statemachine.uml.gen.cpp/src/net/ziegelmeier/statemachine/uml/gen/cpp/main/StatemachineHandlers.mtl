@@ -28,13 +28,37 @@
 [let aFunctionName : String = aStatemachine.name + aState.name + 'Handler']
 [aStatemachine.getTransitionType()/] [aStatemachine.getOwnerType()/]::[aFunctionName/]([aStatemachine.getStatePtrType()/] /* state */, [aStatemachine.getEventType()/] event)
 {
-    // [protected (aFunctionName)]
-
-    // To be implemented
-
-    // [/protected]
+	switch(event)
+	{
+	[let allEvents : Set(Event) = aState.outgoing->collect(getEvent())->asSet()]
+	[for (anEvent : Event | allEvents)]
+	case EEvent::[anEvent.name/]:
+	{
+	[let allTransitions : Set(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)]
+	[for (aTrans : Transition | allTransitions)]
+		[aTrans.generateTransition(aStatemachine)/]
+	[/for]
+	[/let]
+	}
+	[/for]
+	[/let]
+	default:
+		return [aStatemachine.name/]::UnhandledEvent();
+	}
 }
 [/let]
 
 [aState.eContents(Region).generateRegion(aStatemachine)/]
+[/template]
+
+[template private generateTransition(aTransition : Transition, aStatemachine : StateMachine)]
+[aTransition.generateTransitionRecursive(aTransition, aStatemachine)/]
+[/template]
+
+[template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine)]
+[if (aTransition.target.oclIsKindOf(State))]
+return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
+[elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)]
+[aTransition.target.oclAsType(Pseudostate).outgoing.generateTransitionRecursive(aStartTransition, aStatemachine)/]
+[/if]
 [/template]
