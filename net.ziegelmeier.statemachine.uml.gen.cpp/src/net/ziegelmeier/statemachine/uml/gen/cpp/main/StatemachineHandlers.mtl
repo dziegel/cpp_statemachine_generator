@@ -28,11 +28,11 @@
 [let aFunctionName : String = aStatemachine.name + aState.name + 'Handler']
 [aStatemachine.getTransitionType()/] [aStatemachine.getOwnerType()/]::[aFunctionName/]([aStatemachine.getStatePtrType()/] /* state */, [aStatemachine.getEventType()/] event)
 {
-	switch(event)
+	switch([aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event))
 	{
 	[let allEvents : Set(Event) = aState.outgoing->collect(getEvent())->asSet()]
 	[for (anEvent : Event | allEvents)]
-	case EEvent::[anEvent.name/]:
+	case [aStatemachine.name/]_GET_STATIC_EVENT_ID([anEvent.name/]):
 	{
 	[let allTransitions : Sequence(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else'))]
 	[for (aTrans : Transition | allTransitions)]
