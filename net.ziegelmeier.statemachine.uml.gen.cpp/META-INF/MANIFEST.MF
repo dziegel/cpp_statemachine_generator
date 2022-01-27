@@ -26,4 +26,4 @@ Export-Package: net.ziegelmeier.statemachine.uml.gen.cpp.main;
    org.eclipse.acceleo.engine.service,
    org.eclipse.emf.ecore.resource,
    org.eclipse.acceleo.engine.generation.strategy"
-
+Bundle-Classpath: bin/
