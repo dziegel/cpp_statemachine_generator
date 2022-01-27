@@ -52,13 +52,22 @@
 [/template]
 
 [template private generateTransition(aTransition : Transition, aStatemachine : StateMachine)]
-[aTransition.generateTransitionRecursive(aTransition, aStatemachine)/]
+[aTransition.generateTransitionRecursive(aTransition, aStatemachine, Sequence(Constraint){})/]
 [/template]
 
-[template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine)]
+[template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine, guards : Sequence(Constraint))]
 [if (aTransition.target.oclIsKindOf(State))]
+[let allGuards : Sequence(Constraint) = guards->append(aTransition.guard)->select(g | not g.oclIsUndefined())]
+[if (allGuards->isEmpty() or ((allGuards->size() = 1) and (allGuards->first().name = 'else')))]
 return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
+[else]
+if ([for (g : Constraint | allGuards) separator('&&')][g.name/][/for])
+{
+	return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
+}
+[/if]
+[/let]
 [elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)]
-[aTransition.target.oclAsType(Pseudostate).outgoing.generateTransitionRecursive(aStartTransition, aStatemachine)/]
+[aTransition.target.oclAsType(Pseudostate).outgoing.generateTransitionRecursive(aStartTransition, aStatemachine, guards->append(aTransition.guard))/]
 [/if]
 [/template]
