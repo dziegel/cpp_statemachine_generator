@@ -8,7 +8,7 @@ The code generation tool used is Acceleo https://www.eclipse.org/acceleo/.
 
 ## Current state
 
-The tool generates the statemachine and state declarations. Handlers (the functions executing the transitions) are NOT (yet) generated.
+The tool generates the statemachine, state declarations and state handlers. Choice states are supported.
 
 ## License
 
