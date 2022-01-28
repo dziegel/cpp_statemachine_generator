@@ -78,6 +78,6 @@ if ([for (g : Constraint | allGuards) separator('&&')][g.name/][/for])
 [/if]
 [/let]
 [elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)]
-[aTransition.target.oclAsType(Pseudostate).outgoing.generateTransitionRecursive(aStartTransition, aStatemachine, guards->append(aTransition.guard))/]
+[aTransition.target.oclAsType(Pseudostate).outgoing->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else')).generateTransitionRecursive(aStartTransition, aStatemachine, guards->append(aTransition.guard))/]
 [/if]
 [/template]

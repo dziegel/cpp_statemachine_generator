@@ -63,13 +63,9 @@
           <transition xmi:type="uml:Transition" xmi:id="_kv6QgExkEeyrNMHETnA5Fg" guard="_CIFh4Hq8EeyONPl2unTijw" source="_YSKbkExSEeyrNMHETnA5Fg" target="_iNzgIExkEeyrNMHETnA5Fg">
             <ownedRule xmi:type="uml:Constraint" xmi:id="_CIFh4Hq8EeyONPl2unTijw" name="else"/>
           </transition>
-          <transition xmi:type="uml:Transition" xmi:id="_l08l8ExkEeyrNMHETnA5Fg" guard="_sd9-0Hq7EeyONPl2unTijw" source="_gf6gIExSEeyrNMHETnA5Fg" target="_iNzgIExkEeyrNMHETnA5Fg">
+          <transition xmi:type="uml:Transition" xmi:id="_l08l8ExkEeyrNMHETnA5Fg" source="_gf6gIExSEeyrNMHETnA5Fg" target="_6cEWsIB0Eey8ZYEX2Jg0OA">
             <ownedRule xmi:type="uml:Constraint" xmi:id="_sd9-0Hq7EeyONPl2unTijw" name="CheckApplicationReady"/>
             <trigger xmi:type="uml:Trigger" xmi:id="_6stfAExkEeyrNMHETnA5Fg" event="_6eZ9QExkEeyrNMHETnA5Fg"/>
-          </transition>
-          <transition xmi:type="uml:Transition" xmi:id="_7rfmAExlEeyrNMHETnA5Fg" kind="internal" source="_gf6gIExSEeyrNMHETnA5Fg" target="_gf6gIExSEeyrNMHETnA5Fg">
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_UsYLMHq2EeyONPl2unTijw" name="StartWaitApplicationReadyTimer2"/>
-            <trigger xmi:type="uml:Trigger" xmi:id="_964OsExlEeyrNMHETnA5Fg" event="_6eZ9QExkEeyrNMHETnA5Fg"/>
           </transition>
           <transition xmi:type="uml:Transition" xmi:id="_TO6NAExmEeyrNMHETnA5Fg" guard="_haJjsExmEeyrNMHETnA5Fg" source="_iNzgIExkEeyrNMHETnA5Fg" target="_NEXWUExmEeyrNMHETnA5Fg">
             <ownedRule xmi:type="uml:Constraint" xmi:id="_haJjsExmEeyrNMHETnA5Fg" name="success"/>
@@ -79,6 +75,12 @@
             <ownedRule xmi:type="uml:Constraint" xmi:id="_qYUqgExkEeyrNMHETnA5Fg" name="else"/>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_P3u7AHq3EeyONPl2unTijw" name="AbortAr"/>
             <trigger xmi:type="uml:Trigger" xmi:id="_IolMsHq3EeyONPl2unTijw" event="_XCLqUExmEeyrNMHETnA5Fg"/>
+          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_BavZAIB1Eey8ZYEX2Jg0OA" guard="_N4Ts8IB1Eey8ZYEX2Jg0OA" source="_6cEWsIB0Eey8ZYEX2Jg0OA" target="_iNzgIExkEeyrNMHETnA5Fg">
+            <ownedRule xmi:type="uml:Constraint" xmi:id="_N4Ts8IB1Eey8ZYEX2Jg0OA" name="CheckApplicationReady()"/>
+          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_EaBNkIB1Eey8ZYEX2Jg0OA" guard="_J5KW0IB1Eey8ZYEX2Jg0OA" source="_6cEWsIB0Eey8ZYEX2Jg0OA" target="_gf6gIExSEeyrNMHETnA5Fg">
+            <ownedRule xmi:type="uml:Constraint" xmi:id="_J5KW0IB1Eey8ZYEX2Jg0OA" name="else"/>
           </transition>
           <subvertex xmi:type="uml:State" xmi:id="_ThgwAExSEeyrNMHETnA5Fg" name="Parameterizing"/>
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_U-7JMExSEeyrNMHETnA5Fg" name=""/>
@@ -115,14 +117,9 @@
                 <entry xmi:type="uml:FunctionBehavior" xmi:id="_tq26oHq5EeyONPl2unTijw" name="StartDynReconfTimer"/>
                 <exit xmi:type="uml:FunctionBehavior" xmi:id="_1DJ94Hq5EeyONPl2unTijw" name="StopDynReconfTimer"/>
                 <region xmi:type="uml:Region" xmi:id="_NKTZgHq5EeyONPl2unTijw" name="Region1">
-                  <transition xmi:type="uml:Transition" xmi:id="_JOyboHq4EeyONPl2unTijw" guard="_28pGsExkEeyrNMHETnA5Fg" source="_ijN0oHq1EeyONPl2unTijw" target="_kwHxEHq1EeyONPl2unTijw">
+                  <transition xmi:type="uml:Transition" xmi:id="_JOyboHq4EeyONPl2unTijw" source="_ijN0oHq1EeyONPl2unTijw" target="_m8IWwIB1Eey8ZYEX2Jg0OA">
                     <ownedRule xmi:type="uml:Constraint" xmi:id="_28pGsExkEeyrNMHETnA5Fg" name="CheckApplicationReady"/>
                     <trigger xmi:type="uml:Trigger" xmi:id="_MpRlgHq4EeyONPl2unTijw" event="_6eZ9QExkEeyrNMHETnA5Fg"/>
-                  </transition>
-                  <transition xmi:type="uml:Transition" xmi:id="_RbNDcHq4EeyONPl2unTijw" guard="_-4GE4ExlEeyrNMHETnA5Fg" kind="internal" source="_ijN0oHq1EeyONPl2unTijw" target="_ijN0oHq1EeyONPl2unTijw">
-                    <ownedRule xmi:type="uml:Constraint" xmi:id="_-4GE4ExlEeyrNMHETnA5Fg" name="else"/>
-                    <effect xmi:type="uml:FunctionBehavior" xmi:id="_pglIAHq4EeyONPl2unTijw" name="StartWaitApplicationReadyTimer2"/>
-                    <trigger xmi:type="uml:Trigger" xmi:id="_TaKqgHq4EeyONPl2unTijw" event="_6eZ9QExkEeyrNMHETnA5Fg"/>
                   </transition>
                   <transition xmi:type="uml:Transition" xmi:id="_6xcBQHq3EeyONPl2unTijw" source="_hIyeAHq1EeyONPl2unTijw" target="_ijN0oHq1EeyONPl2unTijw">
                     <effect xmi:type="uml:FunctionBehavior" xmi:id="_EHgYwHq4EeyONPl2unTijw" name="ApplyConfiguration"/>
@@ -136,6 +133,12 @@
                     <trigger xmi:type="uml:Trigger" xmi:id="_fRnHsHq6EeyONPl2unTijw" event="_fJa1AHq6EeyONPl2unTijw"/>
                   </transition>
                   <transition xmi:type="uml:Transition" xmi:id="_F-P6IHrHEeyONPl2unTijw" source="_FRRfYHrHEeyONPl2unTijw" target="_fGyxEHq1EeyONPl2unTijw"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_vp7NUIB1Eey8ZYEX2Jg0OA" guard="_98IHoIB1Eey8ZYEX2Jg0OA" source="_m8IWwIB1Eey8ZYEX2Jg0OA" target="_kwHxEHq1EeyONPl2unTijw">
+                    <ownedRule xmi:type="uml:Constraint" xmi:id="_98IHoIB1Eey8ZYEX2Jg0OA" name="CheckApplicationReady()"/>
+                  </transition>
+                  <transition xmi:type="uml:Transition" xmi:id="_xfQXQIB1Eey8ZYEX2Jg0OA" guard="_7xuFkIB1Eey8ZYEX2Jg0OA" source="_m8IWwIB1Eey8ZYEX2Jg0OA" target="_ijN0oHq1EeyONPl2unTijw">
+                    <ownedRule xmi:type="uml:Constraint" xmi:id="_7xuFkIB1Eey8ZYEX2Jg0OA" name="else"/>
+                  </transition>
                   <subvertex xmi:type="uml:State" xmi:id="_njeCcHq1EeyONPl2unTijw" name="DrWaitPullCnf"/>
                   <subvertex xmi:type="uml:State" xmi:id="_kwHxEHq1EeyONPl2unTijw" name="DrWaitApplicationReadyCnfPlugSubmodule"/>
                   <subvertex xmi:type="uml:State" xmi:id="_ijN0oHq1EeyONPl2unTijw" name="DrWaitApplicationReadyPlugSubmodule">
@@ -145,10 +148,12 @@
                   <subvertex xmi:type="uml:State" xmi:id="_hIyeAHq1EeyONPl2unTijw" name="DrPlugPrmSequence"/>
                   <subvertex xmi:type="uml:State" xmi:id="_fGyxEHq1EeyONPl2unTijw" name="DrWaitPlugCnf"/>
                   <subvertex xmi:type="uml:Pseudostate" xmi:id="_FRRfYHrHEeyONPl2unTijw" name=""/>
+                  <subvertex xmi:type="uml:Pseudostate" xmi:id="_m8IWwIB1Eey8ZYEX2Jg0OA" name="" kind="choice"/>
                 </region>
               </subvertex>
             </region>
           </subvertex>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_6cEWsIB0Eey8ZYEX2Jg0OA" name="" kind="choice"/>
         </region>
       </subvertex>
     </region>

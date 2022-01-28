@@ -50,13 +50,21 @@ public:
     {
         fsm_.React(EEvent::S_PNS_ArOpend_ind);
         fsm_.React(EEvent::S_PNS_ParamEndInd);
+        fsm_.React(EEvent::SPnpbAppTimeout);
+        fsm_.React(EEvent::SPnpbAppTimeout);
         fsm_.React(EEvent::S_PNS_ArClosed_ind);
     }
 
 private:
 #include "IoArHandlerMainPrototypes.hxx"
 
-    bool CheckApplicationReady = true;
+    bool ready_ = false;
+    bool CheckApplicationReady()
+    {
+        auto old = ready_;
+        ready_ = true;
+        return old;
+    }
     bool success = true;
     bool FirstInArSetOrPrimary = true;
 
@@ -92,10 +100,6 @@ private:
         std::cout << __FUNCTION__ << std::endl;
     }
     void StartWaitApplicationReadyTimer(IoArHandlerMain::StatePtr)
-    {
-        std::cout << __FUNCTION__ << std::endl;
-    }
-    void StartWaitApplicationReadyTimer2(IoArHandlerMain::Event)
     {
         std::cout << __FUNCTION__ << std::endl;
     }
