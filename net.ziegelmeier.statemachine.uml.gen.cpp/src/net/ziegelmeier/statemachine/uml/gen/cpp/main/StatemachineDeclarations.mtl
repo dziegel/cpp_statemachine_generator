@@ -17,7 +17,7 @@
 class [aStatemachine.name/] : public [aStatemachine.name/]Base
 {
 public:
-	static const StatePtr kInitialState;
+    static const StatePtr kInitialState;
 
 [aStatemachine.region.generateRegion()/]
 };

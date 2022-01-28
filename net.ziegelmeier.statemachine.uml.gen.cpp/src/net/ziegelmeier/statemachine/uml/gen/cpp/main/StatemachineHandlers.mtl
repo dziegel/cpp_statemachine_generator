@@ -10,6 +10,16 @@
 
 #pragma once
 
+// Override the following defines according to your needs if you are not using cpp_event_framework:
+
+#ifndef [aStatemachine.name/]_GET_INSTANCE_EVENT_ID
+#define [aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event_instance) event_instance->Id()
+#endif
+
+#ifndef [aStatemachine.name/]_GET_STATIC_EVENT_ID
+#define [aStatemachine.name/]_GET_STATIC_EVENT_ID(event_class) event_class::kId
+#endif
+
 [aStatemachine.region.generateRegion(aStatemachine)/]
 [/file]
 [/template]
@@ -28,23 +38,23 @@
 [let aFunctionName : String = aStatemachine.name + aState.name + 'Handler']
 [aStatemachine.getTransitionType()/] [aStatemachine.getOwnerType()/]::[aFunctionName/]([aStatemachine.getStatePtrType()/] /* state */, [aStatemachine.getEventType()/] event)
 {
-	switch([aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event))
-	{
-	[let allEvents : Set(Event) = aState.outgoing->collect(getEvent())->asSet()]
-	[for (anEvent : Event | allEvents)]
-	case [aStatemachine.name/]_GET_STATIC_EVENT_ID([anEvent.name/]):
-	{
-	[let allTransitions : Sequence(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else'))]
-	[for (aTrans : Transition | allTransitions)]
-		[aTrans.generateTransition(aStatemachine)/]
-	[/for]
-	[/let]
-	}
-	[/for]
-	[/let]
-	default:
-		return [aStatemachine.name/]::UnhandledEvent();
-	}
+    switch([aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event))
+    {
+    [let allEvents : Set(Event) = aState.outgoing->collect(getEvent())->asSet()]
+    [for (anEvent : Event | allEvents)]
+    case [aStatemachine.name/]_GET_STATIC_EVENT_ID([anEvent.name/]):
+    {
+    [let allTransitions : Sequence(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else'))]
+    [for (aTrans : Transition | allTransitions)]
+        [aTrans.generateTransition(aStatemachine)/]
+    [/for]
+    [/let]
+    }
+    [/for]
+    [/let]
+    default:
+        return [aStatemachine.name/]::UnhandledEvent();
+    }
 }
 [/let]
 
@@ -57,13 +67,13 @@
 
 [template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine, guards : Sequence(Constraint))]
 [if (aTransition.target.oclIsKindOf(State))]
-[let allGuards : Sequence(Constraint) = guards->append(aTransition.guard)->select(g | not g.oclIsUndefined())]
-[if (allGuards->isEmpty() or ((allGuards->size() = 1) and (allGuards->first().name = 'else')))]
+[let allGuards : Sequence(Constraint) = guards->append(aTransition.guard)->select(g | not g.oclIsUndefined() and not (g.name = 'else'))]
+[if (allGuards->isEmpty())]
 return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
 [else]
 if ([for (g : Constraint | allGuards) separator('&&')][g.name/][/for])
 {
-	return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
+    return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
 }
 [/if]
 [/let]
