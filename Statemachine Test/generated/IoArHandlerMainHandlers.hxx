@@ -10,7 +10,7 @@
 #endif
 
 #ifndef IoArHandlerMain_GET_STATIC_EVENT_ID
-#define IoArHandlerMain_GET_STATIC_EVENT_ID(event_class) event_class::kId
+#define IoArHandlerMain_GET_STATIC_EVENT_ID(event_name) event_name::kId
 #endif
 
 // State Closed
@@ -19,30 +19,20 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainClosedHandler
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-    {
         return IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArOpend_ind):
-    {
         return IoArHandlerMain::kClosedToOpenByS_PNS_ArOpend_ind;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
-    {
         return IoArHandlerMain::kClosedToClosedByS_PNS_WriteReq;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
-    {
         return IoArHandlerMain::kClosedToClosedByS_PNS_ReadReq;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
-    {
         return IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestBackup;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -54,35 +44,23 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainOpenHandler(I
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-    {
         return IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
-    {
         return IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
-    {
         return IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArClosed_ind):
-    {
         return IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed_ind;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
-    {
         return IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackup;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
-    {
         return IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -94,15 +72,12 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainParameterizin
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ParamEndInd):
-    {
         if (FirstInArSetOrPrimary)
         {
             return IoArHandlerMain::kParameterizingToWaitApplicationReadyByS_PNS_ParamEndInd;
         }
         return IoArHandlerMain::kParameterizingToWaitApplicationReadyCnfByS_PNS_ParamEndInd;
         
-        
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -114,15 +89,12 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainWaitApplicati
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnpbAppTimeout):
-    {
         if (CheckApplicationReady())
         {
             return IoArHandlerMain::kWaitApplicationReadyToWaitApplicationReadyCnfBySPnpbAppTimeout;
         }
         return IoArHandlerMain::kWaitApplicationReadyToWaitApplicationReadyBySPnpbAppTimeout;
         
-        
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -134,7 +106,6 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainWaitApplicati
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ApplicationReady_cnf):
-    {
         if (success)
         {
             return IoArHandlerMain::kWaitApplicationReadyCnfToApplicationReadyByS_PNS_ApplicationReady_cnf;
@@ -142,7 +113,6 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainWaitApplicati
         
         return IoArHandlerMain::kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnf;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -164,15 +134,11 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainReadyHandler(
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPlug):
-    {
         return IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug;
         
-    }
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPull):
-    {
         return IoArHandlerMain::kReadyToDrWaitPullCnfByS_PNS_DynReconfPull;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -184,10 +150,8 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainDynamicReconf
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnioAppTimeoutDynReconf):
-    {
         return IoArHandlerMain::kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconf;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -199,10 +163,8 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainDrWaitPullCnf
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PullSubmodule_cnf):
-    {
         return IoArHandlerMain::kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnf;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -214,10 +176,8 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainDrWaitApplica
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugApplicationReady_cnf):
-    {
         return IoArHandlerMain::kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnf;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -229,15 +189,12 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainDrWaitApplica
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnpbAppTimeout):
-    {
         if (CheckApplicationReady())
         {
             return IoArHandlerMain::kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeout;
         }
         return IoArHandlerMain::kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeout;
         
-        
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -249,10 +206,8 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainDrPlugPrmSequ
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugParamEndInd):
-    {
         return IoArHandlerMain::kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndInd;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
@@ -264,10 +219,8 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainDrWaitPlugCnf
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugSubmodule_cnf):
-    {
         return IoArHandlerMain::kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnf;
         
-    }
     default:
         return IoArHandlerMain::UnhandledEvent();
     }
