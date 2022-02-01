@@ -49,10 +49,15 @@ public:
     void Run()
     {
         fsm_.React(EEvent::S_PNS_ArOpend_ind);
+        assert(fsm_.CurrentState() == &IoArHandlerMain::kParameterizing);
         fsm_.React(EEvent::S_PNS_ParamEndInd);
+        assert(fsm_.CurrentState() == &IoArHandlerMain::kWaitApplicationReady);
         fsm_.React(EEvent::SPnpbAppTimeout);
+        assert(fsm_.CurrentState() == &IoArHandlerMain::kWaitApplicationReady);
         fsm_.React(EEvent::SPnpbAppTimeout);
+        assert(fsm_.CurrentState() == &IoArHandlerMain::kWaitApplicationReadyCnf);
         fsm_.React(EEvent::S_PNS_ArClosed_ind);
+        assert(fsm_.CurrentState() == &IoArHandlerMain::kClosed);
     }
 
 private:
@@ -152,7 +157,7 @@ private:
 
 #include "IoArHandlerMainHandlers.hxx"
 
-int main()
+void TestIoArHandler()
 {
     IoArHandler h;
     h.Init();

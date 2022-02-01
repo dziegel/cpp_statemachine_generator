@@ -1,24 +1,25 @@
 cmake_minimum_required(VERSION 3.18)
 
-project(ioarhandler)
+project(cpp_statemachine_generator)
 
 include(GNUInstallDirs REQUIRED)
 
-add_executable(ioarhandler
-    "Statemachine Test/generated/main.cxx"
+add_executable(${CMAKE_PROJECT_NAME}
+    "Statemachine Test/generated/IoArHandler.cxx"
+    "test/main.cxx"
 )
 
-target_link_options(ioarhandler
+target_link_options(${CMAKE_PROJECT_NAME}
     PRIVATE
     -Xlinker -Map=map.txt
 )
 
-target_include_directories(ioarhandler
+target_include_directories(${CMAKE_PROJECT_NAME}
     PUBLIC
     ../cpp_event_framework/include
 )
 
-target_compile_options(ioarhandler
+target_compile_options(${CMAKE_PROJECT_NAME}
     PRIVATE
     -std=c++17
 
