@@ -2,11 +2,23 @@ cmake_minimum_required(VERSION 3.18)
 
 project(cpp_statemachine_generator)
 
+include(ExternalProject)
 include(GNUInstallDirs REQUIRED)
 
 add_executable(${CMAKE_PROJECT_NAME}
     "Statemachine Test/generated/IoArHandler.cxx"
     "test/main.cxx"
+)
+
+ExternalProject_Add(cpp_event_framework
+  GIT_REPOSITORY git@github.com:dziegel/cpp_event_framework.git
+  GIT_TAG        main
+  STEP_TARGETS   build
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}
+)
+
+add_dependencies(${CMAKE_PROJECT_NAME}
+    cpp_event_framework
 )
 
 target_link_options(${CMAKE_PROJECT_NAME}
@@ -16,7 +28,7 @@ target_link_options(${CMAKE_PROJECT_NAME}
 
 target_include_directories(${CMAKE_PROJECT_NAME}
     PUBLIC
-    ../cpp_event_framework/include
+    ${CMAKE_BINARY_DIR}/include
 )
 
 target_compile_options(${CMAKE_PROJECT_NAME}
