@@ -11,7 +11,7 @@ add_executable(${CMAKE_PROJECT_NAME}
 )
 
 ExternalProject_Add(cpp_event_framework
-  GIT_REPOSITORY git@github.com:dziegel/cpp_event_framework.git
+  GIT_REPOSITORY https://github.com/dziegel/cpp_event_framework.git
   GIT_TAG        main
   STEP_TARGETS   build
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}
