@@ -26,8 +26,8 @@ public:
     static const Transition kOpenToClosedByS_PNS_ArClosed_ind;
 
     static const Transition kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
-    static const Transition kOpenToOpenByS_PNS_ReadReq;
     static const Transition kOpenToOpenByS_PNS_CheckModuleDiff;
+    static const Transition kOpenToOpenByS_PNS_ReadReq;
     static const Transition kOpenToOpenByS_PNS_WriteReq;
     static const Transition kOpenToOpenByS_PNS_SwitchoverRequestBackup;
 
@@ -76,8 +76,8 @@ public:
 
     // State DrWaitApplicationReadyPlugSubmodule
     static const State kDrWaitApplicationReadyPlugSubmodule;
-    static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeout;
     static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeout;
+    static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeout;
 
 
     // State DrPlugPrmSequence

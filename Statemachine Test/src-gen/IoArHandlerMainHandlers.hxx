@@ -18,17 +18,17 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainClosedHandler
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-        return IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
+        return IoArHandlerMain::kClosedToClosedByS_PNS_ReadReq;
         
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArOpend_ind):
         return IoArHandlerMain::kClosedToOpenByS_PNS_ArOpend_ind;
         
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
+        return IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
+        
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
         return IoArHandlerMain::kClosedToClosedByS_PNS_WriteReq;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
-        return IoArHandlerMain::kClosedToClosedByS_PNS_ReadReq;
         
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
         return IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestBackup;
@@ -43,23 +43,23 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainOpenHandler(I
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArClosed_ind):
+        return IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed_ind;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
+        return IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
+        return IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq;
+        
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
         return IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
         
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
         return IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq;
         
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
-        return IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArClosed_ind):
-        return IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed_ind;
-        
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
         return IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackup;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
-        return IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff;
         
     default:
         return IoArHandlerMain::UnhandledEvent();
@@ -133,11 +133,11 @@ IoArHandlerMain::Transition IoArHandlerMain::Owner::IoArHandlerMainReadyHandler(
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPlug):
-        return IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug;
-        
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPull):
         return IoArHandlerMain::kReadyToDrWaitPullCnfByS_PNS_DynReconfPull;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPlug):
+        return IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug;
         
     default:
         return IoArHandlerMain::UnhandledEvent();
