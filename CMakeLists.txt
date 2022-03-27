@@ -6,7 +6,7 @@ include(ExternalProject)
 include(GNUInstallDirs REQUIRED)
 
 add_executable(${CMAKE_PROJECT_NAME}
-    "Statemachine Test/generated/IoArHandler.cxx"
+    "Statemachine Test/src-gen/IoArHandler.cxx"
     "test/main.cxx"
 )
 
