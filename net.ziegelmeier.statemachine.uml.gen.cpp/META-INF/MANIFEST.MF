@@ -8,6 +8,7 @@ Bundle-Activator: net.ziegelmeier.statemachine.uml.gen.cpp.Activator
 Bundle-Vendor: Eclipse Modeling Project
 Require-Bundle: org.eclipse.core.runtime, 
  org.eclipse.uml2.uml, 
+ org.eclipse.uml2.uml.resources, 
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.ocl,
@@ -19,11 +20,10 @@ Require-Bundle: org.eclipse.core.runtime,
  com.google.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
-Eclipse-LazyStart: true
 Export-Package: net.ziegelmeier.statemachine.uml.gen.cpp.main;
   uses:="org.eclipse.emf.ecore,
    org.eclipse.emf.common.util,
    org.eclipse.acceleo.engine.service,
    org.eclipse.emf.ecore.resource,
    org.eclipse.acceleo.engine.generation.strategy"
-Bundle-Classpath: bin/
+Bundle-ClassPath: .,bin

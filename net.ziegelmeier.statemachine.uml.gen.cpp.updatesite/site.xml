@@ -3,5 +3,8 @@
    <description name="Dirk Ziegelmeiers Statemachine Framework">
       
    </description>
-   <feature url="features/net.ziegelmeier.statemachine.uml.gen.cpp.feature_1.0.0.202201050925.jar" id="net.ziegelmeier.statemachine.uml.gen.cpp.feature" version="1.0.0.202201050925"/>
+   <feature url="features/net.ziegelmeier.statemachine.uml.gen.cpp.feature_1.0.0.202202152126.jar" id="net.ziegelmeier.statemachine.uml.gen.cpp.feature" version="1.0.0.202202152126">
+      <category name="cpp_event_framework_generator"/>
+   </feature>
+   <category-def name="cpp_event_framework_generator" label="cpp_event_framework Generator"/>
 </site>
