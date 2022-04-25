@@ -94,7 +94,7 @@ const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.g
 [/template]
 
 [template private generateTransitionActions(actions : Sequence(Behavior), aStatemachine : StateMachine)]
-, std::vector<[aStatemachine.name/]::Transition::ActionType>({[for (action : Behavior | actions->filter(Behavior)) separator (', ')]std::mem_fn(&[aStatemachine.getOwnerType()/]::[action.name/])[/for]})
+, std::vector<[aStatemachine.name/]::Transition::ActionType>({[for (action : Behavior | actions->filter(Behavior)) separator (', ')]&[aStatemachine.getOwnerType()/]::[action.name/][/for]})
 [/template]
 
 [template private generateInternalTransition(aTransition : Transition, aStatemachine : StateMachine)]
