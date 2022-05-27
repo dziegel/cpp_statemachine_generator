@@ -33,13 +33,13 @@ const IoArHandlerMain::State IoArHandlerMain::kOpen("Open",
     &IoArHandlerMain::kParameterizing, // Initial
     nullptr, // Entry
     nullptr); // Exit
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed_ind(kClosed, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::ArClosed)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed_ind(kClosed, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::ArClosed}));
 
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::PrimarySwitchover)}));
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackup(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::BackupSwitchover)}));
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::Read)}));
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::Write)}));
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::CheckModuleDiff)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::Write}));
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::CheckModuleDiff}));
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackup(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::BackupSwitchover}));
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::PrimarySwitchover}));
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::Read}));
 
 
 // State Parameterizing
@@ -49,7 +49,7 @@ const IoArHandlerMain::State IoArHandlerMain::kParameterizing("Parameterizing",
     nullptr, // Initial
     nullptr, // Entry
     nullptr); // Exit
-const IoArHandlerMain::Transition IoArHandlerMain::kParameterizingToWaitApplicationReadyByS_PNS_ParamEndInd(kWaitApplicationReady, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::ApplyConfiguration)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kParameterizingToWaitApplicationReadyByS_PNS_ParamEndInd(kWaitApplicationReady, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::ApplyConfiguration}));
 const IoArHandlerMain::Transition IoArHandlerMain::kParameterizingToWaitApplicationReadyCnfByS_PNS_ParamEndInd(kWaitApplicationReadyCnf, std::vector<IoArHandlerMain::Transition::ActionType>({}));
 
 
@@ -77,7 +77,7 @@ const IoArHandlerMain::State IoArHandlerMain::kWaitApplicationReadyCnf("WaitAppl
     nullptr); // Exit
 const IoArHandlerMain::Transition IoArHandlerMain::kWaitApplicationReadyCnfToApplicationReadyByS_PNS_ApplicationReady_cnf(kApplicationReady, std::vector<IoArHandlerMain::Transition::ActionType>({}));
 
-const IoArHandlerMain::Transition IoArHandlerMain::kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnf(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::AbortAr)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnf(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::AbortAr}));
 
 
 // State ApplicationReady
@@ -97,8 +97,8 @@ const IoArHandlerMain::State IoArHandlerMain::kReady("Ready",
     nullptr, // Initial
     nullptr, // Entry
     nullptr); // Exit
-const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPullCnfByS_PNS_DynReconfPull(kDrWaitPullCnf, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::DrPull)}));
-const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug(kDrWaitPlugCnf, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::DrPlug)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug(kDrWaitPlugCnf, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::DrPlug}));
+const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPullCnfByS_PNS_DynReconfPull(kDrWaitPullCnf, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::DrPull}));
 
 
 
@@ -110,7 +110,7 @@ const IoArHandlerMain::State IoArHandlerMain::kDynamicReconfigurationRunning("Dy
     &IoArHandlerMain::Owner::StartDynReconfTimer, // Entry
     &IoArHandlerMain::Owner::StopDynReconfTimer); // Exit
 
-const IoArHandlerMain::Transition IoArHandlerMain::kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconf(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::DynReconfTimeoutAbortArSet)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconf(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::DynReconfTimeoutAbortArSet}));
 
 
 // State DrWaitPullCnf
@@ -120,7 +120,7 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitPullCnf("DrWaitPullCnf",
     nullptr, // Initial
     nullptr, // Entry
     nullptr); // Exit
-const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnf(kReady, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::DrPullDone)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnf(kReady, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::DrPullDone}));
 
 
 
@@ -131,7 +131,7 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitApplicationReadyCnfPlugSubm
     nullptr, // Initial
     nullptr, // Entry
     nullptr); // Exit
-const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnf(kReady, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::DrPullDone)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnf(kReady, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::DrPullDone}));
 
 
 
@@ -155,7 +155,7 @@ const IoArHandlerMain::State IoArHandlerMain::kDrPlugPrmSequence("DrPlugPrmSeque
     nullptr, // Initial
     nullptr, // Entry
     nullptr); // Exit
-const IoArHandlerMain::Transition IoArHandlerMain::kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndInd(kDrWaitApplicationReadyPlugSubmodule, std::vector<IoArHandlerMain::Transition::ActionType>({std::mem_fn(&IoArHandlerMain::Owner::ApplyConfiguration)}));
+const IoArHandlerMain::Transition IoArHandlerMain::kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndInd(kDrWaitApplicationReadyPlugSubmodule, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::ApplyConfiguration}));
 
 
 

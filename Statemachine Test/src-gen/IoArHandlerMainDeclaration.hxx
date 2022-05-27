@@ -26,8 +26,8 @@ public:
     static const Transition kOpenToClosedByS_PNS_ArClosed_ind;
 
     static const Transition kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
-    static const Transition kOpenToOpenByS_PNS_CheckModuleDiff;
     static const Transition kOpenToOpenByS_PNS_ReadReq;
+    static const Transition kOpenToOpenByS_PNS_CheckModuleDiff;
     static const Transition kOpenToOpenByS_PNS_WriteReq;
     static const Transition kOpenToOpenByS_PNS_SwitchoverRequestBackup;
 
