@@ -64,14 +64,14 @@
 [if (aTransition.guard.oclIsUndefined() or (aTransition.guard.name = 'else'))]
 return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
 [else]
-if ([aTransition.guard.name/])
+if ([aTransition.guard.name/](event))
 {
     return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
 }
 [/if]
 [elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)]
 [if (not aTransition.guard.oclIsUndefined() and not (aTransition.guard.name = 'else'))]
-if ([aTransition.guard.name/])
+if ([aTransition.guard.name/](event))
 {
     [generateTransitionRecursive(aStartTransition, aStatemachine)/]
 }
