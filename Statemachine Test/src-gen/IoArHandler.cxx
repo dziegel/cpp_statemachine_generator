@@ -36,11 +36,11 @@ public:
     void Init()
     {
         fsm_.on_handle_event_ = [](IoArHandlerMain::StatePtr state, IoArHandlerMain::Event event)
-        { std::cout << "State " << state->name_ << " handle event " << static_cast<int>(event) << std::endl; };
+        { std::cout << "State " << state->Name() << " handle event " << static_cast<int>(event) << std::endl; };
         fsm_.on_state_entry_ = [](IoArHandlerMain::StatePtr state)
-        { std::cout << "Enter state" << state->name_ << std::endl; };
+        { std::cout << "Enter state" << state->Name() << std::endl; };
         fsm_.on_state_exit_ = [](IoArHandlerMain::StatePtr state)
-        { std::cout << "Exit state" << state->name_ << std::endl; };
+        { std::cout << "Exit state" << state->Name() << std::endl; };
 
         fsm_.Init(this, "IoArHandlerMain", IoArHandlerMain::kInitialState);
         fsm_.Start();
@@ -64,14 +64,20 @@ private:
 #include "IoArHandlerMainPrototypes.hxx"
 
     bool ready_ = false;
-    bool CheckApplicationReady()
+    bool CheckApplicationReady(IoArHandlerMain::Event)
     {
         auto old = ready_;
         ready_ = true;
         return old;
     }
-    bool success = true;
-    bool FirstInArSetOrPrimary = true;
+    bool success(IoArHandlerMain::Event)
+    {
+        return true;
+    }
+    bool FirstInArSetOrPrimary(IoArHandlerMain::Event)
+    {
+        return true;
+    }
 
     friend class IoArHandlerMain;
     IoArHandlerMain fsm_;

@@ -77,7 +77,7 @@
             <trigger xmi:type="uml:Trigger" xmi:id="_IolMsHq3EeyONPl2unTijw" event="_XCLqUExmEeyrNMHETnA5Fg"/>
           </transition>
           <transition xmi:type="uml:Transition" xmi:id="_BavZAIB1Eey8ZYEX2Jg0OA" guard="_N4Ts8IB1Eey8ZYEX2Jg0OA" source="_6cEWsIB0Eey8ZYEX2Jg0OA" target="_iNzgIExkEeyrNMHETnA5Fg">
-            <ownedRule xmi:type="uml:Constraint" xmi:id="_N4Ts8IB1Eey8ZYEX2Jg0OA" name="CheckApplicationReady()"/>
+            <ownedRule xmi:type="uml:Constraint" xmi:id="_N4Ts8IB1Eey8ZYEX2Jg0OA" name="CheckApplicationReady"/>
           </transition>
           <transition xmi:type="uml:Transition" xmi:id="_EaBNkIB1Eey8ZYEX2Jg0OA" guard="_J5KW0IB1Eey8ZYEX2Jg0OA" source="_6cEWsIB0Eey8ZYEX2Jg0OA" target="_gf6gIExSEeyrNMHETnA5Fg">
             <ownedRule xmi:type="uml:Constraint" xmi:id="_J5KW0IB1Eey8ZYEX2Jg0OA" name="else"/>
@@ -134,7 +134,7 @@
                   </transition>
                   <transition xmi:type="uml:Transition" xmi:id="_F-P6IHrHEeyONPl2unTijw" source="_FRRfYHrHEeyONPl2unTijw" target="_fGyxEHq1EeyONPl2unTijw"/>
                   <transition xmi:type="uml:Transition" xmi:id="_vp7NUIB1Eey8ZYEX2Jg0OA" guard="_98IHoIB1Eey8ZYEX2Jg0OA" source="_m8IWwIB1Eey8ZYEX2Jg0OA" target="_kwHxEHq1EeyONPl2unTijw">
-                    <ownedRule xmi:type="uml:Constraint" xmi:id="_98IHoIB1Eey8ZYEX2Jg0OA" name="CheckApplicationReady()"/>
+                    <ownedRule xmi:type="uml:Constraint" xmi:id="_98IHoIB1Eey8ZYEX2Jg0OA" name="CheckApplicationReady"/>
                   </transition>
                   <transition xmi:type="uml:Transition" xmi:id="_xfQXQIB1Eey8ZYEX2Jg0OA" guard="_7xuFkIB1Eey8ZYEX2Jg0OA" source="_m8IWwIB1Eey8ZYEX2Jg0OA" target="_ijN0oHq1EeyONPl2unTijw">
                     <ownedRule xmi:type="uml:Constraint" xmi:id="_7xuFkIB1Eey8ZYEX2Jg0OA" name="else"/>

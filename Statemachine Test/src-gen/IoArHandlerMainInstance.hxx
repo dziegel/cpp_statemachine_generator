@@ -37,9 +37,9 @@ const IoArHandlerMain::Transition IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed
 
 const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::Write}));
 const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::CheckModuleDiff}));
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackup(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::BackupSwitchover}));
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::PrimarySwitchover}));
 const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::Read}));
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::PrimarySwitchover}));
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackup(IoArHandlerMain::kNone, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::BackupSwitchover}));
 
 
 // State Parameterizing
@@ -97,8 +97,8 @@ const IoArHandlerMain::State IoArHandlerMain::kReady("Ready",
     nullptr, // Initial
     nullptr, // Entry
     nullptr); // Exit
-const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug(kDrWaitPlugCnf, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::DrPlug}));
 const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPullCnfByS_PNS_DynReconfPull(kDrWaitPullCnf, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::DrPull}));
+const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug(kDrWaitPlugCnf, std::vector<IoArHandlerMain::Transition::ActionType>({&IoArHandlerMain::Owner::DrPlug}));
 
 
 

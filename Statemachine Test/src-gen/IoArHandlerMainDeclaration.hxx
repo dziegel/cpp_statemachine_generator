@@ -76,8 +76,8 @@ public:
 
     // State DrWaitApplicationReadyPlugSubmodule
     static const State kDrWaitApplicationReadyPlugSubmodule;
-    static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeout;
     static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeout;
+    static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeout;
 
 
     // State DrPlugPrmSequence
