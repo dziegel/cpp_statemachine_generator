@@ -15,7 +15,7 @@ The tool generates the statemachine, state declarations and state handlers. Choi
 - Entry/Exit actions. Same as for handlers - the signature allows to use class member functions
     as action. Also, the argument "state" allows to use the same action function for multiple states.
 
-        void (Fsm::ImplPtr)(Fsm::StatePtr state)
+        void (Fsm::ImplPtr)(Fsm::StateRef state)
 
 - Transition actions. The signature allows to use class member functions as actions.
     The argument "event" may be useful in actions because the action may depend on the event type or attributes
