@@ -33,7 +33,7 @@ target_include_directories(${CMAKE_PROJECT_NAME}
 
 target_compile_options(${CMAKE_PROJECT_NAME}
     PRIVATE
-    -std=c++17
+    -std=c++20
 
     -Werror
     -pedantic
