@@ -33,10 +33,10 @@ public:
 
     static const Transition::ActionType kOpenToOpenByS_PNS_WriteReqActions[];
     static const Transition kOpenToOpenByS_PNS_WriteReq;
-    static const Transition::ActionType kOpenToOpenByS_PNS_SwitchoverRequestBackupActions[];
-    static const Transition kOpenToOpenByS_PNS_SwitchoverRequestBackup;
     static const Transition::ActionType kOpenToOpenByS_PNS_CheckModuleDiffActions[];
     static const Transition kOpenToOpenByS_PNS_CheckModuleDiff;
+    static const Transition::ActionType kOpenToOpenByS_PNS_SwitchoverRequestBackupActions[];
+    static const Transition kOpenToOpenByS_PNS_SwitchoverRequestBackup;
     static const Transition::ActionType kOpenToOpenByS_PNS_SwitchoverRequestPrimaryActions[];
     static const Transition kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
     static const Transition::ActionType kOpenToOpenByS_PNS_ReadReqActions[];

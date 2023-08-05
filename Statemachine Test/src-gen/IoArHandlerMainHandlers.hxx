@@ -14,12 +14,15 @@
 #endif
 
 // State Closed
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainClosedHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainClosedHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-        return IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArOpend_ind):
+        return IoArHandlerMain::kClosedToOpenByS_PNS_ArOpend_ind;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
+        return IoArHandlerMain::kClosedToClosedByS_PNS_WriteReq;
         
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
         return IoArHandlerMain::kClosedToClosedByS_PNS_ReadReq;
@@ -27,11 +30,8 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainClosedHandler(
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
         return IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestBackup;
         
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArOpend_ind):
-        return IoArHandlerMain::kClosedToOpenByS_PNS_ArOpend_ind;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
-        return IoArHandlerMain::kClosedToClosedByS_PNS_WriteReq;
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
+        return IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
         
     default:
         return IoArHandlerMain::UnhandledEvent();
@@ -39,12 +39,15 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainClosedHandler(
 }
 
 // State Open
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainOpenHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainOpenHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-        return IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
+        return IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
+        return IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff;
         
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
         return IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq;
@@ -52,14 +55,11 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainOpenHandler(Io
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
         return IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackup;
         
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
-        return IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff;
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
+        return IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
         
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArClosed_ind):
         return IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed_ind;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
-        return IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq;
         
     default:
         return IoArHandlerMain::UnhandledEvent();
@@ -67,7 +67,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainOpenHandler(Io
 }
 
 // State Parameterizing
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainParameterizingHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainParameterizingHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -84,7 +84,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainParameterizing
 }
 
 // State WaitApplicationReady
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainWaitApplicationReadyHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainWaitApplicationReadyHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -101,7 +101,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainWaitApplicatio
 }
 
 // State WaitApplicationReadyCnf
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainWaitApplicationReadyCnfHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainWaitApplicationReadyCnfHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -119,7 +119,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainWaitApplicatio
 }
 
 // State ApplicationReady
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainApplicationReadyHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainApplicationReadyHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -129,7 +129,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainApplicationRea
 }
 
 // State Ready
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainReadyHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainReadyHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -145,7 +145,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainReadyHandler(I
 }
 
 // State DynamicReconfigurationRunning
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDynamicReconfigurationRunningHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDynamicReconfigurationRunningHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -158,7 +158,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDynamicReconfi
 }
 
 // State DrWaitPullCnf
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitPullCnfHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitPullCnfHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -171,7 +171,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitPullCnfH
 }
 
 // State DrWaitApplicationReadyCnfPlugSubmodule
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitApplicationReadyCnfPlugSubmoduleHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitApplicationReadyCnfPlugSubmoduleHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -184,7 +184,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitApplicat
 }
 
 // State DrWaitApplicationReadyPlugSubmodule
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitApplicationReadyPlugSubmoduleHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitApplicationReadyPlugSubmoduleHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -201,7 +201,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitApplicat
 }
 
 // State DrPlugPrmSequence
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrPlugPrmSequenceHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrPlugPrmSequenceHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
@@ -214,7 +214,7 @@ IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrPlugPrmSeque
 }
 
 // State DrWaitPlugCnf
-IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitPlugCnfHandler(IoArHandlerMain::StatePtr /* state */, IoArHandlerMain::Event event)
+IoArHandlerMain::Transition IoArHandlerMain::Impl::IoArHandlerMainDrWaitPlugCnfHandler(IoArHandlerMain::StateRef /* state */, IoArHandlerMain::Event event)
 {
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {

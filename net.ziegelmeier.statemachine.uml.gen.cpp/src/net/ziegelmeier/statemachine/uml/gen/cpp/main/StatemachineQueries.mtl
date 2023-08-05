@@ -31,6 +31,10 @@ k[aState.name/]
 [aStatemachine.name/]::StatePtr
 [/template]
 
+[template public getStateRefType(aStatemachine : StateMachine) post(trim())]
+[aStatemachine.name/]::StateRef
+[/template]
+
 [template public getTransitionType(aStatemachine : StateMachine) post(trim())]
 [aStatemachine.name/]::Transition
 [/template]

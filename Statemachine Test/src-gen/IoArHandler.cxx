@@ -35,12 +35,14 @@ public:
 
     void Init()
     {
-        fsm_.on_handle_event_ = [](IoArHandlerMain::StatePtr state, IoArHandlerMain::Event event)
-        { std::cout << "State " << state->Name() << " handle event " << static_cast<int>(event) << std::endl; };
-        fsm_.on_state_entry_ = [](IoArHandlerMain::StatePtr state)
-        { std::cout << "Enter state" << state->Name() << std::endl; };
-        fsm_.on_state_exit_ = [](IoArHandlerMain::StatePtr state)
-        { std::cout << "Exit state" << state->Name() << std::endl; };
+        fsm_.on_handle_event_ = [](IoArHandlerMain::StateRef state, IoArHandlerMain::Event event)
+        { std::cout << "State " << state.Name() << " handle event " << static_cast<int>(event) << std::endl; };
+        fsm_.on_state_entry_ = [](IoArHandlerMain::StateRef state)
+        { std::cout << "Enter state" << state.Name() << std::endl; };
+        fsm_.on_state_exit_ = [](IoArHandlerMain::StateRef state)
+        { std::cout << "Exit state" << state.Name() << std::endl; };
+        fsm_.on_unhandled_event_ = [](IoArHandlerMain::StateRef state, IoArHandlerMain::Event event)
+        { std::cout << "Unhandled event " << static_cast<int>(event) << " in state " << state.Name() << std::endl; };
 
         fsm_.Init(this, "IoArHandlerMain", IoArHandlerMain::kInitialState);
         fsm_.Start();
@@ -110,15 +112,15 @@ private:
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void StartWaitApplicationReadyTimer(IoArHandlerMain::StatePtr)
+    void StartWaitApplicationReadyTimer(IoArHandlerMain::StateRef)
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void StopWaitApplicationReadyTimer(IoArHandlerMain::StatePtr)
+    void StopWaitApplicationReadyTimer(IoArHandlerMain::StateRef)
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void SendApplicationReady(IoArHandlerMain::StatePtr)
+    void SendApplicationReady(IoArHandlerMain::StateRef)
     {
         std::cout << __FUNCTION__ << std::endl;
     }
@@ -134,11 +136,11 @@ private:
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void StartDynReconfTimer(IoArHandlerMain::StatePtr)
+    void StartDynReconfTimer(IoArHandlerMain::StateRef)
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void StopDynReconfTimer(IoArHandlerMain::StatePtr)
+    void StopDynReconfTimer(IoArHandlerMain::StateRef)
     {
         std::cout << __FUNCTION__ << std::endl;
     }

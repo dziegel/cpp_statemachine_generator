@@ -43,11 +43,11 @@ const IoArHandlerMain::Transition IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed
 const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiffActions[] = {&IoArHandlerMain::Impl::CheckModuleDiff};
 const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff(IoArHandlerMain::kNone, IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiffActions);
 
-const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_ReadReqActions[] = {&IoArHandlerMain::Impl::Read};
-const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq(IoArHandlerMain::kNone, IoArHandlerMain::kOpenToOpenByS_PNS_ReadReqActions);
-
 const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_WriteReqActions[] = {&IoArHandlerMain::Impl::Write};
 const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq(IoArHandlerMain::kNone, IoArHandlerMain::kOpenToOpenByS_PNS_WriteReqActions);
+
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_ReadReqActions[] = {&IoArHandlerMain::Impl::Read};
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq(IoArHandlerMain::kNone, IoArHandlerMain::kOpenToOpenByS_PNS_ReadReqActions);
 
 const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimaryActions[] = {&IoArHandlerMain::Impl::PrimarySwitchover};
 const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary(IoArHandlerMain::kNone, IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimaryActions);

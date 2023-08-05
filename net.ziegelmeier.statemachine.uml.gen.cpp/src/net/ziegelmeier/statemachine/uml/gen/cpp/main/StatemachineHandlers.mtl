@@ -36,7 +36,7 @@
 [template private generateVertex(aState : State, aStatemachine : StateMachine)]
 // State [aState.name/]
 [let aFunctionName : String = aStatemachine.name + aState.name + 'Handler']
-[aStatemachine.getTransitionType()/] [aStatemachine.getImplType()/]::[aFunctionName/]([aStatemachine.getStatePtrType()/] /* state */, [aStatemachine.getEventType()/] event)
+[aStatemachine.getTransitionType()/] [aStatemachine.getImplType()/]::[aFunctionName/]([aStatemachine.getStateRefType()/] /* state */, [aStatemachine.getEventType()/] event)
 {
     switch([aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event))
     {
