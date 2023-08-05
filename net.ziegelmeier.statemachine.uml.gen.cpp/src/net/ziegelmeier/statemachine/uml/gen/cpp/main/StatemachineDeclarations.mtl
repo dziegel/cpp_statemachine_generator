@@ -47,11 +47,13 @@ public:
 
 [template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition)]
 [if (aTransition.target.oclIsKindOf(State))]
+    static const Transition::ActionType [aTransition.getTransitionVariable(aStartTransition)/]Actions['['/][']'/];
     static const Transition [aTransition.getTransitionVariable(aStartTransition)/];
 [elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)][aTransition.target.oclAsType(Pseudostate).outgoing.generateTransitionRecursive(aStartTransition)/][/if]
 [/template]
 
 [template private generateInternalTransition(aTransition : Transition)]
+    static const Transition::ActionType [aTransition.getTransitionVariable(aTransition)/]Actions['['/][']'/];
     static const Transition [aTransition.getTransitionVariable(aTransition)/];
 
 [/template]

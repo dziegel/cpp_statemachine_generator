@@ -87,17 +87,27 @@ nullptr
 
 [template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine, actions : Sequence(Behavior))]
 [if (aTransition.target.oclIsKindOf(State))]
-const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/]([aTransition.target.getStateVariable()/][generateTransitionActions(actions->append(aTransition.effect), aStatemachine)/]);
+[if (actions->append(aTransition.effect)->filter(Behavior)->size() <> 0)]
+const [aStatemachine.getTransitionType()/]::ActionType [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/]Actions['['/][']'/] = [generateTransitionActions(actions->append(aTransition.effect), aStatemachine)/];
+const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/]([aTransition.target.getStateVariable()/], [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/]Actions);
+[else]
+const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/]([aTransition.target.getStateVariable()/]);
+[/if]
 [elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)]
 [aTransition.target.oclAsType(Pseudostate).outgoing.generateTransitionRecursive(aStartTransition, aStatemachine, actions->append(aTransition.effect))/]
 [/if]
 [/template]
 
 [template private generateTransitionActions(actions : Sequence(Behavior), aStatemachine : StateMachine)]
-, std::vector<[aStatemachine.name/]::Transition::ActionType>({[for (action : Behavior | actions->filter(Behavior)) separator (', ')]&[aStatemachine.getOwnerType()/]::[action.name/][/for]})
+{[for (action : Behavior | actions->filter(Behavior)) separator (', ')]&[aStatemachine.getOwnerType()/]::[action.name/][/for]}
 [/template]
 
 [template private generateInternalTransition(aTransition : Transition, aStatemachine : StateMachine)]
-const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aTransition)/]([aStatemachine.name/]::kNone[generateTransitionActions(Sequence(Behavior){aTransition.effect}, aStatemachine)/]);
+[if (Sequence(Behavior){aTransition.effect}->filter(Behavior)->size() <> 0)]
+const [aStatemachine.getTransitionType()/]::ActionType [aStatemachine.name/]::[aTransition.getTransitionVariable(aTransition)/]Actions['['/][']'/] = [generateTransitionActions(Sequence(Behavior){aTransition.effect}, aStatemachine)/];
+const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aTransition)/]([aStatemachine.name/]::kNone, [aStatemachine.name/]::[aTransition.getTransitionVariable(aTransition)/]Actions);
+[else]
+const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aTransition)/]([aStatemachine.name/]::kNone);
+[/if]
 
 [/template]
