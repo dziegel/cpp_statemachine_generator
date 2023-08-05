@@ -6,7 +6,7 @@
 [template public generateHandlers(aStatemachine : StateMachine)]
 [file (aStatemachine.name.concat('Handlers.hxx'), false, 'UTF-8')]
 // Statemachine [aStatemachine.name/] handlers
-// Include this file in .cxx or in .hxx below Owner declaration
+// Include this file in .cxx or in .hxx below implementation declaration
 
 #pragma once
 
@@ -36,7 +36,7 @@
 [template private generateVertex(aState : State, aStatemachine : StateMachine)]
 // State [aState.name/]
 [let aFunctionName : String = aStatemachine.name + aState.name + 'Handler']
-[aStatemachine.getTransitionType()/] [aStatemachine.getOwnerType()/]::[aFunctionName/]([aStatemachine.getStatePtrType()/] /* state */, [aStatemachine.getEventType()/] event)
+[aStatemachine.getTransitionType()/] [aStatemachine.getImplType()/]::[aFunctionName/]([aStatemachine.getStatePtrType()/] /* state */, [aStatemachine.getEventType()/] event)
 {
     switch([aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event))
     {

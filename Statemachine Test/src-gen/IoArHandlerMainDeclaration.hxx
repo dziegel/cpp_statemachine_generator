@@ -1,5 +1,5 @@
 // Statemachine IoArHandlerMain declaration
-// Include this file in .hxx before Owner declaration
+// Include this file in .hxx before implementation declaration
 //
 // Before including this header, add the following using declaration in your file:
 // class MyClassContainingThisStatemachine;

@@ -15,8 +15,8 @@
 
 [query public getAllTransitions(aState : State) : Set(Transition) = aState.outgoing->asOrderedSet() /]
 
-[template public getOwnerType(aStatemachine : StateMachine) post(trim())]
-[aStatemachine.name/]::Owner
+[template public getImplType(aStatemachine : StateMachine) post(trim())]
+[aStatemachine.name/]::Impl
 [/template]
 
 [template public getStateVariable(aState : Vertex) post(trim())]
