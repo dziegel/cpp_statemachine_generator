@@ -2,8 +2,8 @@
 // Include this file in .hxx before implementation declaration
 //
 // Before including this header, add the following using declaration in your file:
-// class MyClassContainingThisStatemachine;
-// using IoArHandlerMainBase = cpp_event_framework::Statemachine<MyClassContainingThisStatemachine, const cpp_event_framework::Signal::SPtr&>;
+// class IoArHandlerMainImpl;
+// using IoArHandlerMainBase = cpp_event_framework::Statemachine<IoArHandlerMainImpl, const cpp_event_framework::Signal::SPtr&>;
 
 #pragma once
 
@@ -115,6 +115,47 @@ public:
     static const Transition::ActionType kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnfActions[];
     static const Transition kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnf;
 
+
+
+
+// State Closed
+static IoArHandlerMain::Transition ClosedHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State Open
+static IoArHandlerMain::Transition OpenHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State Parameterizing
+static IoArHandlerMain::Transition ParameterizingHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State WaitApplicationReady
+static IoArHandlerMain::Transition WaitApplicationReadyHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State WaitApplicationReadyCnf
+static IoArHandlerMain::Transition WaitApplicationReadyCnfHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State ApplicationReady
+static IoArHandlerMain::Transition ApplicationReadyHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State Ready
+static IoArHandlerMain::Transition ReadyHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State DynamicReconfigurationRunning
+static IoArHandlerMain::Transition DynamicReconfigurationRunningHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State DrWaitPullCnf
+static IoArHandlerMain::Transition DrWaitPullCnfHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State DrWaitApplicationReadyCnfPlugSubmodule
+static IoArHandlerMain::Transition DrWaitApplicationReadyCnfPlugSubmoduleHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State DrWaitApplicationReadyPlugSubmodule
+static IoArHandlerMain::Transition DrWaitApplicationReadyPlugSubmoduleHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State DrPlugPrmSequence
+static IoArHandlerMain::Transition DrPlugPrmSequenceHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+
+// State DrWaitPlugCnf
+static IoArHandlerMain::Transition DrWaitPlugCnfHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
 
 
 };

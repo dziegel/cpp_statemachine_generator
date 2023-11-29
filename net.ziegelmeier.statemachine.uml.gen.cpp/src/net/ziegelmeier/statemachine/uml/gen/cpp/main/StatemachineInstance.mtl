@@ -13,11 +13,21 @@
 // are either public OR [aStatemachine.name/] must be a friend class of [aStatemachine.getImplType()/] (add "friend class [aStatemachine.name/];" in your class)
 // *******
 
-#pragma once
+// Override the following defines according to your needs if you are not using cpp_event_framework:
+
+#ifndef [aStatemachine.name/]_GET_INSTANCE_EVENT_ID
+#define [aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event_instance) event_instance->Id()
+#endif
+
+#ifndef [aStatemachine.name/]_GET_STATIC_EVENT_ID
+#define [aStatemachine.name/]_GET_STATIC_EVENT_ID(event_name) event_name::kId
+#endif
 
 [aStatemachine.region->asSequence()->first().generateInitialState(aStatemachine)/]
 
 [aStatemachine.region->asSequence()->first().generateRegion(aStatemachine)/]
+
+[aStatemachine.region.generateHandlers(aStatemachine)/]
 [/file]
 [/template]
 
@@ -38,7 +48,7 @@ const [aStatemachine.getStatePtrType()/] [aStatemachine.name/]::kInitialState = 
 [template private generateVertex(aState : State, aStatemachine : StateMachine)]
 // State [aState.name/]
 const [aState.generateStateType(aStatemachine)/] [aStatemachine.name/]::[aState.getStateVariable()/]("[aState.name/]",
-    &[aStatemachine.getImplType()/]::[aStatemachine.name/][aState.name/]Handler, // Handler
+    &[aState.name/]Handler, // Handler
     [generateParent(aState, aStatemachine)/], // Parent
     [generateInitial(aState, aStatemachine)/], // Initial
     [generateEntryExit(aState.entry, aStatemachine)/], // Entry
@@ -61,7 +71,7 @@ nullptr
 [if (aState.container.state.oclIsUndefined())]
 nullptr
 [else]
-&[aStatemachine.name/]::k[aState.container.state.name/]
+&k[aState.container.state.name/]
 [/if]
 [/template]
 
@@ -69,7 +79,7 @@ nullptr
 [if (aState.getSubRegion().getInitialPseudoState().getInitialState().oclIsUndefined())]
 nullptr
 [else]
-&[aStatemachine.name/]::k[aState.getSubRegion().getInitialPseudoState().getInitialState().name/]
+&k[aState.getSubRegion().getInitialPseudoState().getInitialState().name/]
 [/if]
 [/template]
 
@@ -110,4 +120,67 @@ const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.g
 const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.getTransitionVariable(aTransition)/]([aStatemachine.name/]::kNone);
 [/if]
 
+[/template]
+
+[comment --------------------------------------------------- /]
+
+[template private generateHandlers(aRegion : Region, aStatemachine : StateMachine)]
+[aRegion.eContents(Vertex).generateHandlersVertex(aStatemachine)/]
+[/template]
+
+[template private generateHandlersVertex(aState : Vertex, aStatemachine : StateMachine)]
+[/template]
+
+[template private generateHandlersVertex(aState : State, aStatemachine : StateMachine)]
+// State [aState.name/]
+[let aFunctionName : String = aState.name + 'Handler']
+[aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aFunctionName/]([aStatemachine.getImplPtrType()/] impl, [aStatemachine.getEventType()/] event)
+{
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
+
+    switch([aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event))
+    {
+    [let allEvents : Set(Event) = aState.outgoing->collect(getEvent())->asSet()]
+    [for (anEvent : Event | allEvents)]
+    case [aStatemachine.name/]_GET_STATIC_EVENT_ID([anEvent.name/]):
+    [let allTransitions : Sequence(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else'))]
+    [for (aTrans : Transition | allTransitions)]
+        [aTrans.generateTransition(aTrans, aStatemachine)/]
+    [/for]
+    [/let]
+    [/for]
+    [/let]
+    default:
+        return [aStatemachine.name/]::UnhandledEvent();
+    }
+}
+[/let]
+
+[aState.eContents(Region).generateHandlers(aStatemachine)/]
+[/template]
+
+[template private generateTransition(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine)]
+[if (aTransition.target.oclIsKindOf(State))]
+[if (aTransition.guard.oclIsUndefined() or (aTransition.guard.name = 'else'))]
+return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
+[else]
+if (impl->[aTransition.guard.name/](event))
+{
+    return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
+}
+[/if]
+[elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)]
+[if (not aTransition.guard.oclIsUndefined() and not (aTransition.guard.name = 'else'))]
+if (impl->[aTransition.guard.name/](event))
+{
+    [generateTransitionRecursive(aStartTransition, aStatemachine)/]
+}
+[else]
+[generateTransitionRecursive(aStartTransition, aStatemachine)/]
+[/if]
+[/if]
+[/template]
+
+[template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine) post (trim())]
+[aTransition.target.oclAsType(Pseudostate).outgoing->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else')).generateTransition(aStartTransition, aStatemachine)/]
 [/template]

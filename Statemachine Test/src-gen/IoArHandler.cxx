@@ -1,5 +1,6 @@
-#include <cpp_event_framework/Statemachine.hxx>
 #include <iostream>
+
+#include <cpp_event_framework/Statemachine.hxx>
 
 enum class EEvent
 {
@@ -63,8 +64,6 @@ public:
     }
 
 private:
-#include "IoArHandlerMainPrototypes.hxx"
-
     bool ready_ = false;
     bool CheckApplicationReady(IoArHandlerMain::Event)
     {
@@ -112,15 +111,15 @@ private:
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void StartWaitApplicationReadyTimer(IoArHandlerMain::StateRef)
+    void StartWaitApplicationReadyTimer()
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void StopWaitApplicationReadyTimer(IoArHandlerMain::StateRef)
+    void StopWaitApplicationReadyTimer()
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void SendApplicationReady(IoArHandlerMain::StateRef)
+    void SendApplicationReady()
     {
         std::cout << __FUNCTION__ << std::endl;
     }
@@ -136,11 +135,11 @@ private:
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void StartDynReconfTimer(IoArHandlerMain::StateRef)
+    void StartDynReconfTimer()
     {
         std::cout << __FUNCTION__ << std::endl;
     }
-    void StopDynReconfTimer(IoArHandlerMain::StateRef)
+    void StopDynReconfTimer()
     {
         std::cout << __FUNCTION__ << std::endl;
     }
@@ -158,12 +157,10 @@ private:
     }
 };
 
-#include "IoArHandlerMainInstance.hxx"
-
 #define IoArHandlerMain_GET_INSTANCE_EVENT_ID(e) e
 #define IoArHandlerMain_GET_STATIC_EVENT_ID(e) EEvent::e
 
-#include "IoArHandlerMainHandlers.hxx"
+#include "IoArHandlerMainInstance.hxx"
 
 void TestIoArHandler()
 {

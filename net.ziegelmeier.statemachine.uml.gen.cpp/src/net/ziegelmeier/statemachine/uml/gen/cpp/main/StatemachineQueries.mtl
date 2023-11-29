@@ -31,6 +31,10 @@ k[aState.name/]
 [aStatemachine.name/]::StatePtr
 [/template]
 
+[template public getImplPtrType(aStatemachine : StateMachine) post(trim())]
+[aStatemachine.name/]::ImplPtr
+[/template]
+
 [template public getStateRefType(aStatemachine : StateMachine) post(trim())]
 [aStatemachine.name/]::StateRef
 [/template]
