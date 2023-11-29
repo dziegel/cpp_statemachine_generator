@@ -70,8 +70,8 @@ public:
 [/template]
 
 [template private generateVertex(aState : State, aStatemachine : StateMachine)]
-// State [aState.name/]
-static [aStatemachine.getTransitionType()/] [aState.name/]Handler([aStatemachine.getImplPtrType()/] impl, [aStatemachine.getEventType()/] event);
+    // State [aState.name/]
+    static [aStatemachine.getTransitionType()/] [aState.name/]Handler(ImplPtr impl, Event event);
 
 [aState.eContents(Region).generateHandlerPrototypes(aStatemachine)/]
 [/template]

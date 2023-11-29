@@ -23,28 +23,12 @@
 k[aState.name/]
 [/template]
 
-[template public getStateType(aStatemachine : StateMachine) post(trim())]
-[aStatemachine.name/]::State
-[/template]
-
 [template public getStatePtrType(aStatemachine : StateMachine) post(trim())]
 [aStatemachine.name/]::StatePtr
 [/template]
 
-[template public getImplPtrType(aStatemachine : StateMachine) post(trim())]
-[aStatemachine.name/]::ImplPtr
-[/template]
-
-[template public getStateRefType(aStatemachine : StateMachine) post(trim())]
-[aStatemachine.name/]::StateRef
-[/template]
-
 [template public getTransitionType(aStatemachine : StateMachine) post(trim())]
 [aStatemachine.name/]::Transition
-[/template]
-
-[template public getEventType(aStatemachine : StateMachine) post(trim())]
-[aStatemachine.name/]::Event
 [/template]
 
 [template public getTransitionVariable(aTransition : Transition, aStartTransition : Transition) post(trim())]

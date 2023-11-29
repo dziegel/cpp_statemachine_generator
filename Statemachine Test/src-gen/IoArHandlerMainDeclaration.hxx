@@ -33,10 +33,10 @@ public:
 
     static const Transition::ActionType kOpenToOpenByS_PNS_WriteReqActions[];
     static const Transition kOpenToOpenByS_PNS_WriteReq;
-    static const Transition::ActionType kOpenToOpenByS_PNS_CheckModuleDiffActions[];
-    static const Transition kOpenToOpenByS_PNS_CheckModuleDiff;
     static const Transition::ActionType kOpenToOpenByS_PNS_SwitchoverRequestBackupActions[];
     static const Transition kOpenToOpenByS_PNS_SwitchoverRequestBackup;
+    static const Transition::ActionType kOpenToOpenByS_PNS_CheckModuleDiffActions[];
+    static const Transition kOpenToOpenByS_PNS_CheckModuleDiff;
     static const Transition::ActionType kOpenToOpenByS_PNS_SwitchoverRequestPrimaryActions[];
     static const Transition kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
     static const Transition::ActionType kOpenToOpenByS_PNS_ReadReqActions[];
@@ -118,44 +118,44 @@ public:
 
 
 
-// State Closed
-static IoArHandlerMain::Transition ClosedHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State Closed
+    static IoArHandlerMain::Transition ClosedHandler(ImplPtr impl, Event event);
 
-// State Open
-static IoArHandlerMain::Transition OpenHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State Open
+    static IoArHandlerMain::Transition OpenHandler(ImplPtr impl, Event event);
 
-// State Parameterizing
-static IoArHandlerMain::Transition ParameterizingHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State Parameterizing
+    static IoArHandlerMain::Transition ParameterizingHandler(ImplPtr impl, Event event);
 
-// State WaitApplicationReady
-static IoArHandlerMain::Transition WaitApplicationReadyHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State WaitApplicationReady
+    static IoArHandlerMain::Transition WaitApplicationReadyHandler(ImplPtr impl, Event event);
 
-// State WaitApplicationReadyCnf
-static IoArHandlerMain::Transition WaitApplicationReadyCnfHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State WaitApplicationReadyCnf
+    static IoArHandlerMain::Transition WaitApplicationReadyCnfHandler(ImplPtr impl, Event event);
 
-// State ApplicationReady
-static IoArHandlerMain::Transition ApplicationReadyHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State ApplicationReady
+    static IoArHandlerMain::Transition ApplicationReadyHandler(ImplPtr impl, Event event);
 
-// State Ready
-static IoArHandlerMain::Transition ReadyHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State Ready
+    static IoArHandlerMain::Transition ReadyHandler(ImplPtr impl, Event event);
 
-// State DynamicReconfigurationRunning
-static IoArHandlerMain::Transition DynamicReconfigurationRunningHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State DynamicReconfigurationRunning
+    static IoArHandlerMain::Transition DynamicReconfigurationRunningHandler(ImplPtr impl, Event event);
 
-// State DrWaitPullCnf
-static IoArHandlerMain::Transition DrWaitPullCnfHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State DrWaitPullCnf
+    static IoArHandlerMain::Transition DrWaitPullCnfHandler(ImplPtr impl, Event event);
 
-// State DrWaitApplicationReadyCnfPlugSubmodule
-static IoArHandlerMain::Transition DrWaitApplicationReadyCnfPlugSubmoduleHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State DrWaitApplicationReadyCnfPlugSubmodule
+    static IoArHandlerMain::Transition DrWaitApplicationReadyCnfPlugSubmoduleHandler(ImplPtr impl, Event event);
 
-// State DrWaitApplicationReadyPlugSubmodule
-static IoArHandlerMain::Transition DrWaitApplicationReadyPlugSubmoduleHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State DrWaitApplicationReadyPlugSubmodule
+    static IoArHandlerMain::Transition DrWaitApplicationReadyPlugSubmoduleHandler(ImplPtr impl, Event event);
 
-// State DrPlugPrmSequence
-static IoArHandlerMain::Transition DrPlugPrmSequenceHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State DrPlugPrmSequence
+    static IoArHandlerMain::Transition DrPlugPrmSequenceHandler(ImplPtr impl, Event event);
 
-// State DrWaitPlugCnf
-static IoArHandlerMain::Transition DrWaitPlugCnfHandler(IoArHandlerMain::ImplPtr impl, IoArHandlerMain::Event event);
+    // State DrWaitPlugCnf
+    static IoArHandlerMain::Transition DrWaitPlugCnfHandler(ImplPtr impl, Event event);
 
 
 };

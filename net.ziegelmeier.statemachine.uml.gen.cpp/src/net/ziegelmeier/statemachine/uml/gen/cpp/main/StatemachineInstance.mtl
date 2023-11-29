@@ -134,7 +134,7 @@ const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.g
 [template private generateHandlersVertex(aState : State, aStatemachine : StateMachine)]
 // State [aState.name/]
 [let aFunctionName : String = aState.name + 'Handler']
-[aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aFunctionName/]([aStatemachine.getImplPtrType()/] impl, [aStatemachine.getEventType()/] event)
+[aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aFunctionName/](ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
 
@@ -151,7 +151,7 @@ const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.g
     [/for]
     [/let]
     default:
-        return [aStatemachine.name/]::UnhandledEvent();
+        return UnhandledEvent();
     }
 }
 [/let]
@@ -162,11 +162,11 @@ const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.g
 [template private generateTransition(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine)]
 [if (aTransition.target.oclIsKindOf(State))]
 [if (aTransition.guard.oclIsUndefined() or (aTransition.guard.name = 'else'))]
-return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
+return [aTransition.getTransitionVariable(aStartTransition)/];
 [else]
 if (impl->[aTransition.guard.name/](event))
 {
-    return [aStatemachine.name/]::[aTransition.getTransitionVariable(aStartTransition)/];
+    return [aTransition.getTransitionVariable(aStartTransition)/];
 }
 [/if]
 [elseif (aTransition.target.oclIsTypeOf(Pseudostate) and aTransition.target.oclAsType(Pseudostate).kind = PseudostateKind::choice)]
