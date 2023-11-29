@@ -208,20 +208,20 @@ IoArHandlerMain::Transition IoArHandlerMain::ClosedHandler(ImplPtr impl, Event e
 
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
+        return kClosedToClosedByS_PNS_WriteReq;
+        
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArOpend_ind):
         return kClosedToOpenByS_PNS_ArOpend_ind;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-        return kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
         
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
         return kClosedToClosedByS_PNS_ReadReq;
         
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
+        return kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
+        
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
         return kClosedToClosedByS_PNS_SwitchoverRequestBackup;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
-        return kClosedToClosedByS_PNS_WriteReq;
         
     default:
         return UnhandledEvent();
@@ -235,23 +235,23 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
-        return kOpenToOpenByS_PNS_CheckModuleDiff;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-        return kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
-        return kOpenToOpenByS_PNS_ReadReq;
-        
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
-        return kOpenToOpenByS_PNS_SwitchoverRequestBackup;
-        
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
         return kOpenToOpenByS_PNS_WriteReq;
         
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArClosed_ind):
         return kOpenToClosedByS_PNS_ArClosed_ind;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
+        return kOpenToOpenByS_PNS_ReadReq;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
+        return kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
+        return kOpenToOpenByS_PNS_SwitchoverRequestBackup;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
+        return kOpenToOpenByS_PNS_CheckModuleDiff;
         
     default:
         return UnhandledEvent();
@@ -335,11 +335,11 @@ IoArHandlerMain::Transition IoArHandlerMain::ReadyHandler(ImplPtr impl, Event ev
 
     switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
     {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPull):
-        return kReadyToDrWaitPullCnfByS_PNS_DynReconfPull;
-        
     case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPlug):
         return kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug;
+        
+    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPull):
+        return kReadyToDrWaitPullCnfByS_PNS_DynReconfPull;
         
     default:
         return UnhandledEvent();

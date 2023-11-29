@@ -19,28 +19,27 @@ class [aStatemachine.name/] : public [aStatemachine.name/]Base
 public:
     static const StatePtr kInitialState;
 
-[aStatemachine.region.generateRegion()/]
-
-[aStatemachine.region.generateHandlerPrototypes(aStatemachine)/]
+[aStatemachine.region.generateRegion(aStatemachine)/]
 };
 [/file]
 [/template]
 
 [comment --------------------------------------------------- /]
 
-[template private generateRegion(aRegion : Region)]
-[aRegion.eContents(Vertex).generateVertex()/]
+[template private generateRegion(aRegion : Region, aStatemachine : StateMachine)]
+[aRegion.eContents(Vertex).generateVertex(aStatemachine)/]
 [/template]
 
-[template private generateVertex(aState : Vertex)]
+[template private generateVertex(aState : Vertex, aStatemachine : StateMachine)]
 [/template]
 
-[template private generateVertex(aState : State)]
+[template private generateVertex(aState : State, aStatemachine : StateMachine)]
     // State [aState.name/]
+    static [aStatemachine.getTransitionType()/] [aState.name/]Handler(ImplPtr impl, Event event);
     static const State [aState.getStateVariable()/];
 [aState.getExternalTransitions().generateTransition()/]
 [aState.getInternalTransitions().generateInternalTransition()/]
-[aState.eContents(Region).generateRegion()/]
+[aState.eContents(Region).generateRegion(aStatemachine)/]
 [/template]
 
 [template private generateTransition(aTransition : Transition)]
@@ -58,20 +57,4 @@ public:
     static const Transition::ActionType [aTransition.getTransitionVariable(aTransition)/]Actions['['/][']'/];
     static const Transition [aTransition.getTransitionVariable(aTransition)/];
 
-[/template]
-
-[comment --------------------------------------------------- /]
-
-[template private generateHandlerPrototypes(aRegion : Region, aStatemachine : StateMachine)]
-[aRegion.eContents(Vertex).generateVertex(aStatemachine)/]
-[/template]
-
-[template private generateVertex(aState : Vertex, aStatemachine : StateMachine)]
-[/template]
-
-[template private generateVertex(aState : State, aStatemachine : StateMachine)]
-    // State [aState.name/]
-    static [aStatemachine.getTransitionType()/] [aState.name/]Handler(ImplPtr impl, Event event);
-
-[aState.eContents(Region).generateHandlerPrototypes(aStatemachine)/]
 [/template]
