@@ -36,14 +36,21 @@ public:
 
     void Init()
     {
-        fsm_.on_handle_event_ = [](IoArHandlerMain::StateRef state, IoArHandlerMain::Event event)
-        { std::cout << "State " << state.Name() << " handle event " << static_cast<int>(event) << std::endl; };
-        fsm_.on_state_entry_ = [](IoArHandlerMain::StateRef state)
-        { std::cout << "Enter state" << state.Name() << std::endl; };
-        fsm_.on_state_exit_ = [](IoArHandlerMain::StateRef state)
-        { std::cout << "Exit state" << state.Name() << std::endl; };
-        fsm_.on_unhandled_event_ = [](IoArHandlerMain::StateRef state, IoArHandlerMain::Event event)
-        { std::cout << "Unhandled event " << static_cast<int>(event) << " in state " << state.Name() << std::endl; };
+        fsm_.on_handle_event_ = [](IoArHandlerMain::Ref fsm, IoArHandlerMain::StateRef state,
+                                   IoArHandlerMain::Event event) {
+            std::cout << fsm.Name() << " State " << state.Name() << " handle event " << static_cast<int>(event)
+                      << std::endl;
+        };
+        fsm_.on_state_entry_ = [](IoArHandlerMain::Ref fsm, IoArHandlerMain::StateRef state)
+        { std::cout << fsm.Name() << " Enter state" << state.Name() << std::endl; };
+        fsm_.on_state_exit_ = [](IoArHandlerMain::Ref fsm, IoArHandlerMain::StateRef state)
+        { std::cout << fsm.Name() << " Exit state" << state.Name() << std::endl; };
+        fsm_.on_unhandled_event_ =
+            [](IoArHandlerMain::Ref fsm, IoArHandlerMain::StateRef state, IoArHandlerMain::Event event)
+        {
+            std::cout << fsm.Name() << " Unhandled event " << static_cast<int>(event) << " in state " << state.Name()
+                      << std::endl;
+        };
 
         fsm_.Init(this, "IoArHandlerMain", IoArHandlerMain::kInitialState);
         fsm_.Start();
