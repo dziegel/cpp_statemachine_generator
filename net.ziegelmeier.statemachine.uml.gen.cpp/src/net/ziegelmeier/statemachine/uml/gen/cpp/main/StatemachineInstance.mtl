@@ -26,6 +26,8 @@
 [aStatemachine.region->asSequence()->first().generateInitialState(aStatemachine)/]
 
 [aStatemachine.region->asSequence()->first().generateRegion(aStatemachine)/]
+
+[aStatemachine.region.generateHandlers(aStatemachine)/]
 [/file]
 [/template]
 
@@ -45,28 +47,6 @@ const [aStatemachine.getStatePtrType()/] [aStatemachine.name/]::kInitialState = 
 
 [template private generateVertex(aState : State, aStatemachine : StateMachine)]
 // State [aState.name/]
-[let aFunctionName : String = aState.name + 'Handler']
-[aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aFunctionName/](ImplPtr impl, Event event)
-{
-	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch([aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event))
-    {
-    [let allEvents : Set(Event) = aState.outgoing->collect(getEvent())->asSet()]
-    [for (anEvent : Event | allEvents)]
-    case [aStatemachine.name/]_GET_STATIC_EVENT_ID([anEvent.name/]):
-    [let allTransitions : Sequence(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else'))]
-    [for (aTrans : Transition | allTransitions)]
-        [aTrans.generateHandlerTransition(aTrans, aStatemachine)/]
-    [/for]
-    [/let]
-    [/for]
-    [/let]
-    default:
-        return UnhandledEvent();
-    }
-}
-[/let]
 const [aState.generateStateType(aStatemachine)/] [aStatemachine.name/]::[aState.getStateVariable()/]("[aState.name/]",
     &[aState.name/]Handler, // Handler
     [generateParent(aState, aStatemachine)/], // Parent
@@ -142,7 +122,44 @@ const [aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aTransition.g
 
 [/template]
 
-[template private generateHandlerTransition(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine)]
+[comment --------------------------------------------------- /]
+
+[template private generateHandlers(aRegion : Region, aStatemachine : StateMachine)]
+[aRegion.eContents(Vertex).generateHandlersVertex(aStatemachine)/]
+[/template]
+
+[template private generateHandlersVertex(aState : Vertex, aStatemachine : StateMachine)]
+[/template]
+
+[template private generateHandlersVertex(aState : State, aStatemachine : StateMachine)]
+// State [aState.name/]
+[let aFunctionName : String = aState.name + 'Handler']
+[aStatemachine.getTransitionType()/] [aStatemachine.name/]::[aFunctionName/](ImplPtr impl, Event event)
+{
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
+
+    switch([aStatemachine.name/]_GET_INSTANCE_EVENT_ID(event))
+    {
+    [let allEvents : Set(Event) = aState.outgoing->collect(getEvent())->asSet()]
+    [for (anEvent : Event | allEvents)]
+    case [aStatemachine.name/]_GET_STATIC_EVENT_ID([anEvent.name/]):
+    [let allTransitions : Sequence(Transition) = aState.outgoing->select(t | t.getEvent().name = anEvent.name)->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else'))]
+    [for (aTrans : Transition | allTransitions)]
+        [aTrans.generateTransition(aTrans, aStatemachine)/]
+    [/for]
+    [/let]
+    [/for]
+    [/let]
+    default:
+        return UnhandledEvent();
+    }
+}
+[/let]
+
+[aState.eContents(Region).generateHandlers(aStatemachine)/]
+[/template]
+
+[template private generateTransition(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine)]
 [if (aTransition.target.oclIsKindOf(State))]
 [if (aTransition.guard.oclIsUndefined() or (aTransition.guard.name = 'else'))]
 return [aTransition.getTransitionVariable(aStartTransition)/];
@@ -156,14 +173,14 @@ if (impl->[aTransition.guard.name/](event))
 [if (not aTransition.guard.oclIsUndefined() and not (aTransition.guard.name = 'else'))]
 if (impl->[aTransition.guard.name/](event))
 {
-    [generateHandlerTransitionRecursive(aStartTransition, aStatemachine)/]
+    [generateTransitionRecursive(aStartTransition, aStatemachine)/]
 }
 [else]
-[generateHandlerTransitionRecursive(aStartTransition, aStatemachine)/]
+[generateTransitionRecursive(aStartTransition, aStatemachine)/]
 [/if]
 [/if]
 [/template]
 
-[template private generateHandlerTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine) post (trim())]
+[template private generateTransitionRecursive(aTransition : Transition, aStartTransition : Transition, aStatemachine : StateMachine) post (trim())]
 [aTransition.target.oclAsType(Pseudostate).outgoing->asSequence()->sortedBy(guard.oclIsUndefined() or (guard.name = 'else')).generateTransition(aStartTransition, aStatemachine)/]
 [/template]
