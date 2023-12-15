@@ -6,7 +6,7 @@
 
 [template public generateElement(aModel : Model)]
 [comment @main/]
-[aModel.eContents(StateMachine).generateElement()/]
+[aModel.eAllContents(StateMachine).generateElement()/]
 [/template]
 
 [template public generateElement(aStatemachine : StateMachine)]
