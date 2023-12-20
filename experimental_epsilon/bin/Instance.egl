@@ -1,0 +1,9 @@
+// Statemachine [%=sm.name%] instance
+
+[% for (region in sm.regions) {
+  var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
+  regionTemplate.populate("region", region);
+  regionTemplate.populate("sm", sm);
+%]
+    [%=regionTemplate.process()%]
+[%}%]
