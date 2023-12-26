@@ -1,0 +1,53 @@
+[%
+  var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");
+  var transitionTemplate : Template = TemplateFactory.load("InstanceTransition.egl");
+  var handlerTemplate : Template = TemplateFactory.load("InstanceHandler.egl");
+  handlerTemplate.populate("state", state);
+  handlerTemplate.populate("sm", sm);
+
+  var parent = "nullptr";
+  if (state.container.state != null) {
+  	parent = "&k" + state.container.state.name;
+  }
+  
+  var initial = "nullptr";
+  if (not state.regions.empty) {
+    var region = state.regions.first;
+    var initial_state = region.subvertices.select(s|(s.type.name == "Pseudostate") and ((s.kind.name == "initial") or (s.kind.name == "shallowHistory"))).first;
+    if (initial_state != null) {
+	    initial = "&k" + initial_state.outgoing.first.target.name;
+    }
+  }
+
+  var entry = "nullptr";
+  if (state.entry != null) {
+  	entry = "&" + sm.name + "::Impl::" + state.entry.name;
+  }
+
+  var exit = "nullptr";
+  if (state.exit != null) {
+  	entry = "&" + sm.name + "::Impl::" + state.exit.name;
+  }
+%]
+// State [%=state.name%]
+const [%=sm.name%]::State [%=sm.name%]::k[%=state.name%]("[%=state.name%]",
+    &[%=state.name%]Handler, // Handler
+    [%=parent%], // Parent
+    [%=initial%], // Initial
+    [%=entry%], // Entry
+    [%=exit%]); // Exit
+[% for (outgoing_transition in state.outgoing) {
+  transitionTemplate.populate("start_transition", outgoing_transition);
+  transitionTemplate.populate("transition", outgoing_transition);
+  transitionTemplate.populate("state", state);
+  transitionTemplate.populate("sm", sm);
+%]
+[%=transitionTemplate.process()%]
+[%}%]
+[%=handlerTemplate.process()%]
+[% for (sub_region in state.regions) {
+  regionTemplate.populate("region", sub_region);
+  regionTemplate.populate("sm", sm);
+%]
+[%=regionTemplate.process()%]
+[%}%]

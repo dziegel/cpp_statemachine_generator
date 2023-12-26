@@ -1,9 +1,23 @@
 // Statemachine [%=sm.name%] instance
 
-[% for (region in sm.regions) {
-  var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
+// Override the following defines according to your needs if you are not using cpp_event_framework:
+
+#ifndef IoArHandlerMain_GET_INSTANCE_EVENT_ID
+#define IoArHandlerMain_GET_INSTANCE_EVENT_ID(event_instance) event_instance->Id()
+#endif
+
+#ifndef IoArHandlerMain_GET_STATIC_EVENT_ID
+#define IoArHandlerMain_GET_STATIC_EVENT_ID(event_name) event_name::kId
+#endif
+
+[%
+  var region = sm.regions.first;
+  var intitalstate = region.subvertices.select(s|(s.type.name == "Pseudostate") and (s.kind.name == "initial")).first;
+
+  var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");
   regionTemplate.populate("region", region);
   regionTemplate.populate("sm", sm);
 %]
-    [%=regionTemplate.process()%]
-[%}%]
+// Initial state
+const [%=sm.name%]::StatePtr [%=sm.name%]::kInitialState = &[%=sm.name%]::k[%=intitalstate.outgoing.first.target.name%];
+[%=regionTemplate.process()%]

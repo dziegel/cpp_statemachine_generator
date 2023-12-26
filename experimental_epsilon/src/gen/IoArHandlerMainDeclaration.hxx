@@ -48,64 +48,15 @@ class IoArHandlerMain : public IoArHandlerMainBase
 	static const Transition::ActionType kOpenToOpenByS_PNS_CheckModuleDiffActions[];
 	static const Transition kOpenToOpenByS_PNS_CheckModuleDiff;
 	
-	// State ApplicationReady
-	static Transition ApplicationReadyHandler(ImplPtr impl, Event event);
-	static const State kApplicationReady;
-	
-	// State Ready
-	static Transition ReadyHandler(ImplPtr impl, Event event);
-	static const State kReady;
-	// Transition S_PNS_DynReconfPull: Ready -> DrWaitPullCnf
-	static const Transition::ActionType kReadyToDrWaitPullCnfByS_PNS_DynReconfPullActions[];
-	static const Transition kReadyToDrWaitPullCnfByS_PNS_DynReconfPull;
-	// Transition S_PNS_DynReconfPlug: Ready -> DrWaitPlugCnf
-	static const Transition::ActionType kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlugActions[];
-	static const Transition kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug;
-	
-	// State DynamicReconfigurationRunning
-	static Transition DynamicReconfigurationRunningHandler(ImplPtr impl, Event event);
-	static const State kDynamicReconfigurationRunning;
-	// Transition SPnioAppTimeoutDynReconf: DynamicReconfigurationRunning -> DynamicReconfigurationRunning
-	static const Transition::ActionType kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconfActions[];
-	static const Transition kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconf;
-	
-	// State DrWaitApplicationReadyPlugSubmodule
-	static Transition DrWaitApplicationReadyPlugSubmoduleHandler(ImplPtr impl, Event event);
-	static const State kDrWaitApplicationReadyPlugSubmodule;
-	// Transition SPnpbAppTimeout: DrWaitApplicationReadyPlugSubmodule -> DrWaitApplicationReadyCnfPlugSubmodule
-	static const Transition::ActionType kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeoutActions[];
-	static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeout;
-	// Transition SPnpbAppTimeout: DrWaitApplicationReadyPlugSubmodule -> DrWaitApplicationReadyPlugSubmodule
-	static const Transition::ActionType kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeoutActions[];
-	static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeout;
-	
-	// State DrWaitPullCnf
-	static Transition DrWaitPullCnfHandler(ImplPtr impl, Event event);
-	static const State kDrWaitPullCnf;
-	// Transition S_PNS_PullSubmodule_cnf: DrWaitPullCnf -> Ready
-	static const Transition::ActionType kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnfActions[];
-	static const Transition kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnf;
-	
-	// State DrWaitApplicationReadyCnfPlugSubmodule
-	static Transition DrWaitApplicationReadyCnfPlugSubmoduleHandler(ImplPtr impl, Event event);
-	static const State kDrWaitApplicationReadyCnfPlugSubmodule;
-	// Transition S_PNS_PlugApplicationReady_cnf: DrWaitApplicationReadyCnfPlugSubmodule -> Ready
-	static const Transition::ActionType kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnfActions[];
-	static const Transition kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnf;
-	
-	// State DrWaitPlugCnf
-	static Transition DrWaitPlugCnfHandler(ImplPtr impl, Event event);
-	static const State kDrWaitPlugCnf;
-	// Transition S_PNS_PlugSubmodule_cnf: DrWaitPlugCnf -> DrPlugPrmSequence
-	static const Transition::ActionType kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnfActions[];
-	static const Transition kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnf;
-	
-	// State DrPlugPrmSequence
-	static Transition DrPlugPrmSequenceHandler(ImplPtr impl, Event event);
-	static const State kDrPlugPrmSequence;
-	// Transition S_PNS_PlugParamEndInd: DrPlugPrmSequence -> DrWaitApplicationReadyPlugSubmodule
-	static const Transition::ActionType kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndIndActions[];
-	static const Transition kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndInd;
+	// State WaitApplicationReady
+	static Transition WaitApplicationReadyHandler(ImplPtr impl, Event event);
+	static const State kWaitApplicationReady;
+	// Transition SPnpbAppTimeout: WaitApplicationReady -> WaitApplicationReadyCnf
+	static const Transition::ActionType kWaitApplicationReadyToWaitApplicationReadyCnfBySPnpbAppTimeoutActions[];
+	static const Transition kWaitApplicationReadyToWaitApplicationReadyCnfBySPnpbAppTimeout;
+	// Transition SPnpbAppTimeout: WaitApplicationReady -> WaitApplicationReady
+	static const Transition::ActionType kWaitApplicationReadyToWaitApplicationReadyBySPnpbAppTimeoutActions[];
+	static const Transition kWaitApplicationReadyToWaitApplicationReadyBySPnpbAppTimeout;
 	
 	// State Parameterizing
 	static Transition ParameterizingHandler(ImplPtr impl, Event event);
@@ -127,13 +78,62 @@ class IoArHandlerMain : public IoArHandlerMainBase
 	static const Transition::ActionType kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnfActions[];
 	static const Transition kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnf;
 	
-	// State WaitApplicationReady
-	static Transition WaitApplicationReadyHandler(ImplPtr impl, Event event);
-	static const State kWaitApplicationReady;
-	// Transition SPnpbAppTimeout: WaitApplicationReady -> WaitApplicationReadyCnf
-	static const Transition::ActionType kWaitApplicationReadyToWaitApplicationReadyCnfBySPnpbAppTimeoutActions[];
-	static const Transition kWaitApplicationReadyToWaitApplicationReadyCnfBySPnpbAppTimeout;
-	// Transition SPnpbAppTimeout: WaitApplicationReady -> WaitApplicationReady
-	static const Transition::ActionType kWaitApplicationReadyToWaitApplicationReadyBySPnpbAppTimeoutActions[];
-	static const Transition kWaitApplicationReadyToWaitApplicationReadyBySPnpbAppTimeout;
+	// State ApplicationReady
+	static Transition ApplicationReadyHandler(ImplPtr impl, Event event);
+	static const State kApplicationReady;
+	
+	// State DynamicReconfigurationRunning
+	static Transition DynamicReconfigurationRunningHandler(ImplPtr impl, Event event);
+	static const State kDynamicReconfigurationRunning;
+	// Transition SPnioAppTimeoutDynReconf: DynamicReconfigurationRunning -> DynamicReconfigurationRunning
+	static const Transition::ActionType kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconfActions[];
+	static const Transition kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconf;
+	
+	// State DrWaitApplicationReadyCnfPlugSubmodule
+	static Transition DrWaitApplicationReadyCnfPlugSubmoduleHandler(ImplPtr impl, Event event);
+	static const State kDrWaitApplicationReadyCnfPlugSubmodule;
+	// Transition S_PNS_PlugApplicationReady_cnf: DrWaitApplicationReadyCnfPlugSubmodule -> Ready
+	static const Transition::ActionType kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnfActions[];
+	static const Transition kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnf;
+	
+	// State DrWaitApplicationReadyPlugSubmodule
+	static Transition DrWaitApplicationReadyPlugSubmoduleHandler(ImplPtr impl, Event event);
+	static const State kDrWaitApplicationReadyPlugSubmodule;
+	// Transition SPnpbAppTimeout: DrWaitApplicationReadyPlugSubmodule -> DrWaitApplicationReadyCnfPlugSubmodule
+	static const Transition::ActionType kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeoutActions[];
+	static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeout;
+	// Transition SPnpbAppTimeout: DrWaitApplicationReadyPlugSubmodule -> DrWaitApplicationReadyPlugSubmodule
+	static const Transition::ActionType kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeoutActions[];
+	static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeout;
+	
+	// State DrWaitPlugCnf
+	static Transition DrWaitPlugCnfHandler(ImplPtr impl, Event event);
+	static const State kDrWaitPlugCnf;
+	// Transition S_PNS_PlugSubmodule_cnf: DrWaitPlugCnf -> DrPlugPrmSequence
+	static const Transition::ActionType kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnfActions[];
+	static const Transition kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnf;
+	
+	// State DrWaitPullCnf
+	static Transition DrWaitPullCnfHandler(ImplPtr impl, Event event);
+	static const State kDrWaitPullCnf;
+	// Transition S_PNS_PullSubmodule_cnf: DrWaitPullCnf -> Ready
+	static const Transition::ActionType kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnfActions[];
+	static const Transition kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnf;
+	
+	// State DrPlugPrmSequence
+	static Transition DrPlugPrmSequenceHandler(ImplPtr impl, Event event);
+	static const State kDrPlugPrmSequence;
+	// Transition S_PNS_PlugParamEndInd: DrPlugPrmSequence -> DrWaitApplicationReadyPlugSubmodule
+	static const Transition::ActionType kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndIndActions[];
+	static const Transition kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndInd;
+	
+	// State Ready
+	static Transition ReadyHandler(ImplPtr impl, Event event);
+	static const State kReady;
+	// Transition S_PNS_DynReconfPull: Ready -> DrWaitPullCnf
+	static const Transition::ActionType kReadyToDrWaitPullCnfByS_PNS_DynReconfPullActions[];
+	static const Transition kReadyToDrWaitPullCnfByS_PNS_DynReconfPull;
+	// Transition S_PNS_DynReconfPlug: Ready -> DrWaitPlugCnf
+	static const Transition::ActionType kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlugActions[];
+	static const Transition kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug;
 };
