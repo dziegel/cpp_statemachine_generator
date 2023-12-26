@@ -28,6 +28,7 @@ hs_err_pid*
 # Binaries
 /net.ziegelmeier.statemachine.uml.gen.cpp/bin
 /net.ziegelmeier.statemachine.uml.gen.cpp.ui/bin
+/experimental_epsilon/bin
 
 # C++ compile test
 .cache
