@@ -20,11 +20,13 @@ nullptr, // Parent
 nullptr, // Initial
 nullptr, // Entry
 nullptr); // Exit
-!TRANSITION! Closed
-!TRANSITION! Closed
-!TRANSITION! Closed
-!TRANSITION! Open
-!TRANSITION! Closed
+
+const IoArHandlerMain::Transition IoArHandlerMain::kClosedToClosedByS_PNS_WriteReq(kClosed);
+const IoArHandlerMain::Transition IoArHandlerMain::kClosedToOpenByS_PNS_ArOpend_ind(kOpen);
+const IoArHandlerMain::Transition IoArHandlerMain::kClosedToClosedByS_PNS_ReadReq(kClosed);
+const IoArHandlerMain::Transition IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestPrimary(kClosed);
+const IoArHandlerMain::Transition IoArHandlerMain::kClosedToClosedByS_PNS_SwitchoverRequestBackup(kClosed);
+
 IoArHandlerMain::Transition IoArHandlerMain::ClosedHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -53,12 +55,20 @@ nullptr, // Parent
 &kParameterizing, // Initial
 nullptr, // Entry
 nullptr); // Exit
-!TRANSITION! Closed
-!TRANSITION! Open
-!TRANSITION! Open
-!TRANSITION! Open
-!TRANSITION! Open
-!TRANSITION! Open
+
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed_indActions[] = {&IoArHandlerMain::Impl::ArClosed};
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToClosedByS_PNS_ArClosed_ind(kClosed, kOpenToClosedByS_PNS_ArClosed_indActions);
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackupActions[] = {&IoArHandlerMain::Impl::BackupSwitchover};
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestBackup(kOpen, kOpenToOpenByS_PNS_SwitchoverRequestBackupActions);
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimaryActions[] = {&IoArHandlerMain::Impl::PrimarySwitchover};
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_SwitchoverRequestPrimary(kOpen, kOpenToOpenByS_PNS_SwitchoverRequestPrimaryActions);
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_ReadReqActions[] = {&IoArHandlerMain::Impl::Read};
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_ReadReq(kOpen, kOpenToOpenByS_PNS_ReadReqActions);
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_WriteReqActions[] = {&IoArHandlerMain::Impl::Write};
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_WriteReq(kOpen, kOpenToOpenByS_PNS_WriteReqActions);
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiffActions[] = {&IoArHandlerMain::Impl::CheckModuleDiff};
+const IoArHandlerMain::Transition IoArHandlerMain::kOpenToOpenByS_PNS_CheckModuleDiff(kOpen, kOpenToOpenByS_PNS_CheckModuleDiffActions);
+
 IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -89,6 +99,8 @@ const IoArHandlerMain::State IoArHandlerMain::kApplicationReady("ApplicationRead
 &kReady, // Initial
 nullptr, // Entry
 nullptr); // Exit
+
+
 IoArHandlerMain::Transition IoArHandlerMain::ApplicationReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -107,7 +119,10 @@ const IoArHandlerMain::State IoArHandlerMain::kDynamicReconfigurationRunning("Dy
 &kDrWaitPlugCnf, // Initial
 &IoArHandlerMain::Impl::StopDynReconfTimer, // Entry
 nullptr); // Exit
-!TRANSITION! DynamicReconfigurationRunning
+
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconfActions[] = {&IoArHandlerMain::Impl::DynReconfTimeoutAbortArSet};
+const IoArHandlerMain::Transition IoArHandlerMain::kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconf(kDynamicReconfigurationRunning, kDynamicReconfigurationRunningToDynamicReconfigurationRunningBySPnioAppTimeoutDynReconfActions);
+
 IoArHandlerMain::Transition IoArHandlerMain::DynamicReconfigurationRunningHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -128,7 +143,10 @@ const IoArHandlerMain::State IoArHandlerMain::kDrPlugPrmSequence("DrPlugPrmSeque
 nullptr, // Initial
 nullptr, // Entry
 nullptr); // Exit
-!TRANSITION! DrWaitApplicationReadyPlugSubmodule
+
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndIndActions[] = {&IoArHandlerMain::Impl::ApplyConfiguration};
+const IoArHandlerMain::Transition IoArHandlerMain::kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndInd(kDrWaitApplicationReadyPlugSubmodule, kDrPlugPrmSequenceToDrWaitApplicationReadyPlugSubmoduleByS_PNS_PlugParamEndIndActions);
+
 IoArHandlerMain::Transition IoArHandlerMain::DrPlugPrmSequenceHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -149,7 +167,10 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitApplicationReadyCnfPlugSubm
 nullptr, // Initial
 nullptr, // Entry
 nullptr); // Exit
-!TRANSITION! Ready
+
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnfActions[] = {&IoArHandlerMain::Impl::DrPullDone};
+const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnf(kReady, kDrWaitApplicationReadyCnfPlugSubmoduleToReadyByS_PNS_PlugApplicationReady_cnfActions);
+
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyCnfPlugSubmoduleHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -170,7 +191,10 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitApplicationReadyPlugSubmodu
 nullptr, // Initial
 &IoArHandlerMain::Impl::StopWaitApplicationReadyTimer, // Entry
 nullptr); // Exit
-!TRANSITION! 
+
+const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeout(kDrWaitApplicationReadyCnfPlugSubmodule);
+const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeout(kDrWaitApplicationReadyPlugSubmodule);
+
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyPlugSubmoduleHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -195,7 +219,9 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitPlugCnf("DrWaitPlugCnf",
 nullptr, // Initial
 nullptr, // Entry
 nullptr); // Exit
-!TRANSITION! DrPlugPrmSequence
+
+const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnf(kDrPlugPrmSequence);
+
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitPlugCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -216,7 +242,10 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitPullCnf("DrWaitPullCnf",
 nullptr, // Initial
 nullptr, // Entry
 nullptr); // Exit
-!TRANSITION! Ready
+
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnfActions[] = {&IoArHandlerMain::Impl::DrPullDone};
+const IoArHandlerMain::Transition IoArHandlerMain::kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnf(kReady, kDrWaitPullCnfToReadyByS_PNS_PullSubmodule_cnfActions);
+
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitPullCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -237,8 +266,12 @@ const IoArHandlerMain::State IoArHandlerMain::kReady("Ready",
 nullptr, // Initial
 nullptr, // Entry
 nullptr); // Exit
-!TRANSITION! DrWaitPlugCnf
-!TRANSITION! DrWaitPullCnf
+
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kReadyToDrWaitPullCnfByS_PNS_DynReconfPullActions[] = {&IoArHandlerMain::Impl::DrPull};
+const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPullCnfByS_PNS_DynReconfPull(kDrWaitPullCnf, kReadyToDrWaitPullCnfByS_PNS_DynReconfPullActions);
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlugActions[] = {&IoArHandlerMain::Impl::DrPlug};
+const IoArHandlerMain::Transition IoArHandlerMain::kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug(kDrWaitPlugCnf, kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlugActions);
+
 IoArHandlerMain::Transition IoArHandlerMain::ReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -261,7 +294,12 @@ const IoArHandlerMain::State IoArHandlerMain::kParameterizing("Parameterizing",
 nullptr, // Initial
 nullptr, // Entry
 nullptr); // Exit
-!TRANSITION! 
+
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kParameterizingToWaitApplicationReadyByS_PNS_ParamEndIndActions[] = {&IoArHandlerMain::Impl::ApplyConfiguration};
+const IoArHandlerMain::Transition IoArHandlerMain::kParameterizingToWaitApplicationReadyByS_PNS_ParamEndInd(kWaitApplicationReady, kParameterizingToWaitApplicationReadyByS_PNS_ParamEndIndActions);
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kParameterizingToWaitApplicationReadyCnfByS_PNS_ParamEndIndActions[] = {&IoArHandlerMain::Impl::ApplyConfiguration};
+const IoArHandlerMain::Transition IoArHandlerMain::kParameterizingToWaitApplicationReadyCnfByS_PNS_ParamEndInd(kWaitApplicationReadyCnf, kParameterizingToWaitApplicationReadyCnfByS_PNS_ParamEndIndActions);
+
 IoArHandlerMain::Transition IoArHandlerMain::ParameterizingHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -286,7 +324,10 @@ const IoArHandlerMain::State IoArHandlerMain::kWaitApplicationReady("WaitApplica
 nullptr, // Initial
 &IoArHandlerMain::Impl::StopWaitApplicationReadyTimer, // Entry
 nullptr); // Exit
-!TRANSITION! 
+
+const IoArHandlerMain::Transition IoArHandlerMain::kWaitApplicationReadyToWaitApplicationReadyCnfBySPnpbAppTimeout(kWaitApplicationReadyCnf);
+const IoArHandlerMain::Transition IoArHandlerMain::kWaitApplicationReadyToWaitApplicationReadyBySPnpbAppTimeout(kWaitApplicationReady);
+
 IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -311,8 +352,11 @@ const IoArHandlerMain::State IoArHandlerMain::kWaitApplicationReadyCnf("WaitAppl
 nullptr, // Initial
 &IoArHandlerMain::Impl::SendApplicationReady, // Entry
 nullptr); // Exit
-!TRANSITION! ApplicationReady
-!TRANSITION! WaitApplicationReadyCnf
+
+const IoArHandlerMain::Transition IoArHandlerMain::kWaitApplicationReadyCnfToApplicationReadyByS_PNS_ApplicationReady_cnf(kApplicationReady);
+const IoArHandlerMain::Transition::ActionType IoArHandlerMain::kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnfActions[] = {&IoArHandlerMain::Impl::AbortAr};
+const IoArHandlerMain::Transition IoArHandlerMain::kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnf(kWaitApplicationReadyCnf, kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnfActions);
+
 IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here

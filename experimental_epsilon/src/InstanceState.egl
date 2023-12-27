@@ -2,7 +2,7 @@
   import "Operations.egl";
 
   var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");
-  var transitionTemplate : Template = TemplateFactory.load("InstanceTransition.egl");
+  var transitionVariableTemplate : Template = TemplateFactory.load("InstanceTransitionVariable.egl");
   var handlerTemplate : Template = TemplateFactory.load("InstanceHandler.egl");
   handlerTemplate.populate("state", state);
   handlerTemplate.populate("sm", sm);
@@ -14,10 +14,9 @@
   
   var initial = "nullptr";
   if (not state.regions.empty) {
-    var region = state.regions.first;
-    var initial_state = region.getInitialState();
+    var initial_state = state.regions.first.getInitialState();
     if (initial_state != null) {
-	    initial = "&k" + initial_state.outgoing.first.target.name;
+	  initial = "&k" + initial_state.outgoing.first.target.name;
     }
   }
 
@@ -32,24 +31,33 @@
   }
 %]
 // State [%=state.name%]
-const [%=sm.name%]::State [%=sm.name%]::k[%=state.name%]("[%=state.name%]",
+const [%=state.getStateType(sm)%] [%=sm.name%]::k[%=state.name%]("[%=state.name%]",
     &[%=state.name%]Handler, // Handler
     [%=parent%], // Parent
     [%=initial%], // Initial
     [%=entry%], // Entry
     [%=exit%]); // Exit
-[% for (outgoing_transition in state.getOutgoingTransitions()) {
-  transitionTemplate.populate("start_transition", outgoing_transition);
-  transitionTemplate.populate("transition", outgoing_transition);
-  transitionTemplate.populate("state", state);
-  transitionTemplate.populate("sm", sm);
+
+[%
+  for (outgoing_transition in state.getOutgoingTransitions()) {
+    transitionVariableTemplate.populate("actions", new List());
+    transitionVariableTemplate.populate("start_transition", outgoing_transition);
+    transitionVariableTemplate.populate("transition", outgoing_transition);
+    transitionVariableTemplate.populate("state", state);
+    transitionVariableTemplate.populate("sm", sm);
 %]
-[%=transitionTemplate.process()%]
-[%}%]
+[%=transitionVariableTemplate.process()%]
+[%
+  }
+%]
+
 [%=handlerTemplate.process()%]
-[% for (sub_region in state.regions) {
-  regionTemplate.populate("region", sub_region);
-  regionTemplate.populate("sm", sm);
+[%
+  for (sub_region in state.regions) {
+    regionTemplate.populate("region", sub_region);
+    regionTemplate.populate("sm", sm);
 %]
 [%=regionTemplate.process()%]
-[%}%]
+[%
+  }
+%]

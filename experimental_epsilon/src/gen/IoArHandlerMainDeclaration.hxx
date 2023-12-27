@@ -1,3 +1,4 @@
+
 // Statemachine IoArHandlerMain declaration
 
 #pragma once
@@ -11,21 +12,21 @@ class IoArHandlerMain : public IoArHandlerMainBase
 	// State Closed
 	static Transition ClosedHandler(ImplPtr impl, Event event);
 	static const State kClosed;
+	// Transition S_PNS_WriteReq: Closed -> Closed
+	static const Transition::ActionType kClosedToClosedByS_PNS_WriteReqActions[];
+	static const Transition kClosedToClosedByS_PNS_WriteReq;
+	// Transition S_PNS_ArOpend_ind: Closed -> Open
+	static const Transition::ActionType kClosedToOpenByS_PNS_ArOpend_indActions[];
+	static const Transition kClosedToOpenByS_PNS_ArOpend_ind;
+	// Transition S_PNS_ReadReq: Closed -> Closed
+	static const Transition::ActionType kClosedToClosedByS_PNS_ReadReqActions[];
+	static const Transition kClosedToClosedByS_PNS_ReadReq;
 	// Transition S_PNS_SwitchoverRequestPrimary: Closed -> Closed
 	static const Transition::ActionType kClosedToClosedByS_PNS_SwitchoverRequestPrimaryActions[];
 	static const Transition kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
 	// Transition S_PNS_SwitchoverRequestBackup: Closed -> Closed
 	static const Transition::ActionType kClosedToClosedByS_PNS_SwitchoverRequestBackupActions[];
 	static const Transition kClosedToClosedByS_PNS_SwitchoverRequestBackup;
-	// Transition S_PNS_ReadReq: Closed -> Closed
-	static const Transition::ActionType kClosedToClosedByS_PNS_ReadReqActions[];
-	static const Transition kClosedToClosedByS_PNS_ReadReq;
-	// Transition S_PNS_ArOpend_ind: Closed -> Open
-	static const Transition::ActionType kClosedToOpenByS_PNS_ArOpend_indActions[];
-	static const Transition kClosedToOpenByS_PNS_ArOpend_ind;
-	// Transition S_PNS_WriteReq: Closed -> Closed
-	static const Transition::ActionType kClosedToClosedByS_PNS_WriteReqActions[];
-	static const Transition kClosedToClosedByS_PNS_WriteReq;
 	
 	
 	// State Open
@@ -34,18 +35,18 @@ class IoArHandlerMain : public IoArHandlerMainBase
 	// Transition S_PNS_ArClosed_ind: Open -> Closed
 	static const Transition::ActionType kOpenToClosedByS_PNS_ArClosed_indActions[];
 	static const Transition kOpenToClosedByS_PNS_ArClosed_ind;
-	// Transition S_PNS_SwitchoverRequestPrimary: Open -> Open
-	static const Transition::ActionType kOpenToOpenByS_PNS_SwitchoverRequestPrimaryActions[];
-	static const Transition kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
-	// Transition S_PNS_WriteReq: Open -> Open
-	static const Transition::ActionType kOpenToOpenByS_PNS_WriteReqActions[];
-	static const Transition kOpenToOpenByS_PNS_WriteReq;
 	// Transition S_PNS_SwitchoverRequestBackup: Open -> Open
 	static const Transition::ActionType kOpenToOpenByS_PNS_SwitchoverRequestBackupActions[];
 	static const Transition kOpenToOpenByS_PNS_SwitchoverRequestBackup;
+	// Transition S_PNS_SwitchoverRequestPrimary: Open -> Open
+	static const Transition::ActionType kOpenToOpenByS_PNS_SwitchoverRequestPrimaryActions[];
+	static const Transition kOpenToOpenByS_PNS_SwitchoverRequestPrimary;
 	// Transition S_PNS_ReadReq: Open -> Open
 	static const Transition::ActionType kOpenToOpenByS_PNS_ReadReqActions[];
 	static const Transition kOpenToOpenByS_PNS_ReadReq;
+	// Transition S_PNS_WriteReq: Open -> Open
+	static const Transition::ActionType kOpenToOpenByS_PNS_WriteReqActions[];
+	static const Transition kOpenToOpenByS_PNS_WriteReq;
 	// Transition S_PNS_CheckModuleDiff: Open -> Open
 	static const Transition::ActionType kOpenToOpenByS_PNS_CheckModuleDiffActions[];
 	static const Transition kOpenToOpenByS_PNS_CheckModuleDiff;
@@ -110,12 +111,12 @@ class IoArHandlerMain : public IoArHandlerMainBase
 	// State Ready
 	static Transition ReadyHandler(ImplPtr impl, Event event);
 	static const State kReady;
-	// Transition S_PNS_DynReconfPlug: Ready -> DrWaitPlugCnf
-	static const Transition::ActionType kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlugActions[];
-	static const Transition kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug;
 	// Transition S_PNS_DynReconfPull: Ready -> DrWaitPullCnf
 	static const Transition::ActionType kReadyToDrWaitPullCnfByS_PNS_DynReconfPullActions[];
 	static const Transition kReadyToDrWaitPullCnfByS_PNS_DynReconfPull;
+	// Transition S_PNS_DynReconfPlug: Ready -> DrWaitPlugCnf
+	static const Transition::ActionType kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlugActions[];
+	static const Transition kReadyToDrWaitPlugCnfByS_PNS_DynReconfPlug;
 	
 	
 	// State Parameterizing

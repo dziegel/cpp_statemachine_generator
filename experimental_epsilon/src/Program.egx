@@ -1,7 +1,13 @@
 rule StatemachineDeclaration
 	transform sm : UML!StateMachine {
 
+    pre {
+      var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
+    }
+    
 	template : "Declaration.egl"
+	
+	formatter : java
 	
 	target : "gen/" + sm.name + "Declaration.hxx"
 }
@@ -9,7 +15,13 @@ rule StatemachineDeclaration
 rule StatemachineInstance
 	transform sm : UML!StateMachine {
 	
+    pre {
+      var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
+    }
+
 	template : "Instance.egl"
+	
+	formatter : java
 	
 	target : "gen/" + sm.name + "Instance.hxx"
 }

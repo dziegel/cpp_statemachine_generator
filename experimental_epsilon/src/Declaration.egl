@@ -1,3 +1,7 @@
+[%
+  var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
+%]
+
 // Statemachine [%=sm.name%] declaration
 
 #pragma once
@@ -6,10 +10,9 @@ class [%=sm.name%] : public [%=sm.name%]Base
 {
 public:
     static const StatePtr kInitialState;
-[%var region = sm.regions.first;
-  var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
-  regionTemplate.populate("region", region);
+[%
+  regionTemplate.populate("region", sm.regions.first);
   regionTemplate.populate("sm", sm);
 %]
-    [%=regionTemplate.process()%]
+[%=regionTemplate.process()%]
 };

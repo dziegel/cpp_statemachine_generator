@@ -15,16 +15,18 @@
 
     switch([%=sm.name%]_GET_INSTANCE_EVENT_ID(event))
     {
-    [% for (an_event in all_events) {%]
+[%
+    for (an_event in all_events) {
+%]
     case [%=sm.name%]_GET_STATIC_EVENT_ID([%=an_event%]):
-    [%
-        var all_transitions = state.outgoing.select(t | t.trigger.first.event.name == an_event).sortBy(t | t.guardIsElse());
+[%
+        var all_transitions = state.getOutgoingTransitions().select(t | t.trigger.first.event.name == an_event);
         for (transition in all_transitions) {
             transitionTemplate.populate("start_transition", transition);
             transitionTemplate.populate("transition", transition);
             transitionTemplate.populate("state", state);
             transitionTemplate.populate("sm", sm);
-    	%]
+%]
 [%=transitionTemplate.process()%]
 [%
         }
