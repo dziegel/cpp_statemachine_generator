@@ -1,0 +1,29 @@
+[%
+  operation Vertex getOutgoingTransitions() : List {
+      return self.outgoing.sortBy(t | t.guardIsElse());
+  }
+
+  operation Vertex isChoiceState() : Boolean {
+      return (self.type.name = "Pseudostate") and (self.kind.name = "choice");
+  }
+
+  operation Vertex isState() : Boolean {
+      return (self.type.name = "State");
+  }
+
+  operation Transition guardIsElse() : Boolean {
+      return (self.guard = null) or (self.guard.name = 'else');
+  }
+
+  operation Transition getVariableName(start_transition : Transition) : String {
+      return "k" + start_transition.source.name + "To" + self.target.name + "By"+ start_transition.trigger.first.event.name;
+  }
+
+  operation Region getInitialState() : Pseudostate {
+      return self.subvertices.select(s|(s.type.name == "Pseudostate") and ((s.kind.name == "initial") or (s.kind.name == "shallowHistory"))).first;
+  }
+
+  operation Region getStates() : List {
+      return self.subvertices.select(s|s.type.name == "State").sortBy(s | s.name);
+  }
+%]

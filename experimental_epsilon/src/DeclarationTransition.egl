@@ -1,9 +1,12 @@
-[%if (transition.target.type.name == "State") {%]
+[%
+  import "Operations.egl";
+  
+  if (transition.target.isState()) {%]
 // Transition [%=start_transition.trigger.first.event.name%]: [%=start_transition.source.name%] -> [%=transition.target.name%]
-static const Transition::ActionType k[%=start_transition.source.name%]To[%=transition.target.name%]By[%=start_transition.trigger.first.event.name%]Actions[];
-static const Transition k[%=start_transition.source.name%]To[%=transition.target.name%]By[%=start_transition.trigger.first.event.name%];
-[%} else if ((transition.target.type.name == "Pseudostate") and (transition.target.kind.name == "choice")) {
-  for (choice_transition in transition.target.outgoing) {
+static const Transition::ActionType [%=transition.getVariableName(start_transition)%]Actions[];
+static const Transition [%=transition.getVariableName(start_transition)%];
+[%} else if (transition.target.isChoiceState()) {
+  for (choice_transition in transition.target.getOutgoingTransitions()) {
     var transitionTemplate : Template = TemplateFactory.load("DeclarationTransition.egl");
     transitionTemplate.populate("start_transition", start_transition);
     transitionTemplate.populate("transition", choice_transition);

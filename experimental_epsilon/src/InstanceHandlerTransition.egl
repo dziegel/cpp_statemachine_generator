@@ -1,23 +1,25 @@
 [%
+  import "Operations.egl";
+
   var transitionTemplate : Template = TemplateFactory.load("InstanceHandlerTransition.egl");
 
-  if (transition.target.type.name = "State") {
+  if (transition.target.isState()) {
       if (transition.guardIsElse()) {
 %]
-return k[%=start_transition.source.name%]To[%=transition.target.name%]By[%=start_transition.trigger.first.event.name%];
+return [%=transition.getVariableName(start_transition)%];
 [%   } else { %]
 if (impl->[%=transition.guard.name%](event))
 {
-    return k[%=start_transition.source.name%]To[%=transition.target.name%]By[%=start_transition.trigger.first.event.name%];
+	return [%=transition.getVariableName(start_transition)%];
 }
 [%
       }
-  } else if (transition.targetIsChoiceState()) {
+  } else if (transition.target.isChoiceState()) {
       if (not transition.guardIsElse()) {
 %]
 if (impl->[%=transition.guard.name%](event))
 {
-[%        for (choice_transition in transition.getChoiceTransitions()) {
+[%        for (choice_transition in transition.target.getOutgoingTransitions()) {
               transitionTemplate.populate("start_transition", transition);
               transitionTemplate.populate("transition", choice_transition);
   	          transitionTemplate.populate("state", state);
@@ -27,7 +29,7 @@ if (impl->[%=transition.guard.name%](event))
 }
 [%        }
      } else {
-          for (choice_transition in transition.getChoiceTransitions()) {
+          for (choice_transition in transition.target.getOutgoingTransitions()) {
               transitionTemplate.populate("start_transition", transition);
               transitionTemplate.populate("transition", choice_transition);
   	          transitionTemplate.populate("state", state);
@@ -37,17 +39,5 @@ if (impl->[%=transition.guard.name%](event))
 [%
          }
      }
-  }
-  
-  operation Transition getChoiceTransitions() : List {
-      return self.target.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"));
-  }
-
-  operation Transition targetIsChoiceState() : Boolean {
-      return (self.target.type.name = "Pseudostate") and (self.target.kind.name = "choice");
-  }
-
-  operation Transition guardIsElse() : Boolean {
-      return (self.guard = null) or (self.guard.name = 'else');
   }
 %]

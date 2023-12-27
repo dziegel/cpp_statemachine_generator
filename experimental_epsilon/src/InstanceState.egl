@@ -1,4 +1,6 @@
 [%
+  import "Operations.egl";
+
   var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");
   var transitionTemplate : Template = TemplateFactory.load("InstanceTransition.egl");
   var handlerTemplate : Template = TemplateFactory.load("InstanceHandler.egl");
@@ -13,7 +15,7 @@
   var initial = "nullptr";
   if (not state.regions.empty) {
     var region = state.regions.first;
-    var initial_state = region.subvertices.select(s|(s.type.name == "Pseudostate") and ((s.kind.name == "initial") or (s.kind.name == "shallowHistory"))).first;
+    var initial_state = region.getInitialState();
     if (initial_state != null) {
 	    initial = "&k" + initial_state.outgoing.first.target.name;
     }
@@ -36,7 +38,7 @@ const [%=sm.name%]::State [%=sm.name%]::k[%=state.name%]("[%=state.name%]",
     [%=initial%], // Initial
     [%=entry%], // Entry
     [%=exit%]); // Exit
-[% for (outgoing_transition in state.outgoing) {
+[% for (outgoing_transition in state.getOutgoingTransitions()) {
   transitionTemplate.populate("start_transition", outgoing_transition);
   transitionTemplate.populate("transition", outgoing_transition);
   transitionTemplate.populate("state", state);

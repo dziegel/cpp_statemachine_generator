@@ -1,7 +1,11 @@
-[% for (state in region.subvertices.select(s|s.type.name == "State")) {
+[%
+  import "Operations.egl";
+   
   var stateTemplate : Template = TemplateFactory.load("InstanceState.egl");
-  stateTemplate.populate("state", state);
-  stateTemplate.populate("sm", sm);
+
+  for (state in region.getStates()) {
+    stateTemplate.populate("state", state);
+    stateTemplate.populate("sm", sm);
 %]
 
 [%=stateTemplate.process()%]
