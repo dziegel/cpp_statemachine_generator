@@ -1,1 +1,31 @@
-!HANDLER! [%=state.name%]
+[%
+  var transitionTemplate : Template = TemplateFactory.load("InstanceHandlerTransition.egl");
+
+  var all_events = new List();
+  for (transition in state.outgoing) {
+  	all_events.add(transition.trigger.first.event.name);
+  }
+%]
+[%=sm.name%]::Transition [%=sm.name%]::[%=state.name%]Handler(ImplPtr impl, Event event)
+{
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
+
+    switch([%=sm.name%]_GET_INSTANCE_EVENT_ID(event))
+    {
+    [% for (an_event in all_events) {%]
+    case [%=sm.name%]_GET_STATIC_EVENT_ID([%=an_event%]):
+    [%
+    var all_transitions = state.outgoing.select(t | t.trigger.first.event.name == an_event).sortBy(t | (t.guard == null) or (t.guard.name == "else"));
+    for (transition in all_transitions) {
+    	transitionTemplate.populate("start_transition", transition);
+  		transitionTemplate.populate("transition", transition);
+  		transitionTemplate.populate("state", state);
+  		transitionTemplate.populate("sm", sm);
+    	%]
+[%=transitionTemplate.process()%]
+    [%}%]
+    [%}%]
+    default:
+        return UnhandledEvent();
+    }
+}
