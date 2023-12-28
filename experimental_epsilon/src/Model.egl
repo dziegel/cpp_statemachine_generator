@@ -19,9 +19,10 @@ operation Region getModel(sm : Tuple) : Tuple {
   result.history = (initial.kind = PseudostateKind#shallowHistory);
 
   result.states = new List();
-  for (state in self.subvertices.select(s | s.isKindOf(State)).sortBy(s | s.name)) {
+  for (state in self.subvertices.select(s | s.isKindOf(State))) {
     result.states.add(state.getModel(sm));
-  }  
+  }
+  result.states.sortBy(s | s.name);
 
   return result;
 }
@@ -51,6 +52,7 @@ operation State getModel(sm : Tuple) : Tuple {
   for (transition in self.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"))) {
     transition.getModel(sm, result, result.transitions);
   }
+  result.transitions.sortBy(t | t.trigger + t.start + t.target);
   
   return result;
 }
