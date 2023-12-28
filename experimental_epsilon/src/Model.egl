@@ -1,28 +1,25 @@
 [%
-// Statemachine: name : String, region : Tuple<Region>
-// Region: states: List<Tuple<State>>, initial: String, initialIsHistory: Boolean
-// State: region: Tuple<Region>, parent?: String, entry?: String, exit?: String, region?: Tuple<Region>, transitions: List<Tuple<Transition>>
+// Statemachine: name: String, region: Region
+// Region: states: List<State>, initial: String, history: Boolean
+// State: region?: Region, parent?: String, entry?: String, exit?: String, transitions: List<Transition>
 // Transition: actions: List<String>, guards: List<String>, start: String, target: String, trigger: String
 
 operation StateMachine getModel() : Tuple {
   var result = new Tuple();
   result.name = self.name;
-
-  result.region = new Tuple();
   result.region = sm.regions.first.getModel(result);
-
   return result;
 }
 
 operation Region getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
 
-  var initial = self.subvertices.select(s | (s.type.name = "Pseudostate") and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
+  var initial = self.subvertices.select(s | s.isKindOf(Pseudostate) and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
   result.initial = initial.outgoing.first.target.name;
-  result.initialIsHistory = (initial.kind = PseudostateKind#shallowHistory);
+  result.history = (initial.kind = PseudostateKind#shallowHistory);
 
   result.states = new List();
-  for (state in self.subvertices.select(s|s.type.name = "State").sortBy(s | s.name)) {
+  for (state in self.subvertices.select(s | s.isKindOf(State)).sortBy(s | s.name)) {
     result.states.add(state.getModel(sm));
   }  
 
@@ -32,6 +29,7 @@ operation Region getModel(sm : Tuple) : Tuple {
 operation State getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
   result.name = self.name;
+  result.variable_name = "k" + result.name;
 
   if (self.container.state != null) {
   	result.parent = self.container.state.name;
@@ -76,12 +74,12 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
   	transition.guards.add(self.guard.name);
   }
 
-  if (self.target.type.name = "State") {
+  if (self.target.isKindOf(State)) {
     transition.target = self.target.name;
-    transition.name = "k" + transition.start + "To" + transition.target + "By"+ transition.trigger;
+    transition.variable_name = "k" + transition.start + "To" + transition.target + "By"+ transition.trigger;
     transitions.add(transition);
   }
-  if ((self.target.type.name = "Pseudostate") and (self.target.kind = PseudostateKind#choice)) {
+  if ((self.target.isKindOf(Pseudostate)) and (self.target.kind = PseudostateKind#choice)) {
     for (choice_transition in self.target.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"))) {
       var t = new Tuple();
       t.start = transition.start;

@@ -17,5 +17,5 @@ public:
   regionTemplate.populate("region", statemachine.region);
   regionTemplate.populate("statemachine", statemachine);
 %]
-[%=regionTemplate.process()%]
+    [%=regionTemplate.process()%]
 };
