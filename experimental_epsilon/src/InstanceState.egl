@@ -27,7 +27,7 @@
 
   var exit = "nullptr";
   if (state.exit != null) {
-  	entry = "&" + sm.name + "::Impl::" + state.exit.name;
+  	exit = "&" + sm.name + "::Impl::" + state.exit.name;
   }
 %]
 // State [%=state.name%]

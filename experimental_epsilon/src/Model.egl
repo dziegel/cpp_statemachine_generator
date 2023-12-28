@@ -1,0 +1,95 @@
+[%
+// Statemachine: name : String, region : Tuple<Region>
+// Region: states: List<Tuple<State>>, initial: String, initialIsHistory: Boolean
+// State: region: Tuple<Region>, parent?: String, entry?: String, exit?: String, region?: Tuple<Region>, transitions: List<Tuple<Transition>>
+// Transition: actions: List<String>, guards: List<String>, start: String, target: String, trigger: String
+
+operation StateMachine getModel() : Tuple {
+  var result = new Tuple();
+  result.name = self.name;
+
+  result.region = new Tuple();
+  result.region = sm.regions.first.getModel(result);
+
+  return result;
+}
+
+operation Region getModel(sm : Tuple) : Tuple {
+  var result = new Tuple();
+
+  var initial = self.subvertices.select(s | (s.type.name = "Pseudostate") and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
+  result.initial = initial.outgoing.first.target.name;
+  result.initialIsHistory = (initial.kind = PseudostateKind#shallowHistory);
+
+  result.states = new List();
+  for (state in self.subvertices.select(s|s.type.name = "State").sortBy(s | s.name)) {
+    result.states.add(state.getModel(sm));
+  }  
+
+  return result;
+}
+
+operation State getModel(sm : Tuple) : Tuple {
+  var result = new Tuple();
+  result.name = self.name;
+
+  if (self.container.state != null) {
+  	result.parent = self.container.state.name;
+  }
+  
+  if (self.entry != null) {
+  	result.entry = self.entry.name;
+  }
+
+  if (self.exit != null) {
+  	result.exit = self.exit.name;
+  }
+  
+  if (not self.regions.isEmpty()) {
+    result.region = self.regions.first.getModel(sm);
+  }
+
+  result.transitions = new List();
+  for (transition in self.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"))) {
+    transition.getModel(sm, result, result.transitions);
+  }
+  
+  return result;
+}
+
+operation Transition getModel(sm : Tuple, state : Tuple, transitions : List) : Tuple {
+  var result = new Tuple();
+  result.start = state.name;
+  result.trigger = self.trigger.first.event.name;
+  result.actions = new List();
+  result.guards = new List();
+
+  self.getTarget(sm, result, transitions);
+  return result;
+}
+
+operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : List) {
+  if (self.effect != null) {
+  	transition.actions.add(self.effect.name);
+  }
+  if ((self.guard != null) and (self.guard != "else")) {
+  	transition.guards.add(self.guard.name);
+  }
+
+  if (self.target.type.name = "State") {
+    transition.target = self.target.name;
+    transition.name = "k" + transition.start + "To" + transition.target + "By"+ transition.trigger;
+    transitions.add(transition);
+  }
+  if ((self.target.type.name = "Pseudostate") and (self.target.kind = PseudostateKind#choice)) {
+    for (choice_transition in self.target.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"))) {
+      var t = new Tuple();
+      t.start = transition.start;
+      t.trigger = transition.trigger;
+      t.actions = transition.actions.clone();
+      t.guards = transition.guards.clone();
+      choice_transition.getTarget(sm, t, transitions);
+    }
+  }
+}
+%]

@@ -1,11 +1,8 @@
 [%
-  import "Operations.egl";
-
   var stateTemplate : Template = TemplateFactory.load("DeclarationState.egl");
-   
-  for (state in region.getStates()) {
+  for (state in region.states) {
     stateTemplate.populate("state", state);
-    stateTemplate.populate("sm", sm);
+    stateTemplate.populate("statemachine", statemachine);
 %]
 
 [%=stateTemplate.process()%]

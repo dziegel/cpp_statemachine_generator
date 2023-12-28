@@ -1,28 +1,18 @@
-[% 
-  import "Operations.egl";
-
-  var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
-  var transitionTemplate : Template = TemplateFactory.load("DeclarationTransition.egl");
-%]
-
 // State [%=state.name%]
 static Transition [%=state.name%]Handler(ImplPtr impl, Event event);
 static const State k[%=state.name%];
 [%
-  for (outgoing_transition in state.getOutgoingTransitions()) {
-    transitionTemplate.populate("start_transition", outgoing_transition);
-    transitionTemplate.populate("transition", outgoing_transition);
-    transitionTemplate.populate("state", state);
-    transitionTemplate.populate("sm", sm);
+  for (transition in state.transitions) {
 %]
-[%=transitionTemplate.process()%]
+// Transition [%=transition.trigger%]: [%=transition.start%] -> [%=transition.target%]
+static const Transition::ActionType [%=transition.name%]Actions[];
+static const Transition [%=transition.name%];
 [%
   }
-%]
-[%
-  for (sub_region in state.regions) {
-    regionTemplate.populate("region", sub_region);
-    regionTemplate.populate("sm", sm);
+  if(state.region.isDefined()) {
+    var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
+    regionTemplate.populate("region", state.region);
+    regionTemplate.populate("statemachine", statemachine);
 %]
 [%=regionTemplate.process()%]
 [%

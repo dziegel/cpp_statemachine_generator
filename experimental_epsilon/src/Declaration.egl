@@ -1,18 +1,21 @@
 [%
+  import "Model.egl";
+  var statemachine = sm.getModel();
+
   var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
 %]
 
-// Statemachine [%=sm.name%] declaration
+// Statemachine [%=statemachine.name%] declaration
 
 #pragma once
 
-class [%=sm.name%] : public [%=sm.name%]Base
+class [%=statemachine.name%] : public [%=statemachine.name%]Base
 {
 public:
     static const StatePtr kInitialState;
 [%
-  regionTemplate.populate("region", sm.regions.first);
-  regionTemplate.populate("sm", sm);
+  regionTemplate.populate("region", statemachine.region);
+  regionTemplate.populate("statemachine", statemachine);
 %]
 [%=regionTemplate.process()%]
 };
