@@ -1,12 +1,12 @@
 // State [%=state.name%]
-static Transition [%=state.name%]Handler(ImplPtr impl, Event event);
-static const State [%=state.variable_name%];
+static [%=statemachine.transition_type%] [%=state.name%]Handler([%=statemachine.impl_ptr_type%] impl, [%=statemachine.event_type%] event);
+static const [%=statemachine.state_type%] [%=state.variable_name%];
 [%
   for (transition in state.transitions) {
 %]
 // Transition [%=transition.trigger%]: [%=transition.start%] -> [%=transition.target%]
-static const Transition::ActionType [%=transition.variable_name%]Actions[];
-static const Transition [%=transition.variable_name%];
+static const [%=statemachine.transition_action_type%] [%=transition.variable_name%]Actions[];
+static const [%=statemachine.transition_type%] [%=transition.variable_name%];
 [%
   }
   if(state.region.isDefined()) {
