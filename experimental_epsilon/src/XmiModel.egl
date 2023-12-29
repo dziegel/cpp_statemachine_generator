@@ -66,7 +66,7 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
   if (self.effect != null) {
   	transition.actions.add(self.effect.name);
   }
-  if ((self.guard != null) and (self.guard != "else")) {
+  if ((self.guard != null) and (self.guard.name != "else")) {
   	transition.guards.add(self.guard.name);
   }
 

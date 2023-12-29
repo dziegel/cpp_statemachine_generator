@@ -25,3 +25,17 @@ rule StatemachineInstance
 	
 	target : "gen/" + sm.name + "Instance.hxx"
 }
+
+rule StatemachineInterface
+	transform sm : UML!StateMachine {
+	
+    pre {
+      var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
+    }
+
+	template : "XmiInterface.egl"
+	
+	formatter : java
+	
+	target : "gen/I" + sm.name + "Impl.hxx"
+}

@@ -1,0 +1,11 @@
+[%
+  import "XmiModel.egl";
+  import "Transformations.egl";
+
+  var statemachine = sm.getModel();
+  statemachine.transformStatemachine();
+
+  var interfaceTemplate : Template = TemplateFactory.load("Interface.egl");
+  interfaceTemplate.populate("statemachine", statemachine);
+%]
+[%=interfaceTemplate.process()%]

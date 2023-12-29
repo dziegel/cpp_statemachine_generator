@@ -7,6 +7,10 @@ operation Tuple transformStatemachine() {
   self.impl_type = "Impl";
   self.impl_ptr_type = "ImplPtr";
   
+  self.all_actions = new List();
+  self.all_guards = new List();
+  self.all_entry_exit = new List();
+  
   self.region.transformRegion(self);
 }
 
@@ -30,22 +34,28 @@ operation Tuple transformState(statemachine : Tuple) {
   self.entry_pointer = "nullptr";
   if (self.entry.isDefined()) {
     self.entry_pointer = "&" + self.entry;
+    if (not statemachine.all_entry_exit.includes(self.entry)) {
+      statemachine.all_entry_exit.add(self.entry);
+    }
   }
 
   self.exit_pointer = "nullptr";
   if (self.exit.isDefined()) {
     self.exit_pointer = "&" + self.exit;
-  }
-
-  self.transitions = self.transitions.sortBy(t | t.trigger + t.start + t.target);
-  for (transition in self.transitions) {
-    transition.transformTransition(statemachine);
+    if (not statemachine.all_entry_exit.includes(self.exit)) {
+      statemachine.all_entry_exit.add(self.exit);
+    }
   }
 
   self.initial_variable_pointer = "nullptr";
   if (self.region.isDefined()) {
     self.region.transformRegion(statemachine);
     self.initial_variable_pointer = "&" + self.region.initial_variable_name;
+  }
+
+  self.transitions = self.transitions.sortBy(t | t.trigger + t.start + t.target);
+  for (transition in self.transitions) {
+    transition.transformTransition(statemachine);
   }
 
   self.all_events = new List();  
@@ -70,7 +80,16 @@ operation Tuple transformTransition(statemachine : Tuple) {
   var actions = new List();
   for (action in self.actions) {
     actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
+    if (not statemachine.all_actions.includes(action)) {
+      statemachine.all_actions.add(action);
+    }
   }
   self.actions_list = actions.concat(", ");
+
+  for (guard in self.guards) {
+    if (not statemachine.all_guards.includes(guard)) {
+      statemachine.all_guards.add(guard);
+    }
+  }
 }
 %]
