@@ -1,0 +1,76 @@
+[%
+operation Tuple transformStatemachine() {
+  self.transition_type = "Transition";
+  self.transition_action_type = "Transition::Action";
+  self.state_type = "State";
+  self.event_type = "Event";
+  self.impl_type = "Impl";
+  self.impl_ptr_type = "ImplPtr";
+  
+  self.region.transformRegion(self);
+}
+
+operation Tuple transformRegion(statemachine : Tuple) {
+  self.initial_variable_name = "k" + self.initial;
+
+  self.states = self.states.sortBy(s | s.name);
+  for (state in self.states) {
+    state.transformState(statemachine);
+  }
+}
+
+operation Tuple transformState(statemachine : Tuple) {
+  self.variable_name = "k" + self.name;
+
+  self.parent_variable_pointer = "nullptr";
+  if (self.parent.isDefined()) {
+    self.parent_variable_pointer = "&k" + self.parent;
+  }
+  
+  self.entry_pointer = "nullptr";
+  if (self.entry.isDefined()) {
+    self.entry_pointer = "&" + self.entry;
+  }
+
+  self.exit_pointer = "nullptr";
+  if (self.exit.isDefined()) {
+    self.exit_pointer = "&" + self.exit;
+  }
+
+  self.transitions = self.transitions.sortBy(t | t.trigger + t.start + t.target);
+  for (transition in self.transitions) {
+    transition.transformTransition(statemachine);
+  }
+
+  self.initial_variable_pointer = "nullptr";
+  if (self.region.isDefined()) {
+    self.region.transformRegion(statemachine);
+    self.initial_variable_pointer = "&" + self.region.initial_variable_name;
+  }
+
+  self.all_events = new List();  
+  for (transition in self.transitions) {
+    if (not self.all_events.includes(transition.trigger)) {
+      self.all_events.add(transition.trigger);
+    }
+  }
+  self.all_events = self.all_events.sortBy(e | e);
+
+  self.all_event_transitions = new Map();
+  for (event in self.all_events) {
+    self.all_event_transitions.put(event, self.transitions.select(t | t.trigger = event));
+  }
+}
+
+operation Tuple transformTransition(statemachine : Tuple) {
+  self.target_variable_name = "k" + self.target;
+  self.variable_name = "k" + self.start + "To" + self.target + "By"+ self.trigger;
+  self.actions_variable_name = self.variable_name + "Actions";
+  
+  var actions = new List();
+  for (action in self.actions) {
+    actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
+  }
+  self.actions_list = actions.concat(", ");
+}
+%]

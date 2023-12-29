@@ -5,7 +5,7 @@ rule StatemachineDeclaration
       var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
     }
     
-	template : "Declaration.egl"
+	template : "XmiDeclaration.egl"
 	
 	formatter : java
 	
@@ -19,7 +19,7 @@ rule StatemachineInstance
       var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
     }
 
-	template : "Instance.egl"
+	template : "XmiInstance.egl"
 	
 	formatter : java
 	

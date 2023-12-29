@@ -1,7 +1,3 @@
-[%
-  import "Model.egl";
-  var statemachine = sm.getModel();  
-%]
 // Statemachine [%=statemachine.name%] instance
 
 // Override the following defines according to your needs if you are not using cpp_event_framework:

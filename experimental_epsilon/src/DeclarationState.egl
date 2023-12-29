@@ -5,7 +5,13 @@ static const [%=statemachine.state_type%] [%=state.variable_name%];
   for (transition in state.transitions) {
 %]
 // Transition [%=transition.trigger%]: [%=transition.start%] -> [%=transition.target%]
+[%
+    if (not transition.actions.isEmpty()) {
+%]
 static const [%=statemachine.transition_action_type%] [%=transition.variable_name%]Actions[];
+[%
+    }
+%]
 static const [%=statemachine.transition_type%] [%=transition.variable_name%];
 [%
   }

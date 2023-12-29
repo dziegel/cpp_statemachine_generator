@@ -1,4 +1,3 @@
-
 // Statemachine IoArHandlerMain declaration
 
 #pragma once
@@ -12,19 +11,14 @@ class IoArHandlerMain : public IoArHandlerMainBase
 	static Transition ClosedHandler(ImplPtr impl, Event event);
 	static const State kClosed;
 	// Transition S_PNS_ArOpend_ind: Closed -> Open
-	static const Transition::Action kClosedToOpenByS_PNS_ArOpend_indActions[];
 	static const Transition kClosedToOpenByS_PNS_ArOpend_ind;
 	// Transition S_PNS_ReadReq: Closed -> Closed
-	static const Transition::Action kClosedToClosedByS_PNS_ReadReqActions[];
 	static const Transition kClosedToClosedByS_PNS_ReadReq;
 	// Transition S_PNS_SwitchoverRequestBackup: Closed -> Closed
-	static const Transition::Action kClosedToClosedByS_PNS_SwitchoverRequestBackupActions[];
 	static const Transition kClosedToClosedByS_PNS_SwitchoverRequestBackup;
 	// Transition S_PNS_SwitchoverRequestPrimary: Closed -> Closed
-	static const Transition::Action kClosedToClosedByS_PNS_SwitchoverRequestPrimaryActions[];
 	static const Transition kClosedToClosedByS_PNS_SwitchoverRequestPrimary;
 	// Transition S_PNS_WriteReq: Closed -> Closed
-	static const Transition::Action kClosedToClosedByS_PNS_WriteReqActions[];
 	static const Transition kClosedToClosedByS_PNS_WriteReq;
 	
 	// State Open
@@ -78,17 +72,14 @@ class IoArHandlerMain : public IoArHandlerMainBase
 	static Transition DrWaitApplicationReadyPlugSubmoduleHandler(ImplPtr impl, Event event);
 	static const State kDrWaitApplicationReadyPlugSubmodule;
 	// Transition SPnpbAppTimeout: DrWaitApplicationReadyPlugSubmodule -> DrWaitApplicationReadyCnfPlugSubmodule
-	static const Transition::Action kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeoutActions[];
 	static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyCnfPlugSubmoduleBySPnpbAppTimeout;
 	// Transition SPnpbAppTimeout: DrWaitApplicationReadyPlugSubmodule -> DrWaitApplicationReadyPlugSubmodule
-	static const Transition::Action kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeoutActions[];
 	static const Transition kDrWaitApplicationReadyPlugSubmoduleToDrWaitApplicationReadyPlugSubmoduleBySPnpbAppTimeout;
 	
 	// State DrWaitPlugCnf
 	static Transition DrWaitPlugCnfHandler(ImplPtr impl, Event event);
 	static const State kDrWaitPlugCnf;
 	// Transition S_PNS_PlugSubmodule_cnf: DrWaitPlugCnf -> DrPlugPrmSequence
-	static const Transition::Action kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnfActions[];
 	static const Transition kDrWaitPlugCnfToDrPlugPrmSequenceByS_PNS_PlugSubmodule_cnf;
 	
 	// State DrWaitPullCnf
@@ -115,24 +106,20 @@ class IoArHandlerMain : public IoArHandlerMainBase
 	static const Transition::Action kParameterizingToWaitApplicationReadyByS_PNS_ParamEndIndActions[];
 	static const Transition kParameterizingToWaitApplicationReadyByS_PNS_ParamEndInd;
 	// Transition S_PNS_ParamEndInd: Parameterizing -> WaitApplicationReadyCnf
-	static const Transition::Action kParameterizingToWaitApplicationReadyCnfByS_PNS_ParamEndIndActions[];
 	static const Transition kParameterizingToWaitApplicationReadyCnfByS_PNS_ParamEndInd;
 	
 	// State WaitApplicationReady
 	static Transition WaitApplicationReadyHandler(ImplPtr impl, Event event);
 	static const State kWaitApplicationReady;
 	// Transition SPnpbAppTimeout: WaitApplicationReady -> WaitApplicationReady
-	static const Transition::Action kWaitApplicationReadyToWaitApplicationReadyBySPnpbAppTimeoutActions[];
 	static const Transition kWaitApplicationReadyToWaitApplicationReadyBySPnpbAppTimeout;
 	// Transition SPnpbAppTimeout: WaitApplicationReady -> WaitApplicationReadyCnf
-	static const Transition::Action kWaitApplicationReadyToWaitApplicationReadyCnfBySPnpbAppTimeoutActions[];
 	static const Transition kWaitApplicationReadyToWaitApplicationReadyCnfBySPnpbAppTimeout;
 	
 	// State WaitApplicationReadyCnf
 	static Transition WaitApplicationReadyCnfHandler(ImplPtr impl, Event event);
 	static const State kWaitApplicationReadyCnf;
 	// Transition S_PNS_ApplicationReady_cnf: WaitApplicationReadyCnf -> ApplicationReady
-	static const Transition::Action kWaitApplicationReadyCnfToApplicationReadyByS_PNS_ApplicationReady_cnfActions[];
 	static const Transition kWaitApplicationReadyCnfToApplicationReadyByS_PNS_ApplicationReady_cnf;
 	// Transition S_PNS_ApplicationReady_cnf: WaitApplicationReadyCnf -> WaitApplicationReadyCnf
 	static const Transition::Action kWaitApplicationReadyCnfToWaitApplicationReadyCnfByS_PNS_ApplicationReady_cnfActions[];
