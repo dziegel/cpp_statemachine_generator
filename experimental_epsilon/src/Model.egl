@@ -4,16 +4,14 @@
 // State: region?: Region, parent?: String, entry?: String, exit?: String, transitions: List<Transition>
 // Transition: actions: List<String>, guards: List<String>, start: String, target: String, trigger: String
 
+// Parse model and transform it to model-independent Tuples (TODO: Use Emfatic)
+
 operation StateMachine getModel() : Tuple {
   var result = new Tuple();
   result.name = self.name;
   result.region = sm.regions.first.getModel(result);
-  result.transition_type = "Transition";
-  result.transition_action_type = "Transition::Action";
-  result.state_type = "State";
-  result.event_type = "Event";
-  result.impl_type = "Impl";
-  result.impl_ptr_type = "ImplPtr";
+
+  result.transformStatemachine();
   return result;
 }
 
@@ -28,7 +26,6 @@ operation Region getModel(sm : Tuple) : Tuple {
   for (state in self.subvertices.select(s | s.isKindOf(State))) {
     result.states.add(state.getModel(sm));
   }
-  result.states = result.states.sortBy(s | s.name);
 
   return result;
 }
@@ -36,7 +33,6 @@ operation Region getModel(sm : Tuple) : Tuple {
 operation State getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
   result.name = self.name;
-  result.variable_name = "k" + result.name;
 
   if (self.container.state != null) {
   	result.parent = self.container.state.name;
@@ -58,7 +54,6 @@ operation State getModel(sm : Tuple) : Tuple {
   for (transition in self.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"))) {
     transition.getModel(sm, result, result.transitions);
   }
-  result.transitions = result.transitions.sortBy(t | t.trigger + t.start + t.target);
   
   return result;
 }
@@ -84,7 +79,6 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
 
   if (self.target.isKindOf(State)) {
     transition.target = self.target.name;
-    transition.variable_name = "k" + transition.start + "To" + transition.target + "By"+ transition.trigger;
     transitions.add(transition);
   }
   if ((self.target.isKindOf(Pseudostate)) and (self.target.kind = PseudostateKind#choice)) {
@@ -97,5 +91,69 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
       choice_transition.getTarget(sm, t, transitions);
     }
   }
+}
+
+// Transformations
+
+operation Tuple transformStatemachine() {
+  self.transition_type = "Transition";
+  self.transition_action_type = "Transition::Action";
+  self.state_type = "State";
+  self.event_type = "Event";
+  self.impl_type = "Impl";
+  self.impl_ptr_type = "ImplPtr";
+  
+  self.region.transformRegion(self);
+}
+
+operation Tuple transformRegion(statemachine : Tuple) {
+  self.initial_variable_name = "k" + self.initial;
+
+  self.states = self.states.sortBy(s | s.name);
+  for (state in self.states) {
+    state.transformState(statemachine);
+  }
+}
+
+operation Tuple transformState(statemachine : Tuple) {
+  self.variable_name = "k" + self.name;
+
+  self.parent_variable_pointer = "nullptr";
+  if (self.parent.isDefined()) {
+    self.parent_variable_pointer = "&k" + self.parent;
+  }
+  
+  self.entry_pointer = "nullptr";
+  if (self.entry.isDefined()) {
+    self.entry_pointer = "&" + self.entry;
+  }
+
+  self.exit_pointer = "nullptr";
+  if (self.exit.isDefined()) {
+    self.exit_pointer = "&" + self.exit;
+  }
+
+  self.transitions = self.transitions.sortBy(t | t.trigger + t.start + t.target);
+  for (transition in self.transitions) {
+    transition.transformTransition(statemachine);
+  }
+
+  self.initial_variable_pointer = "nullptr";
+  if (self.region.isDefined()) {
+    self.region.transformRegion(statemachine);
+    self.initial_variable_pointer = "&" + self.region.initial_variable_name;
+  }
+}
+
+operation Tuple transformTransition(statemachine : Tuple) {
+  self.target_variable_name = "k" + self.target;
+  self.variable_name = "k" + self.start + "To" + self.target + "By"+ self.trigger;
+  self.actions_variable_name = self.variable_name + "Actions";
+  
+  var actions = new List();
+  for (action in self.actions) {
+    actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
+  }
+  self.actions_list = actions.concat(", ");
 }
 %]

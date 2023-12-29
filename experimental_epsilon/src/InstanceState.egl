@@ -1,61 +1,38 @@
 [%
-  import "Operations.egl";
-
-  var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");
-  var transitionVariableTemplate : Template = TemplateFactory.load("InstanceTransitionVariable.egl");
   var handlerTemplate : Template = TemplateFactory.load("InstanceHandler.egl");
   handlerTemplate.populate("state", state);
-  handlerTemplate.populate("sm", sm);
-
-  var parent = "nullptr";
-  if (state.container.state != null) {
-  	parent = "&k" + state.container.state.name;
-  }
-  
-  var initial = "nullptr";
-  if (not state.regions.empty) {
-    var initial_state = state.regions.first.getInitialState();
-    if (initial_state != null) {
-	  initial = "&k" + initial_state.outgoing.first.target.name;
-    }
-  }
-
-  var entry = "nullptr";
-  if (state.entry != null) {
-  	entry = "&" + sm.name + "::Impl::" + state.entry.name;
-  }
-
-  var exit = "nullptr";
-  if (state.exit != null) {
-  	exit = "&" + sm.name + "::Impl::" + state.exit.name;
-  }
+  handlerTemplate.populate("statemachine", statemachine);
 %]
 // State [%=state.name%]
-const [%=state.getStateType(sm)%] [%=sm.name%]::k[%=state.name%]("[%=state.name%]",
+const [%=statemachine.name%]::[%=statemachine.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.name%]",
     &[%=state.name%]Handler, // Handler
-    [%=parent%], // Parent
-    [%=initial%], // Initial
-    [%=entry%], // Entry
-    [%=exit%]); // Exit
+    [%=state.parent_variable_pointer%], // Parent
+    [%=state.initial_variable_pointer%], // Initial
+    [%=state.entry_pointer%], // Entry
+    [%=state.exit_pointer%]); // Exit
 
 [%
-  for (outgoing_transition in state.getOutgoingTransitions()) {
-    transitionVariableTemplate.populate("actions", new List());
-    transitionVariableTemplate.populate("start_transition", outgoing_transition);
-    transitionVariableTemplate.populate("transition", outgoing_transition);
-    transitionVariableTemplate.populate("state", state);
-    transitionVariableTemplate.populate("sm", sm);
+  for (transition in state.transitions) {
+    if (transition.actions.isEmpty()) {
 %]
-[%=transitionVariableTemplate.process()%]
+const [%=statemachine.name%]::[%=statemachine.transition_type%] [%=statemachine.name%]::[%=transition.variable_name%]([%=transition.target_variable_name%]);
 [%
+    } else {
+%]
+const [%=statemachine.name%]::[%=statemachine.transition_action_type%] [%=statemachine.name%]::[%=transition.actions_variable_name%][] = {[%=transition.actions_list%]};
+const [%=statemachine.name%]::[%=statemachine.transition_type%] [%=statemachine.name%]::[%=transition.variable_name%]([%=transition.target_variable_name%], [%=transition.actions_variable_name%]);
+[%
+    }
   }
 %]
 
-[%=handlerTemplate.process()%]
+// HANDLER
+[%/*=handlerTemplate.process()*/%]
 [%
-  for (sub_region in state.regions) {
-    regionTemplate.populate("region", sub_region);
-    regionTemplate.populate("sm", sm);
+  if (state.region.isDefined()) {
+    var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");
+    regionTemplate.populate("region", state.region);
+    regionTemplate.populate("statemachine", statemachine);
 %]
 [%=regionTemplate.process()%]
 [%

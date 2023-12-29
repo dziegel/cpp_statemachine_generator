@@ -1,5 +1,8 @@
-[%  import "Operations.egl"; %]
-// Statemachine [%=sm.name%] instance
+[%
+  import "Model.egl";
+  var statemachine = sm.getModel();  
+%]
+// Statemachine [%=statemachine.name%] instance
 
 // Override the following defines according to your needs if you are not using cpp_event_framework:
 
@@ -12,13 +15,10 @@
 #endif
 
 [%
-  var region = sm.regions.first;
-  var intital_state = region.getInitialState();
-
   var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");
-  regionTemplate.populate("region", region);
-  regionTemplate.populate("sm", sm);
+  regionTemplate.populate("region", statemachine.region);
+  regionTemplate.populate("statemachine", statemachine);
 %]
 // Initial state
-const [%=sm.name%]::StatePtr [%=sm.name%]::kInitialState = &[%=sm.name%]::k[%=intital_state.outgoing.first.target.name%];
+const [%=statemachine.name%]::StatePtr [%=statemachine.name%]::kInitialState = &[%=statemachine.name%]::[%=statemachine.region.initial_variable_name%];
 [%=regionTemplate.process()%]
