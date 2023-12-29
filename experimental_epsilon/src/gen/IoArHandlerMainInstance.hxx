@@ -197,7 +197,6 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyPlugSubmodule
 		{
 			return TransitionTo(kDrWaitApplicationReadyCnfPlugSubmodule);
 		}
-		return UnhandledEvent();
 		if (true)
 		{
 			return TransitionTo(kDrWaitApplicationReadyPlugSubmodule);
@@ -288,7 +287,6 @@ IoArHandlerMain::Transition IoArHandlerMain::ParameterizingHandler(ImplPtr impl,
 			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::ApplyConfiguration};
 			return TransitionTo(kWaitApplicationReady, kActions);
 		}
-		return UnhandledEvent();
 		if (true)
 		{
 			return TransitionTo(kWaitApplicationReadyCnf);
@@ -312,7 +310,6 @@ IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyHandler(ImplPtr
 		{
 			return TransitionTo(kWaitApplicationReadyCnf);
 		}
-		return UnhandledEvent();
 		if (true)
 		{
 			return TransitionTo(kWaitApplicationReady);
@@ -336,7 +333,6 @@ IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyCnfHandler(Impl
 		{
 			return TransitionTo(kApplicationReady);
 		}
-		return UnhandledEvent();
 		if (true)
 		{
 			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::AbortAr};

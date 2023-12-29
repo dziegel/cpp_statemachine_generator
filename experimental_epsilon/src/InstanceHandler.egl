@@ -27,9 +27,11 @@
           }
 %]
       }
-      return UnhandledEvent();
 [%
       }
+%]
+      return UnhandledEvent();
+[%
     }
 %]
     default:
