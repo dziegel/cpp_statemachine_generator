@@ -4,28 +4,7 @@
   handlerTemplate.populate("statemachine", statemachine);
 %]
 // State [%=state.name%]
-const [%=statemachine.name%]::[%=statemachine.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.name%]",
-    &[%=state.name%]Handler, // Handler
-    [%=state.parent_variable_pointer%], // Parent
-    [%=state.initial_variable_pointer%], // Initial
-    [%=state.entry_pointer%], // Entry
-    [%=state.exit_pointer%]); // Exit
-
-[%
-  for (transition in state.transitions) {
-    if (transition.actions.isEmpty()) {
-%]
-const [%=statemachine.name%]::[%=statemachine.transition_type%] [%=statemachine.name%]::[%=transition.variable_name%]([%=transition.target_variable_name%]);
-[%
-    } else {
-%]
-const [%=statemachine.name%]::[%=statemachine.transition_action_type%] [%=statemachine.name%]::[%=transition.actions_variable_name%][] = {[%=transition.actions_list%]};
-const [%=statemachine.name%]::[%=statemachine.transition_type%] [%=statemachine.name%]::[%=transition.variable_name%]([%=transition.target_variable_name%], [%=transition.actions_variable_name%]);
-[%
-    }
-  }
-%]
-
+const [%=statemachine.name%]::[%=statemachine.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.name%]", &[%=state.name%]Handler, [%=state.parent_variable_pointer%], [%=state.initial_variable_pointer%], [%=state.entry_pointer%], [%=state.exit_pointer%]);
 [%=handlerTemplate.process()%]
 [%
   if (state.region.isDefined()) {

@@ -9,9 +9,29 @@
 %]
     case [%=statemachine.name%]_GET_STATIC_EVENT_ID([%=an_event%]):
 [%
-      for (transition in state.all_event_transitions.get(an_event)) {
+      var transitions_for_event = state.all_event_transitions.get(an_event);
+      for (transition in transitions_for_event) {
 %]
-[%=transition.start%] -> [%=transition.target%]
+        if ([%=transition.guards_list%])
+        {
+[%
+          if (transition.actions_list.length() = 0) {
+%]
+  return TransitionTo([%=transition.target_variable_name%]);
+[%
+          } else {
+%]
+  static const [%=statemachine.transition_action_type%] kActions[] = {[%=transition.actions_list%]};
+  return TransitionTo([%=transition.target_variable_name%], kActions);
+[%
+          }
+%]
+        }
+[%
+      }
+      if(transitions_for_event.last().has_guard) {
+%]
+  return UnhandledEvent();
 [%
       }
     }

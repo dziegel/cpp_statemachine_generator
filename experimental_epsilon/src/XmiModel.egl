@@ -47,13 +47,14 @@ operation State getModel(sm : Tuple) : Tuple {
   for (transition in self.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"))) {
     transition.getModel(sm, result, result.transitions);
   }
-  
+    
   return result;
 }
 
 operation Transition getModel(sm : Tuple, state : Tuple, transitions : List) : Tuple {
   var result = new Tuple();
   result.start = state.name;
+  result.internal = (self.kind = TransitionKind#internal);
   result.trigger = self.trigger.first.event.name;
   result.actions = new List();
   result.guards = new List();
@@ -74,11 +75,13 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
     transition.target = self.target.name;
     transitions.add(transition);
   }
+
   if ((self.target.isKindOf(Pseudostate)) and (self.target.kind = PseudostateKind#choice)) {
-    for (choice_transition in self.target.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"))) {
+    for (choice_transition in self.target.outgoing.sortBy(t | (t.guard = null) or (t.guard.name = "else"))) {      
       var t = new Tuple();
       t.start = transition.start;
       t.trigger = transition.trigger;
+      t.internal = transition.internal;
       t.actions = transition.actions.clone();
       t.guards = transition.guards.clone();
       choice_transition.getTarget(sm, t, transitions);

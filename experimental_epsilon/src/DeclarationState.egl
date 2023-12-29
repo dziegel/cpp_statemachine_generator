@@ -2,19 +2,6 @@
 static [%=statemachine.transition_type%] [%=state.name%]Handler([%=statemachine.impl_ptr_type%] impl, [%=statemachine.event_type%] event);
 static const [%=statemachine.state_type%] [%=state.variable_name%];
 [%
-  for (transition in state.transitions) {
-%]
-// Transition [%=transition.trigger%]: [%=transition.start%] -> [%=transition.target%]
-[%
-    if (not transition.actions.isEmpty()) {
-%]
-static const [%=statemachine.transition_action_type%] [%=transition.variable_name%]Actions[];
-[%
-    }
-%]
-static const [%=statemachine.transition_type%] [%=transition.variable_name%];
-[%
-  }
   if(state.region.isDefined()) {
     var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
     regionTemplate.populate("region", state.region);
