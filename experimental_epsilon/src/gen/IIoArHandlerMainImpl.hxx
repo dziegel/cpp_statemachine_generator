@@ -16,9 +16,9 @@ class IIoArHandlerMainImpl
 	virtual void Write(IoArHandlerMainBase::Event event) = 0;
 	
 	// Guards
-	virtual bool CheckApplicationReady(IoArHandlerMainBase::Event event) = 0;
-	virtual bool FirstInArSetOrPrimary(IoArHandlerMainBase::Event event) = 0;
-	virtual bool success(IoArHandlerMainBase::Event event) = 0;
+	virtual bool CheckApplicationReady(IoArHandlerMainBase::Event event) const = 0;
+	virtual bool FirstInArSetOrPrimary(IoArHandlerMainBase::Event event) const = 0;
+	virtual bool success(IoArHandlerMainBase::Event event) const = 0;
 	
 	// Entry/Exit
 	virtual void SendApplicationReady() = 0;

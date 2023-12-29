@@ -14,7 +14,7 @@ public:
 [%
   for (guard in statemachine.all_guards) {
 %]
-  virtual bool [%=guard%]([%=statemachine.name%]Base::Event event) = 0;
+  virtual bool [%=guard%]([%=statemachine.name%]Base::Event event) const = 0;
 [%
   }
 %]
