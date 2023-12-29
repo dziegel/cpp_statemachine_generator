@@ -1,9 +1,4 @@
 [%
-// Statemachine: name: String, region: Region
-// Region: states: List<State>, initial: String, history: Boolean
-// State: region?: Region, parent?: String, entry?: String, exit?: String, transitions: List<Transition>
-// Transition: actions: List<String>, guards: List<String>, start: String, target: String, trigger: String
-
 // Parse model and transform it to model-independent Tuples (TODO: Use Emfatic)
 
 operation StateMachine getModel() : Tuple {
@@ -142,6 +137,19 @@ operation Tuple transformState(statemachine : Tuple) {
   if (self.region.isDefined()) {
     self.region.transformRegion(statemachine);
     self.initial_variable_pointer = "&" + self.region.initial_variable_name;
+  }
+
+  self.all_events = new List();  
+  for (transition in self.transitions) {
+    if (not self.all_events.includes(transition.trigger)) {
+      self.all_events.add(transition.trigger);
+    }
+  }
+  self.all_events = self.all_events.sortBy(e | e);
+
+  self.all_event_transitions = new Map();
+  for (event in self.all_events) {
+    self.all_event_transitions.put(event, self.transitions.select(t | t.trigger = event));
   }
 }
 

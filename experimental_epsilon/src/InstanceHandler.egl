@@ -1,35 +1,19 @@
-[%
-  import "Operations.egl";
-
-  var transitionTemplate : Template = TemplateFactory.load("InstanceHandlerTransition.egl");
-
-  var all_events = new List();
-  for (transition in state.outgoing) {
-  	all_events.add(transition.trigger.first.event.name);
-  }
-  all_events = all_events.sortBy(e | e); // sort by event name
-%]
-[%=sm.name%]::Transition [%=sm.name%]::[%=state.name%]Handler(ImplPtr impl, Event event)
+[%=statemachine.name%]::[%=statemachine.transition_type%] [%=statemachine.name%]::[%=state.name%]Handler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
 
-    switch([%=sm.name%]_GET_INSTANCE_EVENT_ID(event))
+    switch([%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event))
     {
 [%
-    for (an_event in all_events) {
+    for (an_event in state.all_events) {
 %]
-    case [%=sm.name%]_GET_STATIC_EVENT_ID([%=an_event%]):
+    case [%=statemachine.name%]_GET_STATIC_EVENT_ID([%=an_event%]):
 [%
-        var all_transitions = state.getOutgoingTransitions().select(t | t.trigger.first.event.name == an_event);
-        for (transition in all_transitions) {
-            transitionTemplate.populate("start_transition", transition);
-            transitionTemplate.populate("transition", transition);
-            transitionTemplate.populate("state", state);
-            transitionTemplate.populate("sm", sm);
+      for (transition in state.all_event_transitions.get(an_event)) {
 %]
-[%=transitionTemplate.process()%]
+[%=transition.start%] -> [%=transition.target%]
 [%
-        }
+      }
     }
 %]
     default:
