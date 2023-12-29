@@ -12,26 +12,22 @@
       var transitions_for_event = state.all_event_transitions.get(an_event);
       for (transition in transitions_for_event) {
 %]
-        if ([%=transition.guards_list%])
-        {
+      if ([%=transition.guards_list%])
+      {
 [%
           if (transition.actions_list.length() = 0) {
 %]
-  return TransitionTo([%=transition.target_variable_name%]);
+        return TransitionTo([%=transition.target_variable_name%]);
 [%
           } else {
 %]
-  static const [%=statemachine.transition_action_type%] kActions[] = {[%=transition.actions_list%]};
-  return TransitionTo([%=transition.target_variable_name%], kActions);
+        static const [%=statemachine.transition_action_type%]<[%=transition.actions.size()%]> kActions = {[%=transition.actions_list%]};
+        return TransitionTo([%=transition.target_variable_name%], kActions);
 [%
           }
 %]
-        }
-[%
       }
-      if(transitions_for_event.last().has_guard) {
-%]
-  return UnhandledEvent();
+      return UnhandledEvent();
 [%
       }
     }
