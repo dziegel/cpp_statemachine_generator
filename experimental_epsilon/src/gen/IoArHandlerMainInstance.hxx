@@ -67,42 +67,42 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArClosed_ind):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::ArClosed};
+			static const Transition::ActionContainer<1> kActions = {&Impl::ArClosed};
 			return TransitionTo(kClosed, kActions);
 		}
 		return UnhandledEvent();
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::CheckModuleDiff};
+			static const Transition::ActionContainer<1> kActions = {&Impl::CheckModuleDiff};
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::Read};
+			static const Transition::ActionContainer<1> kActions = {&Impl::Read};
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::BackupSwitchover};
+			static const Transition::ActionContainer<1> kActions = {&Impl::BackupSwitchover};
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::PrimarySwitchover};
+			static const Transition::ActionContainer<1> kActions = {&Impl::PrimarySwitchover};
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::Write};
+			static const Transition::ActionContainer<1> kActions = {&Impl::Write};
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
@@ -135,7 +135,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DynamicReconfigurationRunningHandle
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnioAppTimeoutDynReconf):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::DynReconfTimeoutAbortArSet};
+			static const Transition::ActionContainer<1> kActions = {&Impl::DynReconfTimeoutAbortArSet};
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
@@ -155,7 +155,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrPlugPrmSequenceHandler(ImplPtr im
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugParamEndInd):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::ApplyConfiguration};
+			static const Transition::ActionContainer<1> kActions = {&Impl::ApplyConfiguration};
 			return TransitionTo(kDrWaitApplicationReadyPlugSubmodule, kActions);
 		}
 		return UnhandledEvent();
@@ -175,7 +175,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyCnfPlugSubmod
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugApplicationReady_cnf):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::DrPullDone};
+			static const Transition::ActionContainer<1> kActions = {&Impl::DrPullDone};
 			return TransitionTo(kReady, kActions);
 		}
 		return UnhandledEvent();
@@ -237,7 +237,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitPullCnfHandler(ImplPtr impl, 
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PullSubmodule_cnf):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::DrPullDone};
+			static const Transition::ActionContainer<1> kActions = {&Impl::DrPullDone};
 			return TransitionTo(kReady, kActions);
 		}
 		return UnhandledEvent();
@@ -257,14 +257,14 @@ IoArHandlerMain::Transition IoArHandlerMain::ReadyHandler(ImplPtr impl, Event ev
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPlug):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::DrPlug};
+			static const Transition::ActionContainer<1> kActions = {&Impl::DrPlug};
 			return TransitionTo(kDrWaitPlugCnf, kActions);
 		}
 		return UnhandledEvent();
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPull):
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::DrPull};
+			static const Transition::ActionContainer<1> kActions = {&Impl::DrPull};
 			return TransitionTo(kDrWaitPullCnf, kActions);
 		}
 		return UnhandledEvent();
@@ -284,7 +284,7 @@ IoArHandlerMain::Transition IoArHandlerMain::ParameterizingHandler(ImplPtr impl,
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ParamEndInd):
 		if (impl->FirstInArSetOrPrimary(event))
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::ApplyConfiguration};
+			static const Transition::ActionContainer<1> kActions = {&Impl::ApplyConfiguration};
 			return TransitionTo(kWaitApplicationReady, kActions);
 		}
 		if (true)
@@ -335,7 +335,7 @@ IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyCnfHandler(Impl
 		}
 		if (true)
 		{
-			static const Transition::ActionContainer<1> kActions = {&IoArHandlerMain::Impl::AbortAr};
+			static const Transition::ActionContainer<1> kActions = {&Impl::AbortAr};
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();

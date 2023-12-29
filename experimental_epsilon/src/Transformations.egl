@@ -85,7 +85,7 @@ operation Tuple transformTransition(statemachine : Tuple) {
   
   var actions = new List();
   for (action in self.actions) {
-    actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
+    actions.add("&" + statemachine.impl_type + "::" + action);
     if (not statemachine.all_actions.includes(action)) {
       statemachine.all_actions.add(action);
     }
