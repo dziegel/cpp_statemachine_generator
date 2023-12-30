@@ -27,30 +27,35 @@ IoArHandlerMain::Transition IoArHandlerMain::ClosedHandler(ImplPtr impl, Event e
 			return TransitionTo(kOpen);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
 		if (true)
 		{
 			return TransitionTo(kNone);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
 		if (true)
 		{
 			return TransitionTo(kNone);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
 		if (true)
 		{
 			return TransitionTo(kNone);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
 		if (true)
 		{
 			return TransitionTo(kNone);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -71,6 +76,7 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 			return TransitionTo(kClosed, kActions);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
 		if (true)
 		{
@@ -78,6 +84,7 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
 		if (true)
 		{
@@ -85,6 +92,7 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
 		if (true)
 		{
@@ -92,6 +100,7 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
 		if (true)
 		{
@@ -99,6 +108,7 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
 		if (true)
 		{
@@ -106,6 +116,7 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -139,6 +150,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DynamicReconfigurationRunningHandle
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -159,6 +171,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrPlugPrmSequenceHandler(ImplPtr im
 			return TransitionTo(kDrWaitApplicationReadyPlugSubmodule, kActions);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -179,6 +192,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyCnfPlugSubmod
 			return TransitionTo(kReady, kActions);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -202,6 +216,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyPlugSubmodule
 			return TransitionTo(kDrWaitApplicationReadyPlugSubmodule);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -221,6 +236,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitPlugCnfHandler(ImplPtr impl, 
 			return TransitionTo(kDrPlugPrmSequence);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -241,6 +257,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitPullCnfHandler(ImplPtr impl, 
 			return TransitionTo(kReady, kActions);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -261,6 +278,7 @@ IoArHandlerMain::Transition IoArHandlerMain::ReadyHandler(ImplPtr impl, Event ev
 			return TransitionTo(kDrWaitPlugCnf, kActions);
 		}
 		return UnhandledEvent();
+		
 		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPull):
 		if (true)
 		{
@@ -268,6 +286,7 @@ IoArHandlerMain::Transition IoArHandlerMain::ReadyHandler(ImplPtr impl, Event ev
 			return TransitionTo(kDrWaitPullCnf, kActions);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -292,6 +311,7 @@ IoArHandlerMain::Transition IoArHandlerMain::ParameterizingHandler(ImplPtr impl,
 			return TransitionTo(kWaitApplicationReadyCnf);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -315,6 +335,7 @@ IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyHandler(ImplPtr
 			return TransitionTo(kWaitApplicationReady);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}
@@ -339,6 +360,7 @@ IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyCnfHandler(Impl
 			return TransitionTo(kNone, kActions);
 		}
 		return UnhandledEvent();
+		
 		default:
 		return UnhandledEvent();
 	}

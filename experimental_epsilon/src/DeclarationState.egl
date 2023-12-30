@@ -1,6 +1,6 @@
 // State [%=state.name%]
 static [%=statemachine.transition_type%] [%=state.name%]Handler([%=statemachine.impl_ptr_type%] impl, [%=statemachine.event_type%] event);
-static const [%=statemachine.state_type%] [%=state.variable_name%];
+static const [%=state.state_type%] [%=state.variable_name%];
 [%
   if(state.region.isDefined()) {
     var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");

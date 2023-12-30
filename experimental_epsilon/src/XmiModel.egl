@@ -13,7 +13,7 @@ operation Region getModel(sm : Tuple) : Tuple {
 
   var initial = self.subvertices.select(s | s.isKindOf(Pseudostate) and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
   result.initial = initial.outgoing.first.target.name;
-  result.history = (initial.kind = PseudostateKind#shallowHistory);
+  result.initial_history = (initial.kind = PseudostateKind#shallowHistory);
 
   result.states = new List();
   for (state in self.subvertices.select(s | s.isKindOf(State))) {

@@ -3,6 +3,7 @@ operation Tuple transformStatemachine() {
   self.transition_type = "Transition";
   self.transition_action_type = "Transition::ActionContainer";
   self.state_type = "State";
+  self.history_state_type = "HistoryState";
   self.event_type = "Event";
   self.impl_type = "Impl";
   self.impl_ptr_type = "ImplPtr";
@@ -23,12 +24,16 @@ operation Tuple transformRegion(statemachine : Tuple) {
 
   self.states = self.states.sortBy(s | s.name);
   for (state in self.states) {
-    state.transformState(statemachine);
+    state.transformState(statemachine, self);
   }
 }
 
-operation Tuple transformState(statemachine : Tuple) {
+operation Tuple transformState(statemachine : Tuple, region : Tuple) {
   self.variable_name = "k" + self.name;
+  self.state_type = statemachine.state_type;
+  if(region.initial_history) {
+    self.state_type = statemachine.history_state_type;
+  }
 
   self.parent_variable_pointer = "nullptr";
   if (self.parent.isDefined()) {
