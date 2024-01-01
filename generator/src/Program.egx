@@ -1,13 +1,7 @@
 rule StatemachineDeclaration
 	transform sm : UML!StateMachine {
 
-    pre {
-      var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
-    }
-    
 	template : "XmiDeclaration.egl"
-	
-	formatter : java
 	
 	target : "gen/" + sm.name + "Declaration.hxx"
 }
@@ -15,13 +9,7 @@ rule StatemachineDeclaration
 rule StatemachineInstance
 	transform sm : UML!StateMachine {
 	
-    pre {
-      var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
-    }
-
 	template : "XmiInstance.egl"
-	
-	formatter : java
 	
 	target : "gen/" + sm.name + "Instance.hxx"
 }
@@ -29,13 +17,7 @@ rule StatemachineInstance
 rule StatemachineInterface
 	transform sm : UML!StateMachine {
 	
-    pre {
-      var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
-    }
-
 	template : "XmiInterface.egl"
-	
-	formatter : java
 	
 	target : "gen/I" + sm.name + "Impl.hxx"
 }
