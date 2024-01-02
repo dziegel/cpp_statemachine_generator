@@ -21,10 +21,10 @@ public class Generator {
 		
 		var loader = ClassLoader.getSystemClassLoader();
     	var factory = new EglFileGeneratingTemplateFactory();
-		factory.setTemplateRoot(loader.getResource("src/generator/").toString());
+		factory.setTemplateRoot(loader.getResource("generator/").toString());
 		factory.setOutputRoot(out_path);
 		var module = new EgxModule(factory);
-		module.parse(loader.getResource("src/generator/Program.egx"));
+		module.parse(loader.getResource("generator/Program.egx"));
 
 		if (!module.getParseProblems().isEmpty()) {
 			System.err.println("Syntax errors found. Exiting.");
@@ -35,7 +35,6 @@ public class Generator {
 		}
 
 		IModel model = null;
-
 		if (filename.endsWith(".uml") || filename.endsWith(".xmi")) {
 			// Load the XML document
 			var uml = new UmlModel();
