@@ -3,7 +3,7 @@ rule StatemachineDeclaration
 
 	template : "XmiDeclaration.egl"
 	
-	target : "gen/" + sm.name + "Declaration.hxx"
+	target : sm.name + "Declaration.hxx"
 }
 
 rule StatemachineInstance
@@ -11,7 +11,7 @@ rule StatemachineInstance
 	
 	template : "XmiInstance.egl"
 	
-	target : "gen/" + sm.name + "Instance.hxx"
+	target : sm.name + "Instance.hxx"
 }
 
 rule StatemachineInterface
@@ -19,5 +19,5 @@ rule StatemachineInterface
 	
 	template : "XmiInterface.egl"
 	
-	target : "gen/I" + sm.name + "Impl.hxx"
+	target : "I" + sm.name + "Impl.hxx"
 }

@@ -1,4 +1,8 @@
+package generator;
+
 import java.io.File;
+import java.net.URI;
+
 import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
 import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
@@ -7,16 +11,20 @@ import org.eclipse.epsilon.eol.models.IModel;
 
 public class Generator {
 	public static void main(String[] args) throws Exception {
-		if (args.length == 0) {
-			System.err.println("Missing file argument.");
+		if (args.length != 2) {
+			System.err.println("Usage: java -jar StatemachineGenerator.jar <uml> <out_path>");
 			return;
 		}
 
-		var factory = new EglFileGeneratingTemplateFactory();
-		factory.setTemplateRoot(
-				Generator.class.getProtectionDomain().getCodeSource().getLocation().toString());
+		var filename = args[0];
+		var out_path = new File(args[1]).toURI().toString();
+		
+		var loader = ClassLoader.getSystemClassLoader();
+    	var factory = new EglFileGeneratingTemplateFactory();
+		factory.setTemplateRoot(loader.getResource("src/generator/").toString());
+		factory.setOutputRoot(out_path);
 		var module = new EgxModule(factory);
-		module.parse(Generator.class.getResource("Program.egx"));
+		module.parse(loader.getResource("src/generator/Program.egx"));
 
 		if (!module.getParseProblems().isEmpty()) {
 			System.err.println("Syntax errors found. Exiting.");
@@ -28,7 +36,6 @@ public class Generator {
 
 		IModel model = null;
 
-		var filename = args[0];
 		if (filename.endsWith(".uml") || filename.endsWith(".xmi")) {
 			// Load the XML document
 			var uml = new UmlModel();
@@ -37,7 +44,7 @@ public class Generator {
 			uml.load();
 			model = uml;
 
-			System.out.println("Generating XMI/UML model " + filename);
+			System.out.println("Generating XMI/UML model " + filename + " to " + out_path);
 		}
 
 		if (filename.endsWith(".scxml")) {
@@ -47,7 +54,7 @@ public class Generator {
 			scxml.load();
 			model = scxml;
 
-			System.out.println("Generating SCXML model " + filename);
+			System.out.println("Generating SCXML model " + filename + " to " + out_path);
 		}
 
 		// Make the document visible to the EGX program
