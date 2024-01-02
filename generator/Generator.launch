@@ -14,7 +14,7 @@
     <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="generator.Generator"/>
     <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="StatemachineGenerator"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;/home/dziegel/event_framework/cpp_statemachine_generator/Statemachine Test/IoArHandler.uml&quot; ./"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;/home/dziegel/event_framework/cpp_statemachine_generator/Statemachine Test/IoArHandler.uml&quot; ../gen"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="StatemachineGenerator"/>
     <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>
