@@ -1,7 +1,6 @@
 package generator;
 
 import java.io.File;
-import java.net.URI;
 
 import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
 import org.eclipse.epsilon.egl.EgxModule;
@@ -18,9 +17,9 @@ public class Generator {
 
 		var filename = args[0];
 		var out_path = new File(args[1]).toURI().toString();
-		
+
 		var loader = ClassLoader.getSystemClassLoader();
-    	var factory = new EglFileGeneratingTemplateFactory();
+		var factory = new EglFileGeneratingTemplateFactory();
 		factory.setTemplateRoot(loader.getResource("generator/").toString());
 		factory.setOutputRoot(out_path);
 		var module = new EgxModule(factory);
@@ -29,7 +28,7 @@ public class Generator {
 		if (!module.getParseProblems().isEmpty()) {
 			System.err.println("Syntax errors found. Exiting.");
 			for (var prob : module.getParseProblems()) {
-				System.err.println(prob.toString());				
+				System.err.println(prob.toString());
 			}
 			return;
 		}
