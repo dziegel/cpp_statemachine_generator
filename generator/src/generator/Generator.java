@@ -7,7 +7,6 @@ import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.egl.formatter.language.JavaFormatter;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.emc.uml.UmlModel;
-import org.eclipse.epsilon.eol.models.IModel;
 
 public class Generator {
 	public static void main(String[] args) throws Exception {
@@ -37,14 +36,13 @@ public class Generator {
 			return;
 		}
 
-		IModel model = null;
 		if (filename.endsWith(".uml") || filename.endsWith(".xmi")) {
 			// Load the XML document
 			var uml = new UmlModel();
 			uml.setModelFile(filename);
 			uml.setName("UML");
 			uml.load();
-			model = uml;
+			module.getContext().getModelRepository().addModel(uml);
 
 			System.out.println("Generating XMI/UML model " + filename + " to " + out_path);
 		}
@@ -54,12 +52,11 @@ public class Generator {
 			scxml.setFile(new File(filename));
 			scxml.setName("SCXML");
 			scxml.load();
-			model = scxml;
+			module.getContext().getModelRepository().addModel(scxml);
 
 			System.out.println("Generating SCXML model " + filename + " to " + out_path);
 		}
 
-		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 	}
 }
