@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
 import org.eclipse.epsilon.egl.EgxModule;
+import org.eclipse.epsilon.egl.formatter.language.JavaFormatter;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.emc.uml.UmlModel;
 import org.eclipse.epsilon.eol.models.IModel;
@@ -19,9 +20,12 @@ public class Generator {
 		var out_path = new File(args[1]).toURI().toString();
 
 		var loader = ClassLoader.getSystemClassLoader();
+		
 		var factory = new EglFileGeneratingTemplateFactory();
 		factory.setTemplateRoot(loader.getResource("generator/").toString());
 		factory.setOutputRoot(out_path);
+		factory.setDefaultFormatter(new JavaFormatter());
+		
 		var module = new EgxModule(factory);
 		module.parse(loader.getResource("generator/Program.egx"));
 
@@ -55,9 +59,7 @@ public class Generator {
 			System.out.println("Generating SCXML model " + filename + " to " + out_path);
 		}
 
-		// Make the document visible to the EGX program
 		module.getContext().getModelRepository().addModel(model);
-		// ... and execute
 		module.execute();
 	}
 }

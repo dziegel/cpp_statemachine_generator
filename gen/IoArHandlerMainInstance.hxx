@@ -18,47 +18,47 @@ const IoArHandlerMain::State IoArHandlerMain::kClosed("Closed", &ClosedHandler, 
 IoArHandlerMain::Transition IoArHandlerMain::ClosedHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArOpend_ind):
-      if (true)
-      {
-        return TransitionTo(kOpen);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
-      if (true)
-      {
-        return TransitionTo(kNone);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
-      if (true)
-      {
-        return TransitionTo(kNone);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-      if (true)
-      {
-        return TransitionTo(kNone);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
-      if (true)
-      {
-        return TransitionTo(kNone);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArOpend_ind):
+		if (true)
+		{
+			return TransitionTo(kOpen);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
+		if (true)
+		{
+			return TransitionTo(kNone);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
+		if (true)
+		{
+			return TransitionTo(kNone);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
+		if (true)
+		{
+			return TransitionTo(kNone);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
+		if (true)
+		{
+			return TransitionTo(kNone);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State Open
@@ -66,60 +66,60 @@ const IoArHandlerMain::State IoArHandlerMain::kOpen("Open", &OpenHandler, nullpt
 IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArClosed_ind):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::ArClosed};
-        return TransitionTo(kClosed, kActions);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::CheckModuleDiff};
-        return TransitionTo(kNone, kActions);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::Read};
-        return TransitionTo(kNone, kActions);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::BackupSwitchover};
-        return TransitionTo(kNone, kActions);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::PrimarySwitchover};
-        return TransitionTo(kNone, kActions);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::Write};
-        return TransitionTo(kNone, kActions);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ArClosed_ind):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::ArClosed};
+			return TransitionTo(kClosed, kActions);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_CheckModuleDiff):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::CheckModuleDiff};
+			return TransitionTo(kNone, kActions);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ReadReq):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::Read};
+			return TransitionTo(kNone, kActions);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestBackup):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::BackupSwitchover};
+			return TransitionTo(kNone, kActions);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_SwitchoverRequestPrimary):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::PrimarySwitchover};
+			return TransitionTo(kNone, kActions);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_WriteReq):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::Write};
+			return TransitionTo(kNone, kActions);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State ApplicationReady
@@ -127,12 +127,12 @@ const IoArHandlerMain::State IoArHandlerMain::kApplicationReady("ApplicationRead
 IoArHandlerMain::Transition IoArHandlerMain::ApplicationReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State DynamicReconfigurationRunning
@@ -140,20 +140,20 @@ const IoArHandlerMain::State IoArHandlerMain::kDynamicReconfigurationRunning("Dy
 IoArHandlerMain::Transition IoArHandlerMain::DynamicReconfigurationRunningHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnioAppTimeoutDynReconf):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::DynReconfTimeoutAbortArSet};
-        return TransitionTo(kNone, kActions);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnioAppTimeoutDynReconf):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::DynReconfTimeoutAbortArSet};
+			return TransitionTo(kNone, kActions);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State DrPlugPrmSequence
@@ -161,20 +161,20 @@ const IoArHandlerMain::State IoArHandlerMain::kDrPlugPrmSequence("DrPlugPrmSeque
 IoArHandlerMain::Transition IoArHandlerMain::DrPlugPrmSequenceHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugParamEndInd):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::ApplyConfiguration};
-        return TransitionTo(kDrWaitApplicationReadyPlugSubmodule, kActions);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugParamEndInd):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::ApplyConfiguration};
+			return TransitionTo(kDrWaitApplicationReadyPlugSubmodule, kActions);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State DrWaitApplicationReadyCnfPlugSubmodule
@@ -182,20 +182,20 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitApplicationReadyCnfPlugSubm
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyCnfPlugSubmoduleHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugApplicationReady_cnf):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::DrPullDone};
-        return TransitionTo(kReady, kActions);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugApplicationReady_cnf):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::DrPullDone};
+			return TransitionTo(kReady, kActions);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State DrWaitApplicationReadyPlugSubmodule
@@ -203,23 +203,23 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitApplicationReadyPlugSubmodu
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyPlugSubmoduleHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnpbAppTimeout):
-      if (impl->CheckApplicationReady(event))
-      {
-        return TransitionTo(kDrWaitApplicationReadyCnfPlugSubmodule);
-      }
-      if (true)
-      {
-        return TransitionTo(kDrWaitApplicationReadyPlugSubmodule);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnpbAppTimeout):
+		if (impl->CheckApplicationReady(event))
+		{
+			return TransitionTo(kDrWaitApplicationReadyCnfPlugSubmodule);
+		}
+		if (true)
+		{
+			return TransitionTo(kDrWaitApplicationReadyPlugSubmodule);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State DrWaitPlugCnf
@@ -227,19 +227,19 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitPlugCnf("DrWaitPlugCnf", &D
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitPlugCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugSubmodule_cnf):
-      if (true)
-      {
-        return TransitionTo(kDrPlugPrmSequence);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PlugSubmodule_cnf):
+		if (true)
+		{
+			return TransitionTo(kDrPlugPrmSequence);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State DrWaitPullCnf
@@ -247,20 +247,20 @@ const IoArHandlerMain::State IoArHandlerMain::kDrWaitPullCnf("DrWaitPullCnf", &D
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitPullCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PullSubmodule_cnf):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::DrPullDone};
-        return TransitionTo(kReady, kActions);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_PullSubmodule_cnf):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::DrPullDone};
+			return TransitionTo(kReady, kActions);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State Ready
@@ -268,28 +268,28 @@ const IoArHandlerMain::State IoArHandlerMain::kReady("Ready", &ReadyHandler, &kA
 IoArHandlerMain::Transition IoArHandlerMain::ReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPlug):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::DrPlug};
-        return TransitionTo(kDrWaitPlugCnf, kActions);
-      }
-      return UnhandledEvent();
-      
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPull):
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::DrPull};
-        return TransitionTo(kDrWaitPullCnf, kActions);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPlug):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::DrPlug};
+			return TransitionTo(kDrWaitPlugCnf, kActions);
+		}
+		return UnhandledEvent();
+		
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_DynReconfPull):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::DrPull};
+			return TransitionTo(kDrWaitPullCnf, kActions);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State Parameterizing
@@ -297,24 +297,24 @@ const IoArHandlerMain::State IoArHandlerMain::kParameterizing("Parameterizing", 
 IoArHandlerMain::Transition IoArHandlerMain::ParameterizingHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ParamEndInd):
-      if (impl->FirstInArSetOrPrimary(event))
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::ApplyConfiguration};
-        return TransitionTo(kWaitApplicationReady, kActions);
-      }
-      if (true)
-      {
-        return TransitionTo(kWaitApplicationReadyCnf);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ParamEndInd):
+		if (impl->FirstInArSetOrPrimary(event))
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::ApplyConfiguration};
+			return TransitionTo(kWaitApplicationReady, kActions);
+		}
+		if (true)
+		{
+			return TransitionTo(kWaitApplicationReadyCnf);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State WaitApplicationReady
@@ -322,23 +322,23 @@ const IoArHandlerMain::State IoArHandlerMain::kWaitApplicationReady("WaitApplica
 IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnpbAppTimeout):
-      if (impl->CheckApplicationReady(event))
-      {
-        return TransitionTo(kWaitApplicationReadyCnf);
-      }
-      if (true)
-      {
-        return TransitionTo(kWaitApplicationReady);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(SPnpbAppTimeout):
+		if (impl->CheckApplicationReady(event))
+		{
+			return TransitionTo(kWaitApplicationReadyCnf);
+		}
+		if (true)
+		{
+			return TransitionTo(kWaitApplicationReady);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
 
 // State WaitApplicationReadyCnf
@@ -346,22 +346,22 @@ const IoArHandlerMain::State IoArHandlerMain::kWaitApplicationReadyCnf("WaitAppl
 IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
-
-    switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
-    {
-    case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ApplicationReady_cnf):
-      if (impl->success(event))
-      {
-        return TransitionTo(kApplicationReady);
-      }
-      if (true)
-      {
-        static const Transition::ActionContainer<1> kActions = {&Impl::AbortAr};
-        return TransitionTo(kNone, kActions);
-      }
-      return UnhandledEvent();
-      
-    default:
-        return UnhandledEvent();
-    }
+	
+	switch(IoArHandlerMain_GET_INSTANCE_EVENT_ID(event))
+	{
+		case IoArHandlerMain_GET_STATIC_EVENT_ID(S_PNS_ApplicationReady_cnf):
+		if (impl->success(event))
+		{
+			return TransitionTo(kApplicationReady);
+		}
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::AbortAr};
+			return TransitionTo(kNone, kActions);
+		}
+		return UnhandledEvent();
+		
+		default:
+		return UnhandledEvent();
+	}
 }
