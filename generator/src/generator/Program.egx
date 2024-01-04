@@ -1,10 +1,6 @@
 rule StatemachineDeclaration
 	transform sm : UML!StateMachine {
 
-    pre {
-      var java = new Native("org.eclipse.epsilon.egl.formatter.language.JavaFormatter");
-    }
-    
 	template : "XmiDeclaration.egl"
 		
 	target : sm.name + "Declaration.hxx"
