@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StatemachineTest" qt:editorversion="10.0.2" initial="State_1">
+    <qt:editorinfo initialGeometry="173.60;133.78;-20;-20;40;40"/>
+    <state id="State_1">
+        <qt:editorinfo geometry="292.06;222.62;-60;-78.36;626.74;589.96" scenegeometry="292.06;222.62;232.06;144.26;626.74;589.96"/>
+        <state id="State_2">
+            <qt:editorinfo geometry="119.48;168.49;-60;-50;120;100" scenegeometry="411.54;391.11;351.54;341.11;120;100"/>
+            <transition type="external" event="Transition_3" target="State_3" cond="guard">
+                <qt:editorinfo endTargetFactors="25.22;50.88"/>
+                <script src="action"/>
+                <script src="action2"/>
+            </transition>
+        </state>
+        <state id="State_3">
+            <qt:editorinfo geometry="387.04;117.44;-60;-50;120;100" scenegeometry="679.10;340.06;619.10;290.06;120;100"/>
+            <transition type="external" event="Transition_7" target="State_4">
+                <qt:editorinfo endTargetFactors="59.76;18.31"/>
+            </transition>
+            <onentry>
+                <script src="entry"/>
+            </onentry>
+            <onexit>
+                <script src="exit"/>
+            </onexit>
+        </state>
+        <state id="State_4">
+            <qt:editorinfo geometry="267.56;379.89;-60;-50;120;100" scenegeometry="559.62;602.51;499.62;552.51;120;100"/>
+            <transition type="external" event="Transition_8" target="State_2">
+                <qt:editorinfo endTargetFactors="64.27;76.42"/>
+            </transition>
+        </state>
+        <history type="shallow" id="History_1">
+            <qt:editorinfo geometry="19;26.22;-20;-20;40;40" scenegeometry="311.06;248.84;291.06;228.84;40;40"/>
+            <transition type="external" event="Transition_1" target="State_2">
+                <qt:editorinfo endTargetFactors="53.35;26.70"/>
+            </transition>
+        </history>
+    </state>
+</scxml>
