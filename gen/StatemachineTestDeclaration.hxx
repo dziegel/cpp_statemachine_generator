@@ -13,7 +13,7 @@ class StatemachineTest : public StatemachineTestBase
 	
 	// State State_2
 	static Transition State_2Handler(ImplPtr impl, Event event);
-	static const State kState_2;
+	static const HistoryState kState_2;
 	
 	// State State_3
 	static Transition State_3Handler(ImplPtr impl, Event event);

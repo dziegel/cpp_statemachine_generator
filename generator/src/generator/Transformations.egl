@@ -31,7 +31,7 @@ operation Tuple transformRegion(statemachine : Tuple) {
 operation Tuple transformState(statemachine : Tuple, region : Tuple) {
   self.variable_name = "k" + self.name;
   self.state_type = statemachine.state_type;
-  if(region.initial_history) {
+  if((region.initial = self.name) and region.initial_history) {
     self.state_type = statemachine.history_state_type;
   }
 
