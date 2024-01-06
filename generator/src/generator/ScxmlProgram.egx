@@ -1,0 +1,23 @@
+rule StatemachineDeclaration
+	transform sm : t_scxml {
+
+	template : "ScxmlDeclaration.egl"
+		
+	target : sm.a_name + "Declaration.hxx"
+}
+
+rule StatemachineInstance
+	transform sm : t_scxml {
+	
+	template : "ScxmlInstance.egl"
+	
+	target : sm.a_name + "Instance.hxx"
+}
+
+rule StatemachineInterface
+	transform sm : t_scxml {
+	
+	template : "ScxmlInterface.egl"
+	
+	target : "I" + sm.a_name + "Impl.hxx"
+}

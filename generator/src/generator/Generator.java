@@ -25,38 +25,48 @@ public class Generator {
 		factory.setOutputRoot(out_path);
 		factory.setDefaultFormatter(new JavaFormatter());
 		
-		var module = new EgxModule(factory);
-		module.parse(loader.getResource("generator/Program.egx"));
-
-		if (!module.getParseProblems().isEmpty()) {
-			System.err.println("Syntax errors found. Exiting.");
-			for (var prob : module.getParseProblems()) {
-				System.err.println(prob.toString());
-			}
-			return;
-		}
-
 		if (filename.endsWith(".uml") || filename.endsWith(".xmi")) {
-			// Load the XML document
+			var uml_module = new EgxModule(factory);
+			uml_module.parse(loader.getResource("generator/XmiProgram.egx"));
+			if (!uml_module.getParseProblems().isEmpty()) {
+				System.err.println("Syntax errors found. Exiting.");
+				for (var prob : uml_module.getParseProblems()) {
+					System.err.println(prob.toString());
+				}
+				return;
+			}
+
 			var uml = new UmlModel();
 			uml.setModelFile(filename);
 			uml.setName("UML");
 			uml.load();
-			module.getContext().getModelRepository().addModel(uml);
+			uml_module.getContext().getModelRepository().addModel(uml);
 
 			System.out.println("Generating XMI/UML model " + filename + " to " + out_path);
+
+			uml_module.execute();
 		}
 
 		if (filename.endsWith(".scxml")) {
+			var scxml_module = new EgxModule(factory);
+			scxml_module.parse(loader.getResource("generator/ScxmlProgram.egx"));
+			if (!scxml_module.getParseProblems().isEmpty()) {
+				System.err.println("Syntax errors found. Exiting.");
+				for (var prob : scxml_module.getParseProblems()) {
+					System.err.println(prob.toString());
+				}
+				return;
+			}
+
 			var scxml = new PlainXmlModel();
 			scxml.setFile(new File(filename));
 			scxml.setName("SCXML");
 			scxml.load();
-			module.getContext().getModelRepository().addModel(scxml);
+			scxml_module.getContext().getModelRepository().addModel(scxml);
 
 			System.out.println("Generating SCXML model " + filename + " to " + out_path);
-		}
 
-		module.execute();
+			scxml_module.execute();
+		}
 	}
 }

@@ -1,0 +1,11 @@
+[%
+  import "ScxmlModel.egl";
+  import "Transformations.egl";
+
+  var statemachine = sm.getModel();
+  statemachine.transformStatemachine();
+
+  var declarationTemplate : Template = TemplateFactory.load("Declaration.egl");
+  declarationTemplate.populate("statemachine", statemachine);
+%]
+[%=declarationTemplate.process()%]

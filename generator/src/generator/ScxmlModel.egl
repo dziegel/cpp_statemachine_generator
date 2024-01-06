@@ -1,0 +1,56 @@
+[%
+// Parse model and transform it to model-independent Tuples (TODO: Use Emfatic)
+
+operation t_scxml getModel() : Tuple {
+  var result = new Tuple();
+  result.name = self.a_name;
+  
+  var region = new Tuple();
+  result.region = region;
+  region.initial = self.a_initial;
+  region.initial_history = false; // TBD
+
+  region.states = new List();  
+  for (state in self.c_state) {
+    region.states.add(state.getModel(result));
+  }
+  
+  return result;
+}
+
+operation t_state getModel(sm : Tuple) : Tuple {
+  var result = new Tuple();
+  result.name = self.a_id;
+
+//  if (self.container.state != null) {
+//  	result.parent = self.container.state.name;
+//  }
+  
+  if (self.e_onentry != null) {
+  	result.entry = self.e_onentry.e_script.a_src;
+  }
+
+  if (self.e_onexit != null) {
+  	result.entry = self.e_onexit.e_script.a_src;
+  }
+  
+  if (not self.c_state.isEmpty()) {
+    var region = new Tuple();  
+    result.region = region;
+    region.initial = self.e_initial.e_transition.a_target;
+    region.initial_history = false; // TBD
+    
+    region.states = new List();
+    for (state in self.c_state) {
+      region.states.add(state.getModel(sm));
+    }
+  }
+
+  result.transitions = new List();
+	//  for (transition in self.c_transition) {
+//    transition.getModel(sm, result, result.transitions);
+//  }
+    
+  return result;
+}
+%]
