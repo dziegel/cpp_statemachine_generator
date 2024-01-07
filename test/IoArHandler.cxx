@@ -27,8 +27,8 @@ enum class EEvent
 class IIoArHandlerMainImpl;
 using IoArHandlerMainBase = cpp_event_framework::Statemachine<IIoArHandlerMainImpl, EEvent>;
 
-#include "../../gen/IIoArHandlerMainImpl.hxx"
-#include "../../gen/IoArHandlerMainDeclaration.hxx"
+#include "generated/IIoArHandlerMainImpl.hxx"
+#include "generated/IoArHandlerMainDeclaration.hxx"
 
 class IoArHandler : private IIoArHandlerMainImpl
 {
@@ -160,7 +160,7 @@ private:
 #define IoArHandlerMain_GET_INSTANCE_EVENT_ID(e) e
 #define IoArHandlerMain_GET_STATIC_EVENT_ID(e) EEvent::e
 
-#include "../../gen/IoArHandlerMainInstance.hxx"
+#include "generated/IoArHandlerMainInstance.hxx"
 
 void TestIoArHandler()
 {
