@@ -1,4 +1,4 @@
-// Statemachine StatemachineTest instance
+// Statemachine ScXmlTest instance
 
 // Override the following defines according to your needs if you are not using cpp_event_framework:
 
@@ -11,15 +11,15 @@
 #endif
 
 // Initial state
-const StatemachineTest::StatePtr StatemachineTest::kInitialState = &StatemachineTest::kState_1;
+const ScXmlTest::StatePtr ScXmlTest::kInitialState = &ScXmlTest::kState_1;
 
 // State State_1
-const StatemachineTest::State StatemachineTest::kState_1("State_1", &State_1Handler, nullptr, &kState_2, nullptr, nullptr);
-StatemachineTest::Transition StatemachineTest::State_1Handler(ImplPtr impl, Event event)
+const ScXmlTest::State ScXmlTest::kState_1("State_1", &State_1Handler, nullptr, &kState_2, nullptr, nullptr);
+ScXmlTest::Transition ScXmlTest::State_1Handler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
-	switch(StatemachineTest_GET_INSTANCE_EVENT_ID(event))
+	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{
 		default:
 		return UnhandledEvent();
@@ -27,14 +27,14 @@ StatemachineTest::Transition StatemachineTest::State_1Handler(ImplPtr impl, Even
 }
 
 // State State_2
-const StatemachineTest::HistoryState StatemachineTest::kState_2("State_2", &State_2Handler, &kState_1, nullptr, nullptr, nullptr);
-StatemachineTest::Transition StatemachineTest::State_2Handler(ImplPtr impl, Event event)
+const ScXmlTest::HistoryState ScXmlTest::kState_2("State_2", &State_2Handler, &kState_1, nullptr, nullptr, nullptr);
+ScXmlTest::Transition ScXmlTest::State_2Handler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
-	switch(StatemachineTest_GET_INSTANCE_EVENT_ID(event))
+	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{
-		case StatemachineTest_GET_STATIC_EVENT_ID(Internal):
+		case ScXmlTest_GET_STATIC_EVENT_ID(Internal):
 		if (true)
 		{
 			static const Transition::ActionContainer<1> kActions = {&Impl::internalaction};
@@ -42,7 +42,7 @@ StatemachineTest::Transition StatemachineTest::State_2Handler(ImplPtr impl, Even
 		}
 		return UnhandledEvent();
 		
-		case StatemachineTest_GET_STATIC_EVENT_ID(Transition_3):
+		case ScXmlTest_GET_STATIC_EVENT_ID(Transition_3):
 		if (impl->guard(event))
 		{
 			static const Transition::ActionContainer<2> kActions = {&Impl::action, &Impl::action2};
@@ -56,14 +56,14 @@ StatemachineTest::Transition StatemachineTest::State_2Handler(ImplPtr impl, Even
 }
 
 // State State_3
-const StatemachineTest::State StatemachineTest::kState_3("State_3", &State_3Handler, &kState_1, nullptr, &Impl::entry, &Impl::exit);
-StatemachineTest::Transition StatemachineTest::State_3Handler(ImplPtr impl, Event event)
+const ScXmlTest::State ScXmlTest::kState_3("State_3", &State_3Handler, &kState_1, nullptr, &Impl::entry, &Impl::exit);
+ScXmlTest::Transition ScXmlTest::State_3Handler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
-	switch(StatemachineTest_GET_INSTANCE_EVENT_ID(event))
+	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{
-		case StatemachineTest_GET_STATIC_EVENT_ID(Transition_7):
+		case ScXmlTest_GET_STATIC_EVENT_ID(Transition_7):
 		if (true)
 		{
 			return TransitionTo(kState_4);
@@ -76,14 +76,14 @@ StatemachineTest::Transition StatemachineTest::State_3Handler(ImplPtr impl, Even
 }
 
 // State State_4
-const StatemachineTest::State StatemachineTest::kState_4("State_4", &State_4Handler, &kState_1, nullptr, nullptr, nullptr);
-StatemachineTest::Transition StatemachineTest::State_4Handler(ImplPtr impl, Event event)
+const ScXmlTest::State ScXmlTest::kState_4("State_4", &State_4Handler, &kState_1, nullptr, nullptr, nullptr);
+ScXmlTest::Transition ScXmlTest::State_4Handler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
-	switch(StatemachineTest_GET_INSTANCE_EVENT_ID(event))
+	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{
-		case StatemachineTest_GET_STATIC_EVENT_ID(Transition_8):
+		case ScXmlTest_GET_STATIC_EVENT_ID(Transition_8):
 		if (true)
 		{
 			return TransitionTo(kState_2);

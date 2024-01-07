@@ -40,8 +40,8 @@ inline std::ostream& operator<<(std::ostream& os, EScXmlEvent event)
     return os;
 }
 
-class IStatemachineTestImpl;
-using StatemachineTestBase = cpp_event_framework::Statemachine<IStatemachineTestImpl, EScXmlEvent>;
+class IScXmlTestImpl;
+using ScXmlTestBase = cpp_event_framework::Statemachine<IScXmlTestImpl, EScXmlEvent>;
 
-#include "generated/IStatemachineTestImpl.hxx"
-#include "generated/StatemachineTestDeclaration.hxx"
+#include "generated/IScXmlTestImpl.hxx"
+#include "generated/ScXmlTestDeclaration.hxx"

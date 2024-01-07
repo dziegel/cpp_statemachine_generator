@@ -1,8 +1,8 @@
-// Statemachine StatemachineTest declaration
+// Statemachine ScXmlTest declaration
 
 #pragma once
 
-class StatemachineTest : public StatemachineTestBase
+class ScXmlTest : public ScXmlTestBase
 {
 	public:
 	static const StatePtr kInitialState;
