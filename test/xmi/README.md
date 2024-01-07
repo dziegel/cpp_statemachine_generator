@@ -1,3 +1,3 @@
 # Created with Eclipse Papyrus
 
-<https://www.eclipse.org/papyrus/>
+<https://www.eclipse.org/papyrus>
