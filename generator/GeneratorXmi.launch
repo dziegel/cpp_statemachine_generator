@@ -14,7 +14,7 @@
     <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="generator.Generator"/>
     <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="StatemachineGenerator XMI"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;../xmi/IoArHandler.uml&quot; ../gen"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="../xmi/IoArHandler.uml ../gen"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="StatemachineGenerator"/>
     <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>

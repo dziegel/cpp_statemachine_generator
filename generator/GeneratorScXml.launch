@@ -13,8 +13,8 @@
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
     <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="generator.Generator"/>
-    <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="StatemachineGenerator"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="/home/dziegel/event_framework/cpp_statemachine_generator/StatemachineTest/StatemachineTest.scxml ../gen"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="StatemachineGenerator SCXML"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="../scxml/StatemachineTest.scxml ../gen"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="StatemachineGenerator"/>
     <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>
