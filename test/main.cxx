@@ -1,13 +1,10 @@
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 
 #include "ScXmlFsmImpl.hxx"
 #include "XmiFsmImpl.hxx"
 
-void TestIoArHandler();
-
-int main(int, const char**)
+int main(int /*unused*/, const char** /*unused*/)
 {
     try
     {
@@ -19,7 +16,7 @@ int main(int, const char**)
     }
     catch (const std::exception& ex)
     {
-        std::cout << ex.what() << std::endl;
+        std::cout << ex.what() << '\n';
         exit(EXIT_FAILURE);
     }
     exit(EXIT_SUCCESS);

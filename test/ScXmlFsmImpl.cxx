@@ -6,6 +6,17 @@
 
 ScXmlFsmImpl::ScXmlFsmImpl()
 {
+    fsm_.on_handle_event_ =
+        [](StatemachineTest::Ref fsm, StatemachineTest::StateRef state, StatemachineTest::Event event)
+    { std::cout << fsm.Name() << " State " << state.Name() << " handle event " << event << '\n'; };
+    fsm_.on_state_entry_ = [](StatemachineTest::Ref fsm, StatemachineTest::StateRef state)
+    { std::cout << fsm.Name() << " Enter state" << state.Name() << '\n'; };
+    fsm_.on_state_exit_ = [](StatemachineTest::Ref fsm, StatemachineTest::StateRef state)
+    { std::cout << fsm.Name() << " Exit state" << state.Name() << '\n'; };
+    fsm_.on_unhandled_event_ =
+        [](StatemachineTest::Ref fsm, StatemachineTest::StateRef state, StatemachineTest::Event event)
+    { std::cout << fsm.Name() << " Unhandled event " << event << " in state " << state.Name() << '\n'; };
+
     fsm_.Init(this, "Scxml", StatemachineTest::kInitialState);
     fsm_.Start();
 }
@@ -31,19 +42,19 @@ void ScXmlFsmImpl::exit()
 {
     std::cout << std::source_location::current().function_name() << "\n";
 }
-void ScXmlFsmImpl::action(StatemachineTestBase::Event)
+void ScXmlFsmImpl::action(StatemachineTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
 }
-void ScXmlFsmImpl::action2(StatemachineTestBase::Event)
+void ScXmlFsmImpl::action2(StatemachineTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
 }
-void ScXmlFsmImpl::internalaction(StatemachineTestBase::Event)
+void ScXmlFsmImpl::internalaction(StatemachineTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
 }
-bool ScXmlFsmImpl::guard(StatemachineTestBase::Event)
+bool ScXmlFsmImpl::guard(StatemachineTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     return true;
