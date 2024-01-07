@@ -7,6 +7,10 @@ include(GNUInstallDirs REQUIRED)
 
 add_executable(${CMAKE_PROJECT_NAME}
     "test/IoArHandler.cxx"
+
+    "test/ScXmlFsm.cxx"
+    "test/ScXmlFsmImpl.cxx"
+
     "test/main.cxx"
 )
 

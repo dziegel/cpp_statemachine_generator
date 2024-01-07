@@ -3,12 +3,14 @@
 #include <iostream>
 
 void TestIoArHandler();
+void TestScXml();
 
 int main(int, const char**)
 {
     try
     {
         TestIoArHandler();
+        TestScXml();
     }
     catch (const std::exception& ex)
     {
