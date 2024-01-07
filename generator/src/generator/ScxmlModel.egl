@@ -86,4 +86,4 @@ operation t_transition getSortKey() : String {
   }
   return "0" + self.a_cond;
 }
-%]
+%]		
