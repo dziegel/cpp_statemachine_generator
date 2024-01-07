@@ -2,7 +2,7 @@
 
 #pragma once
 
-class IoArHandlerMain : public IoArHandlerMainBase
+class IoArHandlerMain final : public IoArHandlerMainBase
 {
 	public:
 	static const StatePtr kInitialState;

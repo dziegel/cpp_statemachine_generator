@@ -2,7 +2,7 @@
 
 #include "XmiFsm.hxx"
 
-class XmiFsmImpl : private IIoArHandlerMainImpl
+class XmiFsmImpl final : private IIoArHandlerMainImpl
 {
 public:
     XmiFsmImpl();

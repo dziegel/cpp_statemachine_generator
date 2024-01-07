@@ -2,7 +2,6 @@
 #include <source_location>
 
 #include "ScXmlFsmImpl.hxx"
-#include "generated/ScXmlTestDeclaration.hxx"
 
 ScXmlFsmImpl::ScXmlFsmImpl()
 {

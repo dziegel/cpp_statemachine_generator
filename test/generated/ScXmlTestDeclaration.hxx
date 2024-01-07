@@ -2,7 +2,7 @@
 
 #pragma once
 
-class ScXmlTest : public ScXmlTestBase
+class ScXmlTest final : public ScXmlTestBase
 {
 	public:
 	static const StatePtr kInitialState;

@@ -2,7 +2,7 @@
 
 #include "ScXmlFsm.hxx"
 
-class ScXmlFsmImpl : private IScXmlTestImpl
+class ScXmlFsmImpl final : private IScXmlTestImpl
 {
 public:
     ScXmlFsmImpl();

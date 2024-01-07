@@ -2,7 +2,7 @@
 
 #pragma once
 
-class [%=statemachine.name%] : public [%=statemachine.name%]Base
+class [%=statemachine.name%] final : public [%=statemachine.name%]Base
 {
 public:
     static const StatePtr kInitialState;
