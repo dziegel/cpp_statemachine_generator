@@ -17,12 +17,14 @@ ScXmlFsmImpl::ScXmlFsmImpl()
         [](StatemachineTest::Ref fsm, StatemachineTest::StateRef state, StatemachineTest::Event event)
     { std::cout << fsm.Name() << " Unhandled event " << event << " in state " << state.Name() << '\n'; };
 
-    fsm_.Init(this, "Scxml", StatemachineTest::kInitialState);
-    fsm_.Start();
+    fsm_.Init(this, "ScXml", StatemachineTest::kInitialState);
 }
 
 void ScXmlFsmImpl::Test()
 {
+    assert(fsm_.CurrentState() == nullptr);
+    fsm_.Start();
+
     assert(fsm_.CurrentState() == &StatemachineTest::kState_2);
     fsm_.React(EScXmlEvent::Internal);
     assert(fsm_.CurrentState() == &StatemachineTest::kState_2);

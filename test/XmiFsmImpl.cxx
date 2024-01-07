@@ -16,11 +16,14 @@ XmiFsmImpl::XmiFsmImpl()
     { std::cout << fsm.Name() << " Unhandled event " << event << " in state " << state.Name() << '\n'; };
 
     fsm_.Init(this, "Xmi", IoArHandlerMain::kInitialState);
-    fsm_.Start();
 }
 
 void XmiFsmImpl::Test()
 {
+    assert(fsm_.CurrentState() == nullptr);
+    fsm_.Start();
+
+    assert(fsm_.CurrentState() == &IoArHandlerMain::kClosed);
     fsm_.React(EXmiEvent::S_PNS_ArOpend_ind);
     assert(fsm_.CurrentState() == &IoArHandlerMain::kParameterizing);
     fsm_.React(EXmiEvent::S_PNS_ParamEndInd);
