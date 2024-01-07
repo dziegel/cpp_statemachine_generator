@@ -4,11 +4,14 @@
     <state id="State_1">
         <qt:editorinfo geometry="292.06;222.62;-60;-78.36;626.74;589.96" scenegeometry="292.06;222.62;232.06;144.26;626.74;589.96"/>
         <state id="State_2">
-            <qt:editorinfo geometry="119.48;168.49;-60;-50;120;100" scenegeometry="411.54;391.11;351.54;341.11;120;100"/>
+            <qt:editorinfo geometry="119.48;168.49;-106;-50;166;100" scenegeometry="411.54;391.11;305.54;341.11;166;100"/>
             <transition type="external" event="Transition_3" target="State_3" cond="guard">
                 <qt:editorinfo endTargetFactors="25.22;50.88"/>
                 <script src="action"/>
                 <script src="action2"/>
+            </transition>
+            <transition type="internal" event="Internal">
+                <script src="internalaction"/>
             </transition>
         </state>
         <state id="State_3">

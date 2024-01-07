@@ -4,6 +4,7 @@ class IStatemachineTestImpl
 	// Actions
 	virtual void action(StatemachineTestBase::Event event) = 0;
 	virtual void action2(StatemachineTestBase::Event event) = 0;
+	virtual void internalaction(StatemachineTestBase::Event event) = 0;
 	
 	// Guards
 	virtual bool guard(StatemachineTestBase::Event event) = 0;

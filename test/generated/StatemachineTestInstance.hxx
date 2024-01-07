@@ -34,6 +34,14 @@ StatemachineTest::Transition StatemachineTest::State_2Handler(ImplPtr impl, Even
 	
 	switch(StatemachineTest_GET_INSTANCE_EVENT_ID(event))
 	{
+		case StatemachineTest_GET_STATIC_EVENT_ID(Internal):
+		if (true)
+		{
+			static const Transition::ActionContainer<1> kActions = {&Impl::internalaction};
+			return TransitionTo(kNone, kActions);
+		}
+		return UnhandledEvent();
+		
 		case StatemachineTest_GET_STATIC_EVENT_ID(Transition_3):
 		if (impl->guard(event))
 		{

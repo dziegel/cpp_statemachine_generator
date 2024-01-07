@@ -6,7 +6,8 @@ include(ExternalProject)
 include(GNUInstallDirs REQUIRED)
 
 add_executable(${CMAKE_PROJECT_NAME}
-    "test/IoArHandler.cxx"
+    "test/XmiFsm.cxx"
+    "test/XmiFsmImpl.cxx"
 
     "test/ScXmlFsm.cxx"
     "test/ScXmlFsmImpl.cxx"

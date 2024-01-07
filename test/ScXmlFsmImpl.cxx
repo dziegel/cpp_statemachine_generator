@@ -10,14 +10,16 @@ ScXmlFsmImpl::ScXmlFsmImpl()
     fsm_.Start();
 }
 
-void ScXmlFsmImpl::Run()
+void ScXmlFsmImpl::Test()
 {
     assert(fsm_.CurrentState() == &StatemachineTest::kState_2);
-    fsm_.React(EEvent::Transition_3);
+    fsm_.React(EScXmlEvent::Internal);
+    assert(fsm_.CurrentState() == &StatemachineTest::kState_2);
+    fsm_.React(EScXmlEvent::Transition_3);
     assert(fsm_.CurrentState() == &StatemachineTest::kState_3);
-    fsm_.React(EEvent::Transition_7);
+    fsm_.React(EScXmlEvent::Transition_7);
     assert(fsm_.CurrentState() == &StatemachineTest::kState_4);
-    fsm_.React(EEvent::Transition_8);
+    fsm_.React(EScXmlEvent::Transition_8);
     assert(fsm_.CurrentState() == &StatemachineTest::kState_2);
 }
 
@@ -37,15 +39,12 @@ void ScXmlFsmImpl::action2(StatemachineTestBase::Event)
 {
     std::cout << std::source_location::current().function_name() << "\n";
 }
+void ScXmlFsmImpl::internalaction(StatemachineTestBase::Event)
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+}
 bool ScXmlFsmImpl::guard(StatemachineTestBase::Event)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     return true;
-}
-
-void TestScXml()
-{
-    ScXmlFsmImpl impl;
-
-    impl.Run();
 }

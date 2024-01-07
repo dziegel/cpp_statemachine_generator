@@ -7,7 +7,7 @@ class ScXmlFsmImpl : private IStatemachineTestImpl
 public:
     ScXmlFsmImpl();
 
-    void Run();
+    void Test();
 
 private:
     StatemachineTest fsm_;
@@ -17,4 +17,5 @@ private:
     void action(StatemachineTestBase::Event event) override;
     void action2(StatemachineTestBase::Event event) override;
     bool guard(StatemachineTestBase::Event event) override;
+    void internalaction(StatemachineTestBase::Event event) override;
 };

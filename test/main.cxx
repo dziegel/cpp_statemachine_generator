@@ -2,15 +2,20 @@
 #include <exception>
 #include <iostream>
 
+#include "ScXmlFsmImpl.hxx"
+#include "XmiFsmImpl.hxx"
+
 void TestIoArHandler();
-void TestScXml();
 
 int main(int, const char**)
 {
     try
     {
-        TestIoArHandler();
-        TestScXml();
+        XmiFsmImpl xmi;
+        xmi.Test();
+
+        ScXmlFsmImpl scxml;
+        scxml.Test();
     }
     catch (const std::exception& ex)
     {
