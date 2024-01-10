@@ -12,13 +12,13 @@ operation t_scxml getModel() : Tuple {
 
   region.states = new List();  
   for (state in self.c_state) {
-    region.states.add(state.getModel(result));
+    region.states.add(state.getModel());
   }
   
   return result;
 }
 
-operation t_state getModel(sm : Tuple) : Tuple {
+operation t_state getModel() : Tuple {
   var result = new Tuple();
   result.name = self.a_id;
 
@@ -45,7 +45,7 @@ operation t_state getModel(sm : Tuple) : Tuple {
     
     region.states = new List();
     for (state in self.c_state) {
-      var state_model = state.getModel(sm);
+      var state_model = state.getModel();
       state_model.parent = result.name;
       region.states.add(state_model);
     }
