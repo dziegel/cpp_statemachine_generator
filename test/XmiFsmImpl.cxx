@@ -8,9 +8,9 @@ XmiFsmImpl::XmiFsmImpl()
     fsm_.on_handle_event_ = [](IoArHandlerMain::Ref fsm, IoArHandlerMain::StateRef state, IoArHandlerMain::Event event)
     { std::cout << fsm.Name() << " State " << state.Name() << " handle event " << event << '\n'; };
     fsm_.on_state_entry_ = [](IoArHandlerMain::Ref fsm, IoArHandlerMain::StateRef state)
-    { std::cout << fsm.Name() << " Enter state" << state.Name() << '\n'; };
+    { std::cout << fsm.Name() << " Enter " << state.Name() << '\n'; };
     fsm_.on_state_exit_ = [](IoArHandlerMain::Ref fsm, IoArHandlerMain::StateRef state)
-    { std::cout << fsm.Name() << " Exit state" << state.Name() << '\n'; };
+    { std::cout << fsm.Name() << " Exit " << state.Name() << '\n'; };
     fsm_.on_unhandled_event_ =
         [](IoArHandlerMain::Ref fsm, IoArHandlerMain::StateRef state, IoArHandlerMain::Event event)
     { std::cout << fsm.Name() << " Unhandled event " << event << " in state " << state.Name() << '\n'; };
