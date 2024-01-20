@@ -123,7 +123,7 @@ IoArHandlerMain::Transition IoArHandlerMain::OpenHandler(ImplPtr impl, Event eve
 }
 
 // State ApplicationReady
-const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReady("ApplicationReady", &ApplicationReadyHandler, &kOpen, &kOpenApplicationReadyReady, nullptr, nullptr);
+const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReady("Open::ApplicationReady", &ApplicationReadyHandler, &kOpen, &kOpenApplicationReadyReady, nullptr, nullptr);
 IoArHandlerMain::Transition IoArHandlerMain::ApplicationReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -136,7 +136,7 @@ IoArHandlerMain::Transition IoArHandlerMain::ApplicationReadyHandler(ImplPtr imp
 }
 
 // State DynamicReconfigurationRunning
-const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunning("DynamicReconfigurationRunning", &DynamicReconfigurationRunningHandler, &kOpenApplicationReady, &kOpenApplicationReadyDynamicReconfigurationRunningDrWaitPlugCnf, &Impl::StartDynReconfTimer, &Impl::StopDynReconfTimer);
+const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunning("Open::ApplicationReady::DynamicReconfigurationRunning", &DynamicReconfigurationRunningHandler, &kOpenApplicationReady, &kOpenApplicationReadyDynamicReconfigurationRunningDrWaitPlugCnf, &Impl::StartDynReconfTimer, &Impl::StopDynReconfTimer);
 IoArHandlerMain::Transition IoArHandlerMain::DynamicReconfigurationRunningHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -157,7 +157,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DynamicReconfigurationRunningHandle
 }
 
 // State DrPlugPrmSequence
-const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrPlugPrmSequence("DrPlugPrmSequence", &DrPlugPrmSequenceHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, nullptr, nullptr);
+const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrPlugPrmSequence("Open::ApplicationReady::DynamicReconfigurationRunning::DrPlugPrmSequence", &DrPlugPrmSequenceHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, nullptr, nullptr);
 IoArHandlerMain::Transition IoArHandlerMain::DrPlugPrmSequenceHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -178,7 +178,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrPlugPrmSequenceHandler(ImplPtr im
 }
 
 // State DrWaitApplicationReadyCnfPlugSubmodule
-const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrWaitApplicationReadyCnfPlugSubmodule("DrWaitApplicationReadyCnfPlugSubmodule", &DrWaitApplicationReadyCnfPlugSubmoduleHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, nullptr, nullptr);
+const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrWaitApplicationReadyCnfPlugSubmodule("Open::ApplicationReady::DynamicReconfigurationRunning::DrWaitApplicationReadyCnfPlugSubmodule", &DrWaitApplicationReadyCnfPlugSubmoduleHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, nullptr, nullptr);
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyCnfPlugSubmoduleHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -199,7 +199,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyCnfPlugSubmod
 }
 
 // State DrWaitApplicationReadyPlugSubmodule
-const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrWaitApplicationReadyPlugSubmodule("DrWaitApplicationReadyPlugSubmodule", &DrWaitApplicationReadyPlugSubmoduleHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, &Impl::StartWaitApplicationReadyTimer, &Impl::StopWaitApplicationReadyTimer);
+const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrWaitApplicationReadyPlugSubmodule("Open::ApplicationReady::DynamicReconfigurationRunning::DrWaitApplicationReadyPlugSubmodule", &DrWaitApplicationReadyPlugSubmoduleHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, &Impl::StartWaitApplicationReadyTimer, &Impl::StopWaitApplicationReadyTimer);
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyPlugSubmoduleHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -223,7 +223,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitApplicationReadyPlugSubmodule
 }
 
 // State DrWaitPlugCnf
-const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrWaitPlugCnf("DrWaitPlugCnf", &DrWaitPlugCnfHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, nullptr, nullptr);
+const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrWaitPlugCnf("Open::ApplicationReady::DynamicReconfigurationRunning::DrWaitPlugCnf", &DrWaitPlugCnfHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, nullptr, nullptr);
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitPlugCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -243,7 +243,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitPlugCnfHandler(ImplPtr impl, 
 }
 
 // State DrWaitPullCnf
-const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrWaitPullCnf("DrWaitPullCnf", &DrWaitPullCnfHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, nullptr, nullptr);
+const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyDynamicReconfigurationRunningDrWaitPullCnf("Open::ApplicationReady::DynamicReconfigurationRunning::DrWaitPullCnf", &DrWaitPullCnfHandler, &kOpenApplicationReadyDynamicReconfigurationRunning, nullptr, nullptr, nullptr);
 IoArHandlerMain::Transition IoArHandlerMain::DrWaitPullCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -264,7 +264,7 @@ IoArHandlerMain::Transition IoArHandlerMain::DrWaitPullCnfHandler(ImplPtr impl, 
 }
 
 // State Ready
-const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyReady("Ready", &ReadyHandler, &kOpenApplicationReady, nullptr, nullptr, nullptr);
+const IoArHandlerMain::State IoArHandlerMain::kOpenApplicationReadyReady("Open::ApplicationReady::Ready", &ReadyHandler, &kOpenApplicationReady, nullptr, nullptr, nullptr);
 IoArHandlerMain::Transition IoArHandlerMain::ReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -293,7 +293,7 @@ IoArHandlerMain::Transition IoArHandlerMain::ReadyHandler(ImplPtr impl, Event ev
 }
 
 // State Parameterizing
-const IoArHandlerMain::State IoArHandlerMain::kOpenParameterizing("Parameterizing", &ParameterizingHandler, &kOpen, nullptr, nullptr, nullptr);
+const IoArHandlerMain::State IoArHandlerMain::kOpenParameterizing("Open::Parameterizing", &ParameterizingHandler, &kOpen, nullptr, nullptr, nullptr);
 IoArHandlerMain::Transition IoArHandlerMain::ParameterizingHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -318,7 +318,7 @@ IoArHandlerMain::Transition IoArHandlerMain::ParameterizingHandler(ImplPtr impl,
 }
 
 // State WaitApplicationReady
-const IoArHandlerMain::State IoArHandlerMain::kOpenWaitApplicationReady("WaitApplicationReady", &WaitApplicationReadyHandler, &kOpen, nullptr, &Impl::StartWaitApplicationReadyTimer, &Impl::StopWaitApplicationReadyTimer);
+const IoArHandlerMain::State IoArHandlerMain::kOpenWaitApplicationReady("Open::WaitApplicationReady", &WaitApplicationReadyHandler, &kOpen, nullptr, &Impl::StartWaitApplicationReadyTimer, &Impl::StopWaitApplicationReadyTimer);
 IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -342,7 +342,7 @@ IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyHandler(ImplPtr
 }
 
 // State WaitApplicationReadyCnf
-const IoArHandlerMain::State IoArHandlerMain::kOpenWaitApplicationReadyCnf("WaitApplicationReadyCnf", &WaitApplicationReadyCnfHandler, &kOpen, nullptr, &Impl::SendApplicationReady, nullptr);
+const IoArHandlerMain::State IoArHandlerMain::kOpenWaitApplicationReadyCnf("Open::WaitApplicationReadyCnf", &WaitApplicationReadyCnfHandler, &kOpen, nullptr, &Impl::SendApplicationReady, nullptr);
 IoArHandlerMain::Transition IoArHandlerMain::WaitApplicationReadyCnfHandler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here

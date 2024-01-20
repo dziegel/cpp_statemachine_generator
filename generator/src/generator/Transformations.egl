@@ -50,8 +50,10 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
 
   if (parent_state.isDefined()) {
     self.scoped_name = parent_state.scoped_name + self.name;
+    self.readable_scoped_name = parent_state.readable_scoped_name + "::" + self.name;
   } else {
     self.scoped_name = self.name;
+    self.readable_scoped_name = self.name;
   }
   self.variable_name = "k" + self.scoped_name;
 

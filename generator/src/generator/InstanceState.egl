@@ -4,7 +4,7 @@
   handlerTemplate.populate("statemachine", statemachine);
 %]
 // State [%=state.name%]
-const [%=statemachine.name%]::[%=state.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.name%]", &[%=state.name%]Handler, [%=state.parent_variable_pointer%], [%=state.initial_variable_pointer%], [%=state.entry_pointer%], [%=state.exit_pointer%]);
+const [%=statemachine.name%]::[%=state.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.readable_scoped_name%]", &[%=state.name%]Handler, [%=state.parent_variable_pointer%], [%=state.initial_variable_pointer%], [%=state.entry_pointer%], [%=state.exit_pointer%]);
 [%=handlerTemplate.process()%]
 [%
   if (state.region.isDefined()) {
