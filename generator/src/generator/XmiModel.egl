@@ -12,7 +12,7 @@ operation Region getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
 
   var initial = self.subvertices.select(s | s.isKindOf(Pseudostate) and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
-  result.initial = initial.outgoing.first.target.name;
+  result.initial_id = initial.outgoing.first.target.id;
   result.initial_history = (initial.kind = PseudostateKind#shallowHistory);
 
   result.states = new List();
@@ -26,9 +26,10 @@ operation Region getModel(sm : Tuple) : Tuple {
 operation State getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
   result.name = self.name;
+  result.id = self.id;
 
   if (self.container.state != null) {
-  	result.parent = self.container.state.name;
+  	result.parent_state_id = self.container.state.id;
   }
   
   if (self.entry != null) {
@@ -72,7 +73,7 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
   }
 
   if (self.target.isKindOf(State)) {
-    transition.target = self.target.name;
+    transition.target_state_id = self.target.id;
     transitions.add(transition);
   }
 

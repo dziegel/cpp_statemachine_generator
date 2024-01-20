@@ -41,6 +41,7 @@ public class Generator {
 			uml.setName("UML");
 			uml.load();
 			uml_module.getContext().getModelRepository().addModel(uml);
+			uml_module.getContext().setUserInput(new UserInput());
 
 			System.out.println("Generating XMI/UML model " + filename + " to " + out_path);
 
@@ -63,6 +64,7 @@ public class Generator {
 			scxml.setName("SCXML");
 			scxml.load();
 			scxml_module.getContext().getModelRepository().addModel(scxml);
+			scxml_module.getContext().setUserInput(new UserInput());
 
 			System.out.println("Generating SCXML model " + filename + " to " + out_path);
 

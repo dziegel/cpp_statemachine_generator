@@ -13,13 +13,13 @@ class ScXmlTest final : public ScXmlTestBase
 	
 	// State State_2
 	static Transition State_2Handler(ImplPtr impl, Event event);
-	static const HistoryState kState_2;
+	static const HistoryState kState_1State_2;
 	
 	// State State_3
 	static Transition State_3Handler(ImplPtr impl, Event event);
-	static const State kState_3;
+	static const State kState_1State_3;
 	
 	// State State_4
 	static Transition State_4Handler(ImplPtr impl, Event event);
-	static const State kState_4;
+	static const State kState_1State_4;
 };

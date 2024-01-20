@@ -8,36 +8,62 @@ operation Tuple transformStatemachine() {
   self.impl_type = "Impl";
   self.impl_ptr_type = "ImplPtr";
   
+  self.all_states = new Map();
   self.all_actions = new List();
   self.all_guards = new List();
   self.all_entry_exit = new List();
   
-  self.region.transformRegion(self);
+  self.region.transformRegionStates(self, null);
+  self.region.transformRegionTransitions(self, null);
   
   self.all_actions = self.all_actions.sortBy(a | a);
   self.all_guards = self.all_guards.sortBy(g | g);
   self.all_entry_exit = self.all_entry_exit.sortBy(e | e);
 }
 
-operation Tuple transformRegion(statemachine : Tuple) {
-  self.initial_variable_name = "k" + self.initial;
-
+operation Tuple transformRegionStates(statemachine : Tuple, parent_state : Tuple) {
   self.states = self.states.sortBy(s | s.name);
   for (state in self.states) {
-    state.transformState(statemachine, self);
+    state.transformState(statemachine, self, parent_state);
+
+ 	if (state.region.isDefined()) {
+      state.region.transformRegionStates(statemachine, state);
+  	}
   }
 }
 
-operation Tuple transformState(statemachine : Tuple, region : Tuple) {
-  self.variable_name = "k" + self.name;
+operation Tuple transformRegionTransitions(statemachine : Tuple, parent_state : Tuple) {
+  var initial = statemachine.all_states.get(self.initial_id);
+  self.initial_variable_name = initial.variable_name;
+
+  for (state in self.states) {
+ 	if (state.region.isDefined()) {
+      state.region.transformRegionTransitions(statemachine, state);
+  	}
+
+    state.transformTransitions(statemachine);
+  }
+}
+
+operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_state : Tuple) {
+  statemachine.all_states.put(self.id, self);
+
+  if (parent_state.isDefined()) {
+    self.scoped_name = parent_state.scoped_name + self.name;
+  } else {
+    self.scoped_name = self.name;
+  }
+  self.variable_name = "k" + self.scoped_name;
+
   self.state_type = statemachine.state_type;
-  if((region.initial = self.name) and region.initial_history) {
+  if((region.initial_id = self.id) and region.initial_history) {
     self.state_type = statemachine.history_state_type;
   }
 
   self.parent_variable_pointer = "nullptr";
-  if (self.parent.isDefined()) {
-    self.parent_variable_pointer = "&k" + self.parent;
+  if (self.parent_state_id.isDefined()) {
+    var parent = statemachine.all_states.get(self.parent_state_id);
+    self.parent_variable_pointer = "&" + parent.variable_name;
   }
   
   self.entry_pointer = "nullptr";
@@ -55,17 +81,18 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple) {
       statemachine.all_entry_exit.add(self.exit);
     }
   }
+}
 
+operation Tuple transformTransitions(statemachine : Tuple) {
   self.initial_variable_pointer = "nullptr";
   if (self.region.isDefined()) {
-    self.region.transformRegion(statemachine);
     self.initial_variable_pointer = "&" + self.region.initial_variable_name;
   }
 
   for (transition in self.transitions) {
     transition.transformTransition(statemachine);
   }
-  self.transitions = self.transitions.sortBy(t | t.trigger + "-" + t.priority + "-" + t.start + t.target);
+  self.transitions = self.transitions.sortBy(t | t.trigger + "-" + t.priority + "-" + t.start + t.target_state_id);
 
   self.all_events = new List();  
   for (transition in self.transitions) {
@@ -85,7 +112,8 @@ operation Tuple transformTransition(statemachine : Tuple) {
   if (self.internal) {
     self.target_variable_name = "kNone";
   } else {
-    self.target_variable_name = "k" + self.target;
+    var target = statemachine.all_states.get(self.target_state_id);
+    self.target_variable_name = target.variable_name;
   }
   
   var actions = new List();

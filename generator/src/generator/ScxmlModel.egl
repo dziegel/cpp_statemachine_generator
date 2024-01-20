@@ -7,7 +7,7 @@ operation t_scxml getModel() : Tuple {
   
   var region = new Tuple();
   result.region = region;
-  region.initial = self.a_initial;
+  region.initial_id = self.a_initial;
   region.initial_history = false;
 
   region.states = new List();  
@@ -21,6 +21,7 @@ operation t_scxml getModel() : Tuple {
 operation t_state getModel() : Tuple {
   var result = new Tuple();
   result.name = self.a_id;
+  result.id = self.a_id;
 
   if (self.e_onentry.isDefined() and self.e_onentry.e_script.isDefined()) {
   	result.entry = self.e_onentry.e_script.a_src;
@@ -35,18 +36,18 @@ operation t_state getModel() : Tuple {
     result.region = region;
 
     if (self.e_initial.isDefined() and self.e_initial.e_transition.isDefined()) {
-      region.initial = self.e_initial.e_transition.a_target;
+      region.initial_id = self.e_initial.e_transition.a_target;
       region.initial_history = false;
     }
     if (self.e_history.isDefined() and self.e_history.e_transition.isDefined()) {
-      region.initial = self.e_history.e_transition.a_target;
+      region.initial_id = self.e_history.e_transition.a_target;
       region.initial_history = true;
     }
     
     region.states = new List();
     for (state in self.c_state) {
       var state_model = state.getModel();
-      state_model.parent = result.name;
+      state_model.parent_state_id = result.id;
       region.states.add(state_model);
     }
   }
@@ -64,7 +65,7 @@ operation t_state getModel() : Tuple {
 operation t_transition getModel() : Tuple {
   var result = new Tuple();
   
-  result.target = self.a_target;
+  result.target_state_id = self.a_target;
   result.internal = (self.a_type = "internal");
   result.trigger = self.a_event;
 

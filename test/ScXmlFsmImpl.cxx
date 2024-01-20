@@ -22,15 +22,15 @@ void ScXmlFsmImpl::Test()
     assert(fsm_.CurrentState() == nullptr);
     fsm_.Start();
 
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_2);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
     fsm_.React(EScXmlEvent::Internal);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_2);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
     fsm_.React(EScXmlEvent::Transition_3);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_3);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_3);
     fsm_.React(EScXmlEvent::Transition_7);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_4);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_4);
     fsm_.React(EScXmlEvent::Transition_8);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_2);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
 }
 
 void ScXmlFsmImpl::entry()

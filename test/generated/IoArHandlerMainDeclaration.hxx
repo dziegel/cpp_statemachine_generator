@@ -17,45 +17,45 @@ class IoArHandlerMain final : public IoArHandlerMainBase
 	
 	// State ApplicationReady
 	static Transition ApplicationReadyHandler(ImplPtr impl, Event event);
-	static const State kApplicationReady;
+	static const State kOpenApplicationReady;
 	
 	// State DynamicReconfigurationRunning
 	static Transition DynamicReconfigurationRunningHandler(ImplPtr impl, Event event);
-	static const State kDynamicReconfigurationRunning;
+	static const State kOpenApplicationReadyDynamicReconfigurationRunning;
 	
 	// State DrPlugPrmSequence
 	static Transition DrPlugPrmSequenceHandler(ImplPtr impl, Event event);
-	static const State kDrPlugPrmSequence;
+	static const State kOpenApplicationReadyDynamicReconfigurationRunningDrPlugPrmSequence;
 	
 	// State DrWaitApplicationReadyCnfPlugSubmodule
 	static Transition DrWaitApplicationReadyCnfPlugSubmoduleHandler(ImplPtr impl, Event event);
-	static const State kDrWaitApplicationReadyCnfPlugSubmodule;
+	static const State kOpenApplicationReadyDynamicReconfigurationRunningDrWaitApplicationReadyCnfPlugSubmodule;
 	
 	// State DrWaitApplicationReadyPlugSubmodule
 	static Transition DrWaitApplicationReadyPlugSubmoduleHandler(ImplPtr impl, Event event);
-	static const State kDrWaitApplicationReadyPlugSubmodule;
+	static const State kOpenApplicationReadyDynamicReconfigurationRunningDrWaitApplicationReadyPlugSubmodule;
 	
 	// State DrWaitPlugCnf
 	static Transition DrWaitPlugCnfHandler(ImplPtr impl, Event event);
-	static const State kDrWaitPlugCnf;
+	static const State kOpenApplicationReadyDynamicReconfigurationRunningDrWaitPlugCnf;
 	
 	// State DrWaitPullCnf
 	static Transition DrWaitPullCnfHandler(ImplPtr impl, Event event);
-	static const State kDrWaitPullCnf;
+	static const State kOpenApplicationReadyDynamicReconfigurationRunningDrWaitPullCnf;
 	
 	// State Ready
 	static Transition ReadyHandler(ImplPtr impl, Event event);
-	static const State kReady;
+	static const State kOpenApplicationReadyReady;
 	
 	// State Parameterizing
 	static Transition ParameterizingHandler(ImplPtr impl, Event event);
-	static const State kParameterizing;
+	static const State kOpenParameterizing;
 	
 	// State WaitApplicationReady
 	static Transition WaitApplicationReadyHandler(ImplPtr impl, Event event);
-	static const State kWaitApplicationReady;
+	static const State kOpenWaitApplicationReady;
 	
 	// State WaitApplicationReadyCnf
 	static Transition WaitApplicationReadyCnfHandler(ImplPtr impl, Event event);
-	static const State kWaitApplicationReadyCnf;
+	static const State kOpenWaitApplicationReadyCnf;
 };

@@ -25,13 +25,13 @@ void XmiFsmImpl::Test()
 
     assert(fsm_.CurrentState() == &IoArHandlerMain::kClosed);
     fsm_.React(EXmiEvent::S_PNS_ArOpend_ind);
-    assert(fsm_.CurrentState() == &IoArHandlerMain::kParameterizing);
+    assert(fsm_.CurrentState() == &IoArHandlerMain::kOpenParameterizing);
     fsm_.React(EXmiEvent::S_PNS_ParamEndInd);
-    assert(fsm_.CurrentState() == &IoArHandlerMain::kWaitApplicationReady);
+    assert(fsm_.CurrentState() == &IoArHandlerMain::kOpenWaitApplicationReady);
     fsm_.React(EXmiEvent::SPnpbAppTimeout);
-    assert(fsm_.CurrentState() == &IoArHandlerMain::kWaitApplicationReady);
+    assert(fsm_.CurrentState() == &IoArHandlerMain::kOpenWaitApplicationReady);
     fsm_.React(EXmiEvent::SPnpbAppTimeout);
-    assert(fsm_.CurrentState() == &IoArHandlerMain::kWaitApplicationReadyCnf);
+    assert(fsm_.CurrentState() == &IoArHandlerMain::kOpenWaitApplicationReadyCnf);
     fsm_.React(EXmiEvent::S_PNS_ArClosed_ind);
     assert(fsm_.CurrentState() == &IoArHandlerMain::kClosed);
 }
