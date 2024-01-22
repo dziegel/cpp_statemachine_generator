@@ -12,49 +12,158 @@ ScXmlFsmImpl::ScXmlFsmImpl()
     fsm_.on_state_exit_ = [](ScXmlTest::Ref fsm, ScXmlTest::StateRef state)
     { std::cout << fsm.Name() << " Exit " << state.Name() << '\n'; };
     fsm_.on_unhandled_event_ = [](ScXmlTest::Ref fsm, ScXmlTest::StateRef state, ScXmlTest::Event event)
-    { std::cout << fsm.Name() << " Unhandled event " << event << " in state " << state.Name() << '\n'; };
+    {
+        std::cout << fsm.Name() << " Unhandled event " << event << " in state " << state.Name() << '\n';
+        fsm.Implementation()->UnhandledEvent();
+    };
 
     fsm_.Init(this, "ScXml", ScXmlTest::kInitialState);
 }
 
 void ScXmlFsmImpl::Test()
 {
+    // FSM not started
+    CheckAllFalse();
     assert(fsm_.CurrentState() == nullptr);
-    fsm_.Start();
 
+    // Start FSM. Entry actions of initial states must be called.
+    fsm_.Start();
     assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(state1_on_entry_called_);
+    state1_on_entry_called_ = false;
+    assert(state2_on_entry_called_);
+    state2_on_entry_called_ = false;
+    CheckAllFalse();
+
+    // Internal transition, action must be called.
     fsm_.React(EScXmlEvent::Internal);
     assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(state2_internal_action_called_);
+    state2_internal_action_called_ = false;
+    CheckAllFalse();
+
+    // Guard returns false, no state change, no entry/exit
+    state2_transition3_guard_result_ = false;
+    fsm_.React(EScXmlEvent::Transition_3);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(on_unhandled_event_called_);
+    on_unhandled_event_called_ = false;
+    CheckAllFalse();
+
+    // Guard returns true, state change, entry/exit called
+    state2_transition3_guard_result_ = true;
     fsm_.React(EScXmlEvent::Transition_3);
     assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_3);
+    assert(transition3_action1_called_);
+    transition3_action1_called_ = false;
+    assert(transition3_action2_called_);
+    transition3_action2_called_ = false;
+    assert(state3_on_entry_called_);
+    state3_on_entry_called_ = false;
+    CheckAllFalse();
+
+    // Enter history compartment
     fsm_.React(EScXmlEvent::Transition_7);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_4);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_4State_5);
+    assert(state3_on_exit_called_);
+    state3_on_exit_called_ = false;
+    assert(state4_on_entry_called_);
+    state4_on_entry_called_ = false;
+    CheckAllFalse();
+
+    // Transition in history compartment
+    fsm_.React(EScXmlEvent::Transition_3);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_4State_6);
+    CheckAllFalse();
+
+    // Step out of history compartment
     fsm_.React(EScXmlEvent::Transition_8);
     assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(state4_on_exit_called_);
+    state4_on_exit_called_ = false;
+    assert(state2_on_entry_called_);
+    state2_on_entry_called_ = false;
+    CheckAllFalse();
+
+    // Reenter history compartment, history must be preserved
+    fsm_.React(EScXmlEvent::Transition_6);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_4State_6);
+    assert(state4_on_entry_called_);
+    state4_on_entry_called_ = false;
+    CheckAllFalse();
 }
 
-void ScXmlFsmImpl::entry()
+void ScXmlFsmImpl::CheckAllFalse() const
 {
-    std::cout << std::source_location::current().function_name() << "\n";
+    assert(on_unhandled_event_called_ == false);
+
+    assert(state2_internal_action_called_ == false);
+    assert(transition3_action1_called_ == false);
+    assert(transition3_action2_called_ == false);
+
+    assert(state1_on_entry_called_ == false);
+    assert(state2_on_entry_called_ == false);
+    assert(state3_on_entry_called_ == false);
+    assert(state3_on_exit_called_ == false);
+    assert(state4_on_entry_called_ == false);
+    assert(state4_on_exit_called_ == false);
 }
-void ScXmlFsmImpl::exit()
+
+void ScXmlFsmImpl::UnhandledEvent()
 {
     std::cout << std::source_location::current().function_name() << "\n";
+    on_unhandled_event_called_ = true;
 }
-void ScXmlFsmImpl::action(ScXmlTestBase::Event /*event*/)
+
+void ScXmlFsmImpl::State2InternalAction(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
+    state2_internal_action_called_ = true;
 }
-void ScXmlFsmImpl::action2(ScXmlTestBase::Event /*event*/)
+void ScXmlFsmImpl::Transition3Action1(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
+    transition3_action1_called_ = true;
 }
-void ScXmlFsmImpl::internalaction(ScXmlTestBase::Event /*event*/)
+void ScXmlFsmImpl::Transition3Action2(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
+    transition3_action2_called_ = true;
 }
-bool ScXmlFsmImpl::guard(ScXmlTestBase::Event /*event*/)
+
+bool ScXmlFsmImpl::State2Transition3Guard(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
-    return true;
+    return state2_transition3_guard_result_;
+}
+
+void ScXmlFsmImpl::State1OnEntry()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    state1_on_entry_called_ = true;
+}
+void ScXmlFsmImpl::State2OnEntry()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    state2_on_entry_called_ = true;
+}
+void ScXmlFsmImpl::State3OnEntry()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    state3_on_entry_called_ = true;
+}
+void ScXmlFsmImpl::State3OnExit()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    state3_on_exit_called_ = true;
+}
+void ScXmlFsmImpl::State4OnEntry()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    state4_on_entry_called_ = true;
+}
+void ScXmlFsmImpl::State4OnExit()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    state4_on_exit_called_ = true;
 }
