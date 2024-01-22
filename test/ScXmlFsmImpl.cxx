@@ -35,6 +35,13 @@ void ScXmlFsmImpl::Test()
     state2_on_entry_called_ = false;
     CheckAllFalse();
 
+    // Send event that is not handled in state
+    fsm_.React(EScXmlEvent::Transition_3);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(on_unhandled_event_called_);
+    on_unhandled_event_called_ = false;
+    CheckAllFalse();
+
     // Internal transition, action must be called.
     fsm_.React(EScXmlEvent::Internal);
     assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
