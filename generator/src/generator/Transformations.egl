@@ -26,7 +26,11 @@ operation Tuple transformRegionStates(statemachine : Tuple, parent_state : Tuple
   for (state in self.states) {
     state.transformState(statemachine, self, parent_state);
 
- 	if (state.region.isDefined()) {
+    if(self.initial_history) {
+      parent_state.state_type = statemachine.history_state_type;
+    }
+
+    if (state.region.isDefined()) {
       state.region.transformRegionStates(statemachine, state);
   	}
   }
@@ -58,9 +62,6 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
   self.variable_name = "k" + self.scoped_name;
 
   self.state_type = statemachine.state_type;
-  if((region.initial_id = self.id) and region.initial_history) {
-    self.state_type = statemachine.history_state_type;
-  }
 
   self.parent_variable_pointer = "nullptr";
   if (self.parent_state_id.isDefined()) {
