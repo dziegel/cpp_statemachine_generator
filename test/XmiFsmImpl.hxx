@@ -2,7 +2,7 @@
 
 #include "XmiFsm.hxx"
 
-class XmiFsmImpl final : private IIoArHandlerMainImpl
+class XmiFsmImpl final : private IXmiFsmImpl
 {
 public:
     XmiFsmImpl();
@@ -10,30 +10,31 @@ public:
     void Test();
 
 private:
-    IoArHandlerMain fsm_;
+    XmiTest fsm_;
 
-    bool ready_ = false;
+    bool on_unhandled_event_called_ = false;
+    void UnhandledEvent() override;
 
-    void AbortAr(IoArHandlerMainBase::Event event) override;
-    void ApplyConfiguration(IoArHandlerMainBase::Event event) override;
-    void ArClosed(IoArHandlerMainBase::Event event) override;
-    void BackupSwitchover(IoArHandlerMainBase::Event event) override;
-    void CheckModuleDiff(IoArHandlerMainBase::Event event) override;
-    void DrPlug(IoArHandlerMainBase::Event event) override;
-    void DrPull(IoArHandlerMainBase::Event event) override;
-    void DrPullDone(IoArHandlerMainBase::Event event) override;
-    void DynReconfTimeoutAbortArSet(IoArHandlerMainBase::Event event) override;
-    void PrimarySwitchover(IoArHandlerMainBase::Event event) override;
-    void Read(IoArHandlerMainBase::Event event) override;
-    void Write(IoArHandlerMainBase::Event event) override;
+    bool state2_internal_action_called_ = false;
+    void State2InternalAction(XmiTestBase::Event event) override;
+    bool transition3_action1_called_ = false;
+    void Transition3Action1(XmiTestBase::Event event) override;
 
-    bool CheckApplicationReady(IoArHandlerMainBase::Event event) override;
-    bool FirstInArSetOrPrimary(IoArHandlerMainBase::Event event) override;
-    bool success(IoArHandlerMainBase::Event event) override;
+    bool state2_transition3_guard_result_ = false;
+    bool State2Transition3Guard(XmiTestBase::Event event) override;
 
-    void SendApplicationReady() override;
-    void StartDynReconfTimer() override;
-    void StartWaitApplicationReadyTimer() override;
-    void StopDynReconfTimer() override;
-    void StopWaitApplicationReadyTimer() override;
+    bool state1_on_entry_called_ = false;
+    void State1OnEntry() override;
+    bool state2_on_entry_called_ = false;
+    void State2OnEntry() override;
+    bool state3_on_entry_called_ = false;
+    void State3OnEntry() override;
+    bool state3_on_exit_called_ = false;
+    void State3OnExit() override;
+    bool state4_on_entry_called_ = false;
+    void State4OnEntry() override;
+    bool state4_on_exit_called_ = false;
+    void State4OnExit() override;
+
+    void CheckAllFalse() const;
 };

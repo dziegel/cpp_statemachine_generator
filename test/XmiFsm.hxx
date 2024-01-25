@@ -6,79 +6,43 @@
 
 enum class EXmiEvent
 {
-    S_PNS_ArOpend_ind,
-    S_PNS_ParamEndInd,
-    S_PNS_ArClosed_ind,
-    S_PNS_SwitchoverRequestPrimary,
-    S_PNS_SwitchoverRequestBackup,
-    SPnpbAppTimeout,
-    S_PNS_PlugParamEndInd,
-    S_PNS_PlugSubmodule_cnf,
-    S_PNS_PullSubmodule_cnf,
-    S_PNS_PlugApplicationReady_cnf,
-    SPnioAppTimeoutDynReconf,
-    S_PNS_WriteReq,
-    S_PNS_ReadReq,
-    S_PNS_CheckModuleDiff,
-    S_PNS_ApplicationReady_cnf,
-    S_PNS_DynReconfPlug,
-    S_PNS_DynReconfPull
+    Transition_1,
+    Transition_2,
+    Transition_3,
+    Transition_4,
+    Transition_6,
+    Transition_7,
+    Transition_8,
+    Internal
 };
 
 inline std::ostream& operator<<(std::ostream& os, EXmiEvent event)
 {
     switch (event)
     {
-    case EXmiEvent::S_PNS_ArOpend_ind:
-        os << "S_PNS_ArOpend_ind";
+    case EXmiEvent::Transition_1:
+        os << "Transition_1";
         break;
-    case EXmiEvent::S_PNS_ParamEndInd:
-        os << "S_PNS_ParamEndInd";
+    case EXmiEvent::Transition_2:
+        os << "Transition_2";
         break;
-    case EXmiEvent::S_PNS_ArClosed_ind:
-        os << "S_PNS_ArClosed_ind";
+    case EXmiEvent::Transition_3:
+        os << "Transition_3";
         break;
-    case EXmiEvent::S_PNS_SwitchoverRequestPrimary:
-        os << "S_PNS_SwitchoverRequestPrimary";
+    case EXmiEvent::Transition_4:
+        os << "Transition_4";
         break;
-    case EXmiEvent::S_PNS_SwitchoverRequestBackup:
-        os << "S_PNS_SwitchoverRequestBackup";
+    case EXmiEvent::Transition_6:
+        os << "Transition_6";
         break;
-    case EXmiEvent::SPnpbAppTimeout:
-        os << "SPnpbAppTimeout";
+    case EXmiEvent::Transition_7:
+        os << "Transition_7";
         break;
-    case EXmiEvent::S_PNS_PlugParamEndInd:
-        os << "S_PNS_PlugParamEndInd";
+    case EXmiEvent::Transition_8:
+        os << "Transition_8";
         break;
-    case EXmiEvent::S_PNS_PlugSubmodule_cnf:
-        os << "S_PNS_PlugSubmodule_cnf";
-        break;
-    case EXmiEvent::S_PNS_PullSubmodule_cnf:
-        os << "S_PNS_PullSubmodule_cnf";
-        break;
-    case EXmiEvent::S_PNS_PlugApplicationReady_cnf:
-        os << "S_PNS_PlugApplicationReady_cnf";
-        break;
-    case EXmiEvent::SPnioAppTimeoutDynReconf:
-        os << "SPnioAppTimeoutDynReconf";
-        break;
-    case EXmiEvent::S_PNS_WriteReq:
-        os << "S_PNS_WriteReq";
-        break;
-    case EXmiEvent::S_PNS_ReadReq:
-        os << "S_PNS_ReadReq";
-        break;
-    case EXmiEvent::S_PNS_CheckModuleDiff:
-        os << "S_PNS_CheckModuleDiff";
-        break;
-    case EXmiEvent::S_PNS_ApplicationReady_cnf:
-        os << "S_PNS_ApplicationReady_cnf";
-        break;
-    case EXmiEvent::S_PNS_DynReconfPlug:
-        os << "S_PNS_DynReconfPlug";
-        break;
-    case EXmiEvent::S_PNS_DynReconfPull:
-        os << "S_PNS_DynReconfPull";
+    case EXmiEvent::Internal:
+        os << "Internal";
         break;
     default:
         os << "Unknown";
@@ -87,8 +51,14 @@ inline std::ostream& operator<<(std::ostream& os, EXmiEvent event)
     return os;
 }
 
-class IIoArHandlerMainImpl;
-using IoArHandlerMainBase = cpp_event_framework::Statemachine<IIoArHandlerMainImpl, EXmiEvent>;
+class IXmiFsmImpl;
+using XmiTestBase = cpp_event_framework::Statemachine<IXmiFsmImpl, EXmiEvent>;
 
-#include "generated/IIoArHandlerMainImpl.hxx"
-#include "generated/IoArHandlerMainDeclaration.hxx"
+#include "generated/IXmiTestImpl.hxx"
+#include "generated/XmiTestDeclaration.hxx"
+
+class IXmiFsmImpl : public IXmiTestImpl
+{
+public:
+    virtual void UnhandledEvent() = 0;
+};

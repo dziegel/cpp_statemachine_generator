@@ -1,6 +1,6 @@
 #include "XmiFsm.hxx"
 
-#define IoArHandlerMain_GET_INSTANCE_EVENT_ID(e) e
-#define IoArHandlerMain_GET_STATIC_EVENT_ID(e) EXmiEvent::e
+#define XmiTest_GET_INSTANCE_EVENT_ID(e) e
+#define XmiTest_GET_STATIC_EVENT_ID(e) EXmiEvent::e
 
-#include "generated/IoArHandlerMainInstance.hxx"
+#include "generated/XmiTestInstance.hxx"
