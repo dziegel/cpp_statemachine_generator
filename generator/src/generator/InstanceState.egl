@@ -3,7 +3,7 @@
   handlerTemplate.populate("state", state);
   handlerTemplate.populate("statemachine", statemachine);
 %]
-// State [%=state.name%]
+// State [%=state.readable_scoped_name%]
 [%=handlerTemplate.process()%]
 const [%=statemachine.name%]::[%=state.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.readable_scoped_name%]", &[%=state.scoped_name%]Handler, [%=state.parent_variable_pointer%], [%=state.initial_variable_pointer%], [%=state.entry_pointer%], [%=state.exit_pointer%]);
 [%

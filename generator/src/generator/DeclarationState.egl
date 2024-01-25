@@ -1,4 +1,4 @@
-// State [%=state.name%]
+// State [%=state.readable_scoped_name%]
 static const [%=state.state_type%] [%=state.variable_name%];
 [%
   if(state.region.isDefined()) {

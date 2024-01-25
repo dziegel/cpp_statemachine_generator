@@ -26,7 +26,7 @@ static XmiTest::Transition State_1Handler(XmiTest::ImplPtr impl, XmiTest::Event 
 }
 const XmiTest::State XmiTest::kState_1("State_1", &State_1Handler, nullptr, &XmiTest::kState_1State_2, &XmiTest::Impl::State1OnEntry, nullptr);
 
-// State StateWithSameName
+// State State_1::StateWithSameName
 static XmiTest::Transition State_1StateWithSameNameHandler(XmiTest::ImplPtr impl, XmiTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -46,7 +46,7 @@ static XmiTest::Transition State_1StateWithSameNameHandler(XmiTest::ImplPtr impl
 }
 const XmiTest::State XmiTest::kState_1StateWithSameName("State_1::StateWithSameName", &State_1StateWithSameNameHandler, &XmiTest::kState_1, nullptr, &XmiTest::Impl::State3OnEntry, &XmiTest::Impl::State3OnExit);
 
-// State State_2
+// State State_1::State_2
 static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -82,7 +82,7 @@ static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest:
 }
 const XmiTest::State XmiTest::kState_1State_2("State_1::State_2", &State_1State_2Handler, &XmiTest::kState_1, nullptr, &XmiTest::Impl::State2OnEntry, nullptr);
 
-// State State_4
+// State State_1::State_4
 static XmiTest::Transition State_1State_4Handler(XmiTest::ImplPtr impl, XmiTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -102,7 +102,7 @@ static XmiTest::Transition State_1State_4Handler(XmiTest::ImplPtr impl, XmiTest:
 }
 const XmiTest::HistoryState XmiTest::kState_1State_4("State_1::State_4", &State_1State_4Handler, &XmiTest::kState_1, &XmiTest::kState_1State_4State_5, &XmiTest::Impl::State4OnEntry, &XmiTest::Impl::State4OnExit);
 
-// State StateWithSameName
+// State State_1::State_4::StateWithSameName
 static XmiTest::Transition State_1State_4StateWithSameNameHandler(XmiTest::ImplPtr impl, XmiTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -122,7 +122,7 @@ static XmiTest::Transition State_1State_4StateWithSameNameHandler(XmiTest::ImplP
 }
 const XmiTest::State XmiTest::kState_1State_4StateWithSameName("State_1::State_4::StateWithSameName", &State_1State_4StateWithSameNameHandler, &XmiTest::kState_1State_4, nullptr, nullptr, nullptr);
 
-// State State_5
+// State State_1::State_4::State_5
 static XmiTest::Transition State_1State_4State_5Handler(XmiTest::ImplPtr impl, XmiTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here

@@ -26,7 +26,7 @@ static ScXmlTest::Transition State_1Handler(ScXmlTest::ImplPtr impl, ScXmlTest::
 }
 const ScXmlTest::State ScXmlTest::kState_1("State_1", &State_1Handler, nullptr, &ScXmlTest::kState_1State_2, &ScXmlTest::Impl::State1OnEntry, nullptr);
 
-// State State_2
+// State State_1::State_2
 static ScXmlTest::Transition State_1State_2Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -62,7 +62,7 @@ static ScXmlTest::Transition State_1State_2Handler(ScXmlTest::ImplPtr impl, ScXm
 }
 const ScXmlTest::State ScXmlTest::kState_1State_2("State_1::State_2", &State_1State_2Handler, &ScXmlTest::kState_1, nullptr, &ScXmlTest::Impl::State2OnEntry, nullptr);
 
-// State State_3
+// State State_1::State_3
 static ScXmlTest::Transition State_1State_3Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -82,7 +82,7 @@ static ScXmlTest::Transition State_1State_3Handler(ScXmlTest::ImplPtr impl, ScXm
 }
 const ScXmlTest::State ScXmlTest::kState_1State_3("State_1::State_3", &State_1State_3Handler, &ScXmlTest::kState_1, nullptr, &ScXmlTest::Impl::State3OnEntry, &ScXmlTest::Impl::State3OnExit);
 
-// State State_4
+// State State_1::State_4
 static ScXmlTest::Transition State_1State_4Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -102,7 +102,7 @@ static ScXmlTest::Transition State_1State_4Handler(ScXmlTest::ImplPtr impl, ScXm
 }
 const ScXmlTest::HistoryState ScXmlTest::kState_1State_4("State_1::State_4", &State_1State_4Handler, &ScXmlTest::kState_1, &ScXmlTest::kState_1State_4State_5, &ScXmlTest::Impl::State4OnEntry, &ScXmlTest::Impl::State4OnExit);
 
-// State State_5
+// State State_1::State_4::State_5
 static ScXmlTest::Transition State_1State_4State_5Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
@@ -122,7 +122,7 @@ static ScXmlTest::Transition State_1State_4State_5Handler(ScXmlTest::ImplPtr imp
 }
 const ScXmlTest::State ScXmlTest::kState_1State_4State_5("State_1::State_4::State_5", &State_1State_4State_5Handler, &ScXmlTest::kState_1State_4, nullptr, nullptr, nullptr);
 
-// State State_6
+// State State_1::State_4::State_6
 static ScXmlTest::Transition State_1State_4State_6Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
