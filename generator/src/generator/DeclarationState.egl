@@ -1,5 +1,5 @@
 // State [%=state.name%]
-static [%=statemachine.transition_type%] [%=state.name%]Handler([%=statemachine.impl_ptr_type%] impl, [%=statemachine.event_type%] event);
+static [%=statemachine.transition_type%] [%=state.scoped_name%]Handler([%=statemachine.impl_ptr_type%] impl, [%=statemachine.event_type%] event);
 static const [%=state.state_type%] [%=state.variable_name%];
 [%
   if(state.region.isDefined()) {

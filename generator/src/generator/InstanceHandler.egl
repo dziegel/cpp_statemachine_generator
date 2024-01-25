@@ -1,4 +1,4 @@
-[%=statemachine.name%]::[%=statemachine.transition_type%] [%=statemachine.name%]::[%=state.name%]Handler(ImplPtr impl, Event event)
+[%=statemachine.name%]::[%=statemachine.transition_type%] [%=statemachine.name%]::[%=state.scoped_name%]Handler(ImplPtr impl, Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
 
