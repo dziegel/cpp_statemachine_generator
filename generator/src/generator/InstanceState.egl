@@ -4,8 +4,8 @@
   handlerTemplate.populate("statemachine", statemachine);
 %]
 // State [%=state.name%]
-const [%=statemachine.name%]::[%=state.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.readable_scoped_name%]", &[%=state.scoped_name%]Handler, [%=state.parent_variable_pointer%], [%=state.initial_variable_pointer%], [%=state.entry_pointer%], [%=state.exit_pointer%]);
 [%=handlerTemplate.process()%]
+const [%=statemachine.name%]::[%=state.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.readable_scoped_name%]", &[%=state.scoped_name%]Handler, [%=state.parent_variable_pointer%], [%=state.initial_variable_pointer%], [%=state.entry_pointer%], [%=state.exit_pointer%]);
 [%
   if (state.region.isDefined()) {
     var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");

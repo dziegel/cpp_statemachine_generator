@@ -66,12 +66,12 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
   self.parent_variable_pointer = "nullptr";
   if (self.parent_state_id.isDefined()) {
     var parent = statemachine.all_states.get(self.parent_state_id);
-    self.parent_variable_pointer = "&" + parent.variable_name;
+    self.parent_variable_pointer = "&" + statemachine.name + "::" + parent.variable_name;
   }
   
   self.entry_pointer = "nullptr";
   if (self.entry.isDefined()) {
-    self.entry_pointer = "&Impl::" + self.entry;
+    self.entry_pointer = "&" + statemachine.name + "::" + "Impl::" + self.entry;
     if (not statemachine.all_entry_exit.includes(self.entry)) {
       statemachine.all_entry_exit.add(self.entry);
     }
@@ -79,7 +79,7 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
 
   self.exit_pointer = "nullptr";
   if (self.exit.isDefined()) {
-    self.exit_pointer = "&Impl::" + self.exit;
+    self.exit_pointer = "&" + statemachine.name + "::" + "Impl::" + self.exit;
     if (not statemachine.all_entry_exit.includes(self.exit)) {
       statemachine.all_entry_exit.add(self.exit);
     }
@@ -89,7 +89,7 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
 operation Tuple transformTransitions(statemachine : Tuple) {
   self.initial_variable_pointer = "nullptr";
   if (self.region.isDefined()) {
-    self.initial_variable_pointer = "&" + self.region.initial_variable_name;
+    self.initial_variable_pointer = "&" + statemachine.name + "::" + self.region.initial_variable_name;
   }
 
   for (transition in self.transitions) {
@@ -121,7 +121,7 @@ operation Tuple transformTransition(statemachine : Tuple) {
   
   var actions = new List();
   for (action in self.actions) {
-    actions.add("&" + statemachine.impl_type + "::" + action);
+    actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
     if (not statemachine.all_actions.includes(action)) {
       statemachine.all_actions.add(action);
     }

@@ -2,12 +2,12 @@
 
 // Override the following defines according to your needs if you are not using cpp_event_framework:
 
-#ifndef IoArHandlerMain_GET_INSTANCE_EVENT_ID
-#define IoArHandlerMain_GET_INSTANCE_EVENT_ID(event_instance) event_instance->Id()
+#ifndef [%=statemachine.name%]_GET_INSTANCE_EVENT_ID
+#define [%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event_instance) event_instance->Id()
 #endif
 
-#ifndef IoArHandlerMain_GET_STATIC_EVENT_ID
-#define IoArHandlerMain_GET_STATIC_EVENT_ID(event_name) event_name::kId
+#ifndef [%=statemachine.name%]_GET_STATIC_EVENT_ID
+#define [%=statemachine.name%]_GET_STATIC_EVENT_ID(event_name) event_name::kId
 #endif
 
 [%

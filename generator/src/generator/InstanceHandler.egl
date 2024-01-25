@@ -1,4 +1,4 @@
-[%=statemachine.name%]::[%=statemachine.transition_type%] [%=statemachine.name%]::[%=state.scoped_name%]Handler(ImplPtr impl, Event event)
+static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped_name%]Handler([%=statemachine.name%]::ImplPtr impl, [%=statemachine.name%]::Event event)
 {
 	(void)impl; // impl parameter is unused when there is no guard function being called in here
 
@@ -17,12 +17,12 @@
 [%
           if (transition.actions_list.length() = 0) {
 %]
-        return TransitionTo([%=transition.target_variable_name%]);
+        return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%]);
 [%
           } else {
 %]
-        static const [%=statemachine.transition_action_type%]<[%=transition.actions.size()%]> kActions = {[%=transition.actions_list%]};
-        return TransitionTo([%=transition.target_variable_name%], kActions);
+        static const [%=statemachine.name%]::[%=statemachine.transition_action_type%]<[%=transition.actions.size()%]> kActions = {[%=transition.actions_list%]};
+        return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%], kActions);
 [%
           }
 %]
@@ -30,12 +30,12 @@
 [%
       }
 %]
-      return UnhandledEvent();
+      return [%=statemachine.name%]::UnhandledEvent();
       
 [%
     }
 %]
     default:
-        return UnhandledEvent();
+        return [%=statemachine.name%]::UnhandledEvent();
     }
 }
