@@ -1,4 +1,7 @@
 // Statemachine [%=statemachine.name%] instance
+// Generated: [%=new Native("java.text.SimpleDateFormat").format(new Native("java.util.Date"))%]
+
+#pragma once
 
 // Override the following defines according to your needs if you are not using cpp_event_framework:
 

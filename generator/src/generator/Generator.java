@@ -65,7 +65,7 @@ public class Generator {
 			scxml.load();
 			scxml_module.getContext().getModelRepository().addModel(scxml);
 			scxml_module.getContext().setUserInput(new UserInput());
-
+		
 			System.out.println("Generating SCXML model " + filename + " to " + out_path);
 
 			scxml_module.execute();

@@ -1,4 +1,5 @@
 // Statemachine [%=statemachine.name%] declaration
+// Generated: [%=new Native("java.text.SimpleDateFormat").format(new Native("java.util.Date"))%]
 
 #pragma once
 

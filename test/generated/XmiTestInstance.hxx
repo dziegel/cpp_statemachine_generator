@@ -1,4 +1,7 @@
 // Statemachine XmiTest instance
+// Generated: 25.01.24, 21:47
+
+#pragma once
 
 // Override the following defines according to your needs if you are not using cpp_event_framework:
 
