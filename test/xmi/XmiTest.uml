@@ -47,9 +47,23 @@
               <transition xmi:type="uml:Transition" xmi:id="_CGMHALtBEe6r94MfzN2GzQ" source="_27rR0Lr9Ee6r94MfzN2GzQ" target="_0PA3QLr9Ee6r94MfzN2GzQ">
                 <trigger xmi:type="uml:Trigger" xmi:id="_FqmB4LtBEe6r94MfzN2GzQ" event="_FZ2QILtBEe6r94MfzN2GzQ"/>
               </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_iQMcwLxnEe6cZuHlyUXtcQ" guard="_5qwpwLxnEe6cZuHlyUXtcQ" source="_27rR0Lr9Ee6r94MfzN2GzQ" target="_hlMX8LxnEe6cZuHlyUXtcQ">
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_5qwpwLxnEe6cZuHlyUXtcQ" name="ChoiceGuard1"/>
+                <effect xmi:type="uml:FunctionBehavior" xmi:id="_8Rs20LxnEe6cZuHlyUXtcQ" name="ChoiceAction1"/>
+                <trigger xmi:type="uml:Trigger" xmi:id="_1JA84LxnEe6cZuHlyUXtcQ" event="_T1GqsLs_Ee6r94MfzN2GzQ"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_ldKIALxnEe6cZuHlyUXtcQ" guard="_xd_coLxnEe6cZuHlyUXtcQ" source="_hlMX8LxnEe6cZuHlyUXtcQ" target="_0PA3QLr9Ee6r94MfzN2GzQ">
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_xd_coLxnEe6cZuHlyUXtcQ" name="ChoiceGuard2"/>
+                <effect xmi:type="uml:FunctionBehavior" xmi:id="_-dgAALxnEe6cZuHlyUXtcQ" name="ChoiceAction2"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_oApYcLxnEe6cZuHlyUXtcQ" guard="_ukWWALxnEe6cZuHlyUXtcQ" source="_hlMX8LxnEe6cZuHlyUXtcQ" target="_tPkY4Lr9Ee6r94MfzN2GzQ">
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_ukWWALxnEe6cZuHlyUXtcQ" name="else"/>
+                <effect xmi:type="uml:FunctionBehavior" xmi:id="_BXnAsLxoEe6cZuHlyUXtcQ" name="ChoiceAction3"/>
+              </transition>
               <subvertex xmi:type="uml:State" xmi:id="_0PA3QLr9Ee6r94MfzN2GzQ" name="State_5"/>
               <subvertex xmi:type="uml:State" xmi:id="_27rR0Lr9Ee6r94MfzN2GzQ" name="StateWithSameName"/>
               <subvertex xmi:type="uml:Pseudostate" xmi:id="_7dXUULr9Ee6r94MfzN2GzQ" name="" kind="shallowHistory"/>
+              <subvertex xmi:type="uml:Pseudostate" xmi:id="_hlMX8LxnEe6cZuHlyUXtcQ" name="Choice7" kind="choice"/>
             </region>
           </subvertex>
         </region>

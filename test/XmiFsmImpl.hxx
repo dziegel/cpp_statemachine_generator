@@ -15,11 +15,21 @@ private:
     bool on_unhandled_event_called_ = false;
     void UnhandledEvent() override;
 
+    bool choice_action1_called_ = false;
+    void ChoiceAction1(XmiTestBase::Event event) override;
+    bool choice_action2_called_ = false;
+    void ChoiceAction2(XmiTestBase::Event event) override;
+    bool choice_action3_called_ = false;
+    void ChoiceAction3(XmiTestBase::Event event) override;
     bool state2_internal_action_called_ = false;
     void State2InternalAction(XmiTestBase::Event event) override;
     bool transition3_action1_called_ = false;
     void Transition3Action1(XmiTestBase::Event event) override;
 
+    bool choice_guard1_result_ = false;
+    bool ChoiceGuard1(XmiTestBase::Event event) override;
+    bool choice_guard2_result_ = false;
+    bool ChoiceGuard2(XmiTestBase::Event event) override;
     bool state2_transition3_guard_result_ = false;
     bool State2Transition3Guard(XmiTestBase::Event event) override;
 
