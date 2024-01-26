@@ -21,7 +21,7 @@ static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped
 [%
           } else {
 %]
-        static const [%=statemachine.name%]::[%=statemachine.transition_action_type%]<[%=transition.actions.size()%]> kActions = {[%=transition.actions_list%]};
+        static const auto kActions = std::to_array<[%=statemachine.name%]::[%=statemachine.transition_action_type%]>({[%=transition.actions_list%]});
         return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%], kActions);
 [%
           }

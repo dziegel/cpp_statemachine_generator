@@ -1,5 +1,5 @@
 // Statemachine ScXmlTest instance
-// Generated: 25.01.24, 21:47
+// Generated: 26.01.24, 17:51
 
 #pragma once
 
@@ -39,7 +39,7 @@ static ScXmlTest::Transition State_1State_2Handler(ScXmlTest::ImplPtr impl, ScXm
 		case ScXmlTest_GET_STATIC_EVENT_ID(Internal):
 		if (true)
 		{
-			static const ScXmlTest::Transition::ActionContainer<1> kActions = {&ScXmlTest::Impl::State2InternalAction};
+			static const auto kActions = std::to_array<ScXmlTest::Transition::ActionType>({&ScXmlTest::Impl::State2InternalAction});
 			return ScXmlTest::TransitionTo(ScXmlTest::kNone, kActions);
 		}
 		return ScXmlTest::UnhandledEvent();
@@ -47,7 +47,7 @@ static ScXmlTest::Transition State_1State_2Handler(ScXmlTest::ImplPtr impl, ScXm
 		case ScXmlTest_GET_STATIC_EVENT_ID(Transition_3):
 		if (impl->State2Transition3Guard(event))
 		{
-			static const ScXmlTest::Transition::ActionContainer<2> kActions = {&ScXmlTest::Impl::Transition3Action1, &ScXmlTest::Impl::Transition3Action2};
+			static const auto kActions = std::to_array<ScXmlTest::Transition::ActionType>({&ScXmlTest::Impl::Transition3Action1, &ScXmlTest::Impl::Transition3Action2});
 			return ScXmlTest::TransitionTo(ScXmlTest::kState_1State_3, kActions);
 		}
 		return ScXmlTest::UnhandledEvent();

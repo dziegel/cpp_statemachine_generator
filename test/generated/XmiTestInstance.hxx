@@ -1,5 +1,5 @@
 // Statemachine XmiTest instance
-// Generated: 26.01.24, 17:29
+// Generated: 26.01.24, 17:52
 
 #pragma once
 
@@ -59,7 +59,7 @@ static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest:
 		case XmiTest_GET_STATIC_EVENT_ID(Internal):
 		if (true)
 		{
-			static const XmiTest::Transition::ActionContainer<1> kActions = {&XmiTest::Impl::State2InternalAction};
+			static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::State2InternalAction});
 			return XmiTest::TransitionTo(XmiTest::kNone, kActions);
 		}
 		return XmiTest::UnhandledEvent();
@@ -67,7 +67,7 @@ static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest:
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_3):
 		if (impl->State2Transition3Guard(event))
 		{
-			static const XmiTest::Transition::ActionContainer<1> kActions = {&XmiTest::Impl::Transition3Action1};
+			static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::Transition3Action1});
 			return XmiTest::TransitionTo(XmiTest::kState_1StateWithSameName, kActions);
 		}
 		return XmiTest::UnhandledEvent();
@@ -122,12 +122,12 @@ static XmiTest::Transition State_1State_4StateWithSameNameHandler(XmiTest::ImplP
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_7):
 		if (impl->ChoiceGuard1(event) && impl->ChoiceGuard2(event))
 		{
-			static const XmiTest::Transition::ActionContainer<2> kActions = {&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::ChoiceAction2};
+			static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::ChoiceAction2});
 			return XmiTest::TransitionTo(XmiTest::kState_1State_4State_5, kActions);
 		}
 		if (impl->ChoiceGuard1(event))
 		{
-			static const XmiTest::Transition::ActionContainer<2> kActions = {&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::ChoiceAction3};
+			static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::ChoiceAction3});
 			return XmiTest::TransitionTo(XmiTest::kState_1StateWithSameName, kActions);
 		}
 		return XmiTest::UnhandledEvent();

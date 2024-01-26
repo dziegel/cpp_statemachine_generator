@@ -1,7 +1,7 @@
 [%
 operation Tuple transformStatemachine() {
   self.transition_type = "Transition";
-  self.transition_action_type = "Transition::ActionContainer";
+  self.transition_action_type = "Transition::ActionType";
   self.state_type = "State";
   self.history_state_type = "HistoryState";
   self.event_type = "Event";
