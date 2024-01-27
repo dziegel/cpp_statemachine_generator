@@ -1,10 +1,17 @@
+#include <cstddef>
 #include <iostream>
 #include <source_location>
 
+#include "XmiFsm.hxx"
 #include "XmiFsmImpl.hxx"
+
+constexpr size_t kPoolSize = 10;
 
 XmiFsmImpl::XmiFsmImpl()
 {
+    auto pool = cpp_event_framework::Pool<>::MakeShared(PoolSizeCalculator::kSptrSize, kPoolSize, "MyPool");
+    EventPoolAllocator::SetPool(pool);
+
     fsm_.on_handle_event_ = [](XmiTest::Ref fsm, XmiTest::StateRef state, XmiTest::Event event)
     { std::cout << fsm.Name() << " State " << state.Name() << " handle event " << event << '\n'; };
     fsm_.on_state_entry_ = [](XmiTest::Ref fsm, XmiTest::StateRef state)
@@ -22,6 +29,8 @@ XmiFsmImpl::XmiFsmImpl()
 
 void XmiFsmImpl::Test()
 {
+    assert(EventPoolAllocator::pool->FillLevel() == kPoolSize);
+
     // FSM not started
     CheckAllFalse();
     assert(fsm_.CurrentState() == nullptr);
@@ -135,6 +144,8 @@ void XmiFsmImpl::Test()
     assert(choice_action2_called_);
     choice_action2_called_ = false;
     CheckAllFalse();
+
+    assert(EventPoolAllocator::pool->FillLevel() == kPoolSize);
 }
 
 void XmiFsmImpl::CheckAllFalse() const

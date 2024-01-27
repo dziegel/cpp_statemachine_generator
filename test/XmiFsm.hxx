@@ -6,10 +6,14 @@
 #include <cpp_event_framework/Signal.hxx>
 #include <cpp_event_framework/Statemachine.hxx>
 
-class Transition_1 : public cpp_event_framework::SignalBase<Transition_1, 0>
+class EventPoolAllocator : public cpp_event_framework::PoolAllocator<EventPoolAllocator>
 {
 };
 
+class Transition_1
+    : public cpp_event_framework::SignalBase<Transition_1, 0, cpp_event_framework::Signal, EventPoolAllocator>
+{
+};
 class Transition_2 : public cpp_event_framework::NextSignal<Transition_2, Transition_1>
 {
 };
@@ -31,6 +35,10 @@ class Transition_8 : public cpp_event_framework::NextSignal<Transition_8, Transi
 class Internal : public cpp_event_framework::NextSignal<Internal, Transition_8>
 {
 };
+
+using PoolSizeCalculator =
+    cpp_event_framework::SignalPoolElementSizeCalculator<Transition_1, Transition_2, Transition_3, Transition_4,
+                                                         Transition_6, Transition_7, Transition_8, Internal>;
 
 inline std::ostream& operator<<(std::ostream& os, const cpp_event_framework::Signal::SPtr& event)
 {
