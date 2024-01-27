@@ -36,14 +36,14 @@ void XmiFsmImpl::Test()
     CheckAllFalse();
 
     // Send event that is not handled in state
-    fsm_.React(EXmiEvent::Transition_3);
+    fsm_.React(Transition_3::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_2);
     assert(on_unhandled_event_called_);
     on_unhandled_event_called_ = false;
     CheckAllFalse();
 
     // Internal transition, action must be called.
-    fsm_.React(EXmiEvent::Internal);
+    fsm_.React(Internal::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_2);
     assert(state2_internal_action_called_);
     state2_internal_action_called_ = false;
@@ -51,7 +51,7 @@ void XmiFsmImpl::Test()
 
     // Guard returns false, no state change, no entry/exit
     state2_transition3_guard_result_ = false;
-    fsm_.React(EXmiEvent::Transition_3);
+    fsm_.React(Transition_3::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_2);
     assert(on_unhandled_event_called_);
     on_unhandled_event_called_ = false;
@@ -59,7 +59,7 @@ void XmiFsmImpl::Test()
 
     // Guard returns true, state change, entry/exit called
     state2_transition3_guard_result_ = true;
-    fsm_.React(EXmiEvent::Transition_3);
+    fsm_.React(Transition_3::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1StateWithSameName);
     assert(transition3_action1_called_);
     transition3_action1_called_ = false;
@@ -68,7 +68,7 @@ void XmiFsmImpl::Test()
     CheckAllFalse();
 
     // Enter history compartment
-    fsm_.React(EXmiEvent::Transition_7);
+    fsm_.React(Transition_7::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4State_5);
     assert(state3_on_exit_called_);
     state3_on_exit_called_ = false;
@@ -77,12 +77,12 @@ void XmiFsmImpl::Test()
     CheckAllFalse();
 
     // Transition in history compartment
-    fsm_.React(EXmiEvent::Transition_3);
+    fsm_.React(Transition_3::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4StateWithSameName);
     CheckAllFalse();
 
     // Step out of history compartment
-    fsm_.React(EXmiEvent::Transition_8);
+    fsm_.React(Transition_8::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_2);
     assert(state4_on_exit_called_);
     state4_on_exit_called_ = false;
@@ -91,21 +91,21 @@ void XmiFsmImpl::Test()
     CheckAllFalse();
 
     // Reenter history compartment, history must be preserved
-    fsm_.React(EXmiEvent::Transition_6);
+    fsm_.React(Transition_6::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4StateWithSameName);
     assert(state4_on_entry_called_);
     state4_on_entry_called_ = false;
     CheckAllFalse();
 
     // Choice: No guards return true
-    fsm_.React(EXmiEvent::Transition_7);
+    fsm_.React(Transition_7::MakeShared());
     assert(on_unhandled_event_called_);
     on_unhandled_event_called_ = false;
     CheckAllFalse();
 
     // Choice: One guard return true
     choice_guard1_result_ = true;
-    fsm_.React(EXmiEvent::Transition_7);
+    fsm_.React(Transition_7::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1StateWithSameName);
     assert(choice_action1_called_);
     choice_action1_called_ = false;
@@ -118,7 +118,7 @@ void XmiFsmImpl::Test()
     CheckAllFalse();
 
     // Return to State_1::State_4::StateWithSameName
-    fsm_.React(EXmiEvent::Transition_7);
+    fsm_.React(Transition_7::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4StateWithSameName);
     assert(state3_on_exit_called_);
     state3_on_exit_called_ = false;
@@ -128,7 +128,7 @@ void XmiFsmImpl::Test()
 
     // Choice: Two guards return true
     choice_guard2_result_ = true;
-    fsm_.React(EXmiEvent::Transition_7);
+    fsm_.React(Transition_7::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4State_5);
     assert(choice_action1_called_);
     choice_action1_called_ = false;
