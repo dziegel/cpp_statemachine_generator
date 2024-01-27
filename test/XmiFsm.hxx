@@ -40,41 +40,6 @@ using PoolSizeCalculator =
     cpp_event_framework::SignalPoolElementSizeCalculator<Transition_1, Transition_2, Transition_3, Transition_4,
                                                          Transition_6, Transition_7, Transition_8, Internal>;
 
-inline std::ostream& operator<<(std::ostream& os, const cpp_event_framework::Signal::SPtr& event)
-{
-    switch (event->Id())
-    {
-    case Transition_1::kId:
-        os << "Transition_1";
-        break;
-    case Transition_2::kId:
-        os << "Transition_2";
-        break;
-    case Transition_3::kId:
-        os << "Transition_3";
-        break;
-    case Transition_4::kId:
-        os << "Transition_4";
-        break;
-    case Transition_6::kId:
-        os << "Transition_6";
-        break;
-    case Transition_7::kId:
-        os << "Transition_7";
-        break;
-    case Transition_8::kId:
-        os << "Transition_8";
-        break;
-    case Internal::kId:
-        os << "Internal";
-        break;
-    default:
-        os << "Unknown";
-        break;
-    }
-    return os;
-}
-
 class IXmiFsmImpl;
 using XmiTestBase = cpp_event_framework::Statemachine<IXmiFsmImpl, const cpp_event_framework::Signal::SPtr&>;
 

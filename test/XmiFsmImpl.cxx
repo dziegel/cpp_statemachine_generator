@@ -13,14 +13,14 @@ XmiFsmImpl::XmiFsmImpl()
     EventPoolAllocator::SetPool(pool);
 
     fsm_.on_handle_event_ = [](XmiTest::Ref fsm, XmiTest::StateRef state, XmiTest::Event event)
-    { std::cout << fsm.Name() << " State " << state.Name() << " handle event " << event << '\n'; };
+    { std::cout << fsm << " State " << state << " handle event " << event << '\n'; };
     fsm_.on_state_entry_ = [](XmiTest::Ref fsm, XmiTest::StateRef state)
-    { std::cout << fsm.Name() << " Enter " << state.Name() << '\n'; };
+    { std::cout << fsm << " Enter " << state << '\n'; };
     fsm_.on_state_exit_ = [](XmiTest::Ref fsm, XmiTest::StateRef state)
-    { std::cout << fsm.Name() << " Exit " << state.Name() << '\n'; };
+    { std::cout << fsm << " Exit " << state << '\n'; };
     fsm_.on_unhandled_event_ = [](XmiTest::Ref fsm, XmiTest::StateRef state, XmiTest::Event event)
     {
-        std::cout << fsm.Name() << " Unhandled event " << event << " in state " << state.Name() << '\n';
+        std::cout << fsm << " Unhandled event " << event << " in state " << state << '\n';
         fsm.Implementation()->UnhandledEvent();
     };
 
