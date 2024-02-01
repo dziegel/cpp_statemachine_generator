@@ -11,6 +11,7 @@ public:
 
 private:
     XmiTest fsm_;
+    cpp_event_framework::Pool<>::SPtr pool_;
 
     bool on_unhandled_event_called_ = false;
     void UnhandledEvent() override;

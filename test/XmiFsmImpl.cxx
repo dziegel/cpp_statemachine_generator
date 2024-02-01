@@ -8,9 +8,9 @@
 constexpr size_t kPoolSize = 10;
 
 XmiFsmImpl::XmiFsmImpl()
+    : pool_(cpp_event_framework::Pool<>::MakeShared(PoolSizeCalculator::kSptrSize, kPoolSize, "EventPool"))
 {
-    auto pool = cpp_event_framework::Pool<>::MakeShared(PoolSizeCalculator::kSptrSize, kPoolSize, "MyPool");
-    EventPoolAllocator::SetPool(pool);
+    EventPoolAllocator::SetAllocator(pool_);
 
     fsm_.on_handle_event_ = [](XmiTest::Ref fsm, XmiTest::StateRef state, XmiTest::Event event)
     { std::cout << fsm << " State " << state << " handle event " << event << '\n'; };
@@ -24,19 +24,19 @@ XmiFsmImpl::XmiFsmImpl()
         fsm.Implementation()->UnhandledEvent();
     };
 
-    fsm_.Init(this, "Xmi", XmiTest::kInitialState);
+    fsm_.Init(this, "Xmi");
 }
 
 void XmiFsmImpl::Test()
 {
-    assert(EventPoolAllocator::pool->FillLevel() == kPoolSize);
+    assert(pool_->FillLevel() == kPoolSize);
 
     // FSM not started
     CheckAllFalse();
     assert(fsm_.CurrentState() == nullptr);
 
     // Start FSM. Entry actions of initial states must be called.
-    fsm_.Start();
+    fsm_.Start(XmiTest::kInitialState);
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_2);
     assert(state1_on_entry_called_);
     state1_on_entry_called_ = false;
@@ -145,7 +145,7 @@ void XmiFsmImpl::Test()
     choice_action2_called_ = false;
     CheckAllFalse();
 
-    assert(EventPoolAllocator::pool->FillLevel() == kPoolSize);
+    assert(pool_->FillLevel() == kPoolSize);
 }
 
 void XmiFsmImpl::CheckAllFalse() const

@@ -17,7 +17,7 @@ ScXmlFsmImpl::ScXmlFsmImpl()
         fsm.Implementation()->UnhandledEvent();
     };
 
-    fsm_.Init(this, "ScXml", ScXmlTest::kInitialState);
+    fsm_.Init(this, "ScXml");
 }
 
 void ScXmlFsmImpl::Test()
@@ -27,7 +27,7 @@ void ScXmlFsmImpl::Test()
     assert(fsm_.CurrentState() == nullptr);
 
     // Start FSM. Entry actions of initial states must be called.
-    fsm_.Start();
+    fsm_.Start(ScXmlTest::kInitialState);
     assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
     assert(state1_on_entry_called_);
     state1_on_entry_called_ = false;

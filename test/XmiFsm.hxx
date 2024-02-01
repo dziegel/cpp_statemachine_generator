@@ -6,7 +6,7 @@
 #include <cpp_event_framework/Signal.hxx>
 #include <cpp_event_framework/Statemachine.hxx>
 
-class EventPoolAllocator : public cpp_event_framework::PoolAllocator<EventPoolAllocator>
+class EventPoolAllocator : public cpp_event_framework::CustomAllocator<EventPoolAllocator>
 {
 };
 
