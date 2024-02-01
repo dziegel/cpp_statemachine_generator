@@ -1,7 +1,5 @@
 #pragma once
 
-#include <ostream>
-
 #include <cpp_event_framework/Pool.hxx>
 #include <cpp_event_framework/Signal.hxx>
 #include <cpp_event_framework/Statemachine.hxx>
