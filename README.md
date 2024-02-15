@@ -6,6 +6,16 @@ This is a C++ statemachine generator that generates statemachines based on <http
 
 The Eclipse Epsilon <https://eclipse.dev/epsilon> framework is used to implement the generator.
 
+## Usage
+
+The generator is a Java JAR file. To generate, call it as follows:
+
+    java -jar StatemachineGenerator-x.y.z.jar <uml> <out_path>
+
+example:
+
+    java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.uml ./generated
+
 ## License
 
 Apache-2.0
