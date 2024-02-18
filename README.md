@@ -12,9 +12,11 @@ The generator is a Java JAR file. To generate, call it as follows:
 
     java -jar StatemachineGenerator-x.y.z.jar <uml> <out_path>
 
-example:
+examples:
 
+    java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.xmi ./generated
     java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.uml ./generated
+    java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.scxml ./generated
 
 ## License
 
