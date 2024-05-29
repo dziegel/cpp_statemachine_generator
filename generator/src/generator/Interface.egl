@@ -6,6 +6,8 @@
 class I[%=statemachine.name%]Impl
 {
 public:
+  virtual ~I[%=statemachine.name%]Impl() = default;
+
   // Actions
 [%
   for (action in statemachine.all_actions) {
