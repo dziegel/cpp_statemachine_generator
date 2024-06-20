@@ -1,5 +1,5 @@
 // Statemachine XmiTest declaration
-// Generated: 20.06.24, 10:59
+// Generated: 20.06.24, 11:05
 
 #pragma once
 
@@ -25,7 +25,7 @@ class XmiTest final : public XmiTestBase
 	// State State_1::State_4::State_5
 	static const State kState_1State_4State_5;
 	
-	void Start()
+	inline void Start()
 	{
 		XmiTestBase::Start(&kState_1);
 	}

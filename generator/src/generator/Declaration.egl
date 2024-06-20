@@ -13,7 +13,7 @@ public:
 %]
     [%=regionTemplate.process()%]
 
-    void Start()
+    inline void Start()
     {
         [%=statemachine.name%]Base::Start(&[%=statemachine.region.initial_variable_name%]);
     }
