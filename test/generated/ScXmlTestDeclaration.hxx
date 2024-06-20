@@ -1,12 +1,11 @@
 // Statemachine ScXmlTest declaration
-// Generated: 26.01.24, 17:51
+// Generated: 20.06.24, 10:59
 
 #pragma once
 
 class ScXmlTest final : public ScXmlTestBase
 {
 	public:
-	static const StatePtr kInitialState;
 	
 	// State State_1
 	static const State kState_1;
@@ -25,4 +24,9 @@ class ScXmlTest final : public ScXmlTestBase
 	
 	// State State_1::State_4::State_6
 	static const State kState_1State_4State_6;
+	
+	void Start()
+	{
+		ScXmlTestBase::Start(&kState_1);
+	}
 };

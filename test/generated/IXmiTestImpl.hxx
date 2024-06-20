@@ -1,11 +1,13 @@
 // Statemachine XmiTest implementation interface
-// Generated: 26.01.24, 17:52
+// Generated: 20.06.24, 10:59
 
 #pragma once
 
 class IXmiTestImpl
 {
 	public:
+	virtual ~IXmiTestImpl() = default;
+	
 	// Actions
 	virtual void ChoiceAction1(XmiTestBase::Event event) = 0;
 	virtual void ChoiceAction2(XmiTestBase::Event event) = 0;

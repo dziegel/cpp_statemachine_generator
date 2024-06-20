@@ -18,6 +18,4 @@
   regionTemplate.populate("region", statemachine.region);
   regionTemplate.populate("statemachine", statemachine);
 %]
-// Initial state
-const [%=statemachine.name%]::StatePtr [%=statemachine.name%]::kInitialState = &[%=statemachine.name%]::[%=statemachine.region.initial_variable_name%];
 [%=regionTemplate.process()%]

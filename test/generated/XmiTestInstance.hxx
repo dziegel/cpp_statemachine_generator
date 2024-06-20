@@ -1,5 +1,5 @@
 // Statemachine XmiTest instance
-// Generated: 26.01.24, 17:52
+// Generated: 20.06.24, 10:59
 
 #pragma once
 
@@ -13,8 +13,6 @@
 #define XmiTest_GET_STATIC_EVENT_ID(event_name) event_name::kId
 #endif
 
-// Initial state
-const XmiTest::StatePtr XmiTest::kInitialState = &XmiTest::kState_1;
 
 // State State_1
 static XmiTest::Transition State_1Handler(XmiTest::ImplPtr impl, XmiTest::Event event)

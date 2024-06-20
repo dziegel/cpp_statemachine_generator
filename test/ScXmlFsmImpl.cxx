@@ -27,7 +27,7 @@ void ScXmlFsmImpl::Test()
     assert(fsm_.CurrentState() == nullptr);
 
     // Start FSM. Entry actions of initial states must be called.
-    fsm_.Start(ScXmlTest::kInitialState);
+    fsm_.Start();
     assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
     assert(state1_on_entry_called_);
     state1_on_entry_called_ = false;

@@ -1,11 +1,13 @@
 // Statemachine ScXmlTest implementation interface
-// Generated: 26.01.24, 17:51
+// Generated: 20.06.24, 10:59
 
 #pragma once
 
 class IScXmlTestImpl
 {
 	public:
+	virtual ~IScXmlTestImpl() = default;
+	
 	// Actions
 	virtual void State2InternalAction(ScXmlTestBase::Event event) = 0;
 	virtual void Transition3Action1(ScXmlTestBase::Event event) = 0;

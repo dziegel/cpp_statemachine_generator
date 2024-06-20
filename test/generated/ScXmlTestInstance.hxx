@@ -1,5 +1,5 @@
 // Statemachine ScXmlTest instance
-// Generated: 26.01.24, 17:51
+// Generated: 20.06.24, 10:59
 
 #pragma once
 
@@ -13,8 +13,6 @@
 #define ScXmlTest_GET_STATIC_EVENT_ID(event_name) event_name::kId
 #endif
 
-// Initial state
-const ScXmlTest::StatePtr ScXmlTest::kInitialState = &ScXmlTest::kState_1;
 
 // State State_1
 static ScXmlTest::Transition State_1Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)

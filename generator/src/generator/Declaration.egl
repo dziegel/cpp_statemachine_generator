@@ -6,11 +6,15 @@
 class [%=statemachine.name%] final : public [%=statemachine.name%]Base
 {
 public:
-    static const StatePtr kInitialState;
 [%
   var regionTemplate : Template = TemplateFactory.load("DeclarationRegion.egl");
   regionTemplate.populate("region", statemachine.region);
   regionTemplate.populate("statemachine", statemachine);
 %]
     [%=regionTemplate.process()%]
+
+    void Start()
+    {
+        [%=statemachine.name%]Base::Start(&[%=statemachine.region.initial_variable_name%]);
+    }
 };

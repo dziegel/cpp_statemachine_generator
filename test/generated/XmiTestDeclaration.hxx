@@ -1,12 +1,11 @@
 // Statemachine XmiTest declaration
-// Generated: 26.01.24, 17:52
+// Generated: 20.06.24, 10:59
 
 #pragma once
 
 class XmiTest final : public XmiTestBase
 {
 	public:
-	static const StatePtr kInitialState;
 	
 	// State State_1
 	static const State kState_1;
@@ -25,4 +24,9 @@ class XmiTest final : public XmiTestBase
 	
 	// State State_1::State_4::State_5
 	static const State kState_1State_4State_5;
+	
+	void Start()
+	{
+		XmiTestBase::Start(&kState_1);
+	}
 };
