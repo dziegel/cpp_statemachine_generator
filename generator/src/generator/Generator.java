@@ -27,6 +27,12 @@ public class Generator {
 			factory.setDefaultFormatter(new JavaFormatter());
 
 			if (filename.endsWith(".uml") || filename.endsWith(".xmi")) {
+				System.out.println("Loading XMI/UML model " + filename);
+				var uml = new UmlModel();
+				uml.setModelFile(filename);
+				uml.setName("UML");
+				uml.load();
+
 				var uml_module = new EgxModule(factory);
 				uml_module.parse(loader.getResource("generator/XmiProgram.egx"));
 				if (!uml_module.getParseProblems().isEmpty()) {
@@ -36,20 +42,21 @@ public class Generator {
 					}
 					return;
 				}
-
-				var uml = new UmlModel();
-				uml.setModelFile(filename);
-				uml.setName("UML");
-				uml.load();
 				uml_module.getContext().getModelRepository().addModel(uml);
 				uml_module.getContext().setUserInput(new UserInput());
 
-				System.out.println("Generating XMI/UML model " + filename + " to " + out_path);
+				System.out.println("Generating to " + out_path);
 
 				uml_module.execute();
 			}
 
 			if (filename.endsWith(".scxml")) {
+				System.out.println("Generating SCXML model " + filename);
+				var scxml = new PlainXmlModel();
+				scxml.setFile(new File(filename));
+				scxml.setName("SCXML");
+				scxml.load();
+
 				var scxml_module = new EgxModule(factory);
 				scxml_module.parse(loader.getResource("generator/ScxmlProgram.egx"));
 				if (!scxml_module.getParseProblems().isEmpty()) {
@@ -60,17 +67,14 @@ public class Generator {
 					return;
 				}
 
-				var scxml = new PlainXmlModel();
-				scxml.setFile(new File(filename));
-				scxml.setName("SCXML");
-				scxml.load();
 				scxml_module.getContext().getModelRepository().addModel(scxml);
 				scxml_module.getContext().setUserInput(new UserInput());
 
-				System.out.println("Generating SCXML model " + filename + " to " + out_path);
+				System.out.println("Generating to " + out_path);
 
 				scxml_module.execute();
 			}
+			System.out.println("Successful");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

@@ -5,6 +5,8 @@ project(cpp_statemachine_generator)
 include(ExternalProject)
 include(GNUInstallDirs REQUIRED)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS true)
+
 add_executable(${CMAKE_PROJECT_NAME}
     "test/XmiFsm.cxx"
     "test/XmiFsmImpl.cxx"
