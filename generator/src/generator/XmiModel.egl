@@ -12,6 +12,11 @@ operation Region getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
 
   var initial = self.subvertices.select(s | s.isKindOf(Pseudostate) and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
+  if ((initial == null) or (initial.outgoing.first == null)) {
+  	if (self.state != null) {
+      (sm.name + ": Missing initial state in composite state " + self.state.name).println();
+    }
+  }
   result.initial_id = initial.outgoing.first.target.id;
   result.initial_history = (initial.kind = PseudostateKind#shallowHistory);
 
@@ -23,21 +28,30 @@ operation Region getModel(sm : Tuple) : Tuple {
   return result;
 }
 
+operation Behavior getBody() : String {
+  if (self.isKindOf(OpaqueBehavior) and (self.bodies.first != null) and (self.bodies.first != "")) {
+    return self.bodies.first;
+  } else {
+    return self.name;
+  }
+}
+
 operation State getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
   result.name = self.name;
   result.id = self.id;
+  result.region = null;
 
   if (self.container.state != null) {
   	result.parent_state_id = self.container.state.id;
   }
   
   if (self.entry != null) {
-  	result.entry = self.entry.name;
+  	result.entry = self.entry.getBody();
   }
 
   if (self.exit != null) {
-  	result.exit = self.exit.name;
+  	result.exit = self.exit.getBody();
   }
   
   if (not self.regions.isEmpty()) {
@@ -56,11 +70,11 @@ operation Transition getModel(sm : Tuple, state : Tuple, transitions : List) : T
   var result = new Tuple();
   result.start = state.name;
   result.internal = (self.kind != TransitionKind#external);
-  var trigger = self.trigger.first.event
-  if (trigger.isKindOf(SignalEvent)) {
-	result.trigger = trigger.signal.name;
+  var trigger = self.trigger.first.event;
+  if (trigger.isKindOf(SignalEvent) and (trigger.signal != null)) {
+    result.trigger = trigger.signal.name;
   } else {
-	result.trigger = trigger.name;
+    result.trigger = trigger.name;
   }
   result.actions = new List();
   result.guards = new List();
@@ -69,24 +83,25 @@ operation Transition getModel(sm : Tuple, state : Tuple, transitions : List) : T
   return result;
 }
 
+operation Constraint getGuard() : String {
+  var guard = "else";
+  if ((self.specification != null) and self.specification.isKindOf(OpaqueExpression)) {
+    guard = self.specification.bodies.first;
+  } else {
+    guard = self.name;
+  }
+  return guard;
+}
+
 operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : List) {
   if (self.effect != null) {
-	if (self.effect.isKindOf(OpaqueBehavior)) {
-	  	transition.actions.add(self.effect.bodies.first);
-	} else {
-	  	transition.actions.add(self.effect.name);
-	}
+    transition.actions.add(self.effect.getBody());
   }
   if (self.guard != null) {
-    var guard = "else"
-	if ((self.guard.specification != null) and self.guard.specification.isKindOf(OpaqueExpression)) {
-		guard = self.guard.specification.bodies.first
-	} else {
-		guard = self.guard.name
-	}
-	if (guard != "else") {
-		transition.guards.add(guard);
-	}
+    var guard = self.guard.getGuard();
+    if (guard != "else") {
+      transition.guards.add(guard);
+    }
   }
 
   if (self.target.isKindOf(State)) {
@@ -108,9 +123,14 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
 }
 
 operation Transition getSortKey() : String {
-  if ((self.guard = null) or (self.guard.name = "else")) {
+  if (self.guard = null) {
     return "999999-";
   }
-  return "0" + self.guard.name;
+
+  var guard = self.guard.getGuard();
+  if (guard != "else") {
+    return "0" + guard;
+  }
+  return "999999-else";
 }
 %]

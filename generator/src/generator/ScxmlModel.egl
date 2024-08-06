@@ -22,6 +22,7 @@ operation t_state getModel() : Tuple {
   var result = new Tuple();
   result.name = self.a_id;
   result.id = self.a_id;
+  result.region = null;
 
   if (self.e_onentry.isDefined() and self.e_onentry.e_script.isDefined()) {
   	result.entry = self.e_onentry.e_script.a_src;

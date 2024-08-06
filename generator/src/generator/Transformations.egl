@@ -50,6 +50,10 @@ operation Tuple transformRegionTransitions(statemachine : Tuple, parent_state : 
 }
 
 operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_state : Tuple) {
+  if ((self.region == null) and self.transitions.isEmpty()) {
+    (statemachine.name + ": No outgoing transitions for state " + self.name).println();
+  }
+
   statemachine.all_states.put(self.id, self);
 
   if (parent_state.isDefined()) {
