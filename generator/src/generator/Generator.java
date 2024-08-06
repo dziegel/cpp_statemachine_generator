@@ -40,6 +40,7 @@ public class Generator {
 					for (var prob : uml_module.getParseProblems()) {
 						System.err.println(prob.toString());
 					}
+					uml.close();
 					return;
 				}
 				uml_module.getContext().getModelRepository().addModel(uml);
@@ -48,6 +49,7 @@ public class Generator {
 				System.out.println("Generating to " + out_path);
 
 				uml_module.execute();
+				uml.close();
 			}
 
 			if (filename.endsWith(".scxml")) {
@@ -64,6 +66,7 @@ public class Generator {
 					for (var prob : scxml_module.getParseProblems()) {
 						System.err.println(prob.toString());
 					}
+					scxml.close();
 					return;
 				}
 
@@ -73,6 +76,7 @@ public class Generator {
 				System.out.println("Generating to " + out_path);
 
 				scxml_module.execute();
+				scxml.close();
 			}
 			System.out.println("Successful");
 		} catch (Exception ex) {
