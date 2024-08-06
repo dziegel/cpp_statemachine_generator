@@ -55,8 +55,13 @@ operation State getModel(sm : Tuple) : Tuple {
 operation Transition getModel(sm : Tuple, state : Tuple, transitions : List) : Tuple {
   var result = new Tuple();
   result.start = state.name;
-  result.internal = (self.kind = TransitionKind#internal);
-  result.trigger = self.trigger.first.event.name;
+  result.internal = (self.kind != TransitionKind#external);
+  var trigger = self.trigger.first.event
+  if (trigger.isKindOf(SignalEvent)) {
+	result.trigger = trigger.signal.name;
+  } else {
+	result.trigger = trigger.name;
+  }
   result.actions = new List();
   result.guards = new List();
 
@@ -66,10 +71,22 @@ operation Transition getModel(sm : Tuple, state : Tuple, transitions : List) : T
 
 operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : List) {
   if (self.effect != null) {
-  	transition.actions.add(self.effect.name);
+	if (self.effect.isKindOf(OpaqueBehavior)) {
+	  	transition.actions.add(self.effect.bodies.first);
+	} else {
+	  	transition.actions.add(self.effect.name);
+	}
   }
-  if ((self.guard != null) and (self.guard.name != "else")) {
-  	transition.guards.add(self.guard.name);
+  if (self.guard != null) {
+    var guard = "else"
+	if ((self.guard.specification != null) and self.guard.specification.isKindOf(OpaqueExpression)) {
+		guard = self.guard.specification.bodies.first
+	} else {
+		guard = self.guard.name
+	}
+	if (guard != "else") {
+		transition.guards.add(guard);
+	}
   }
 
   if (self.target.isKindOf(State)) {
