@@ -31,6 +31,7 @@ public class Generator {
 				var uml = new UmlModel();
 				uml.setModelFile(filename);
 				uml.setName("UML");
+				uml.setReadOnLoad(false);
 				uml.load();
 
 				var uml_module = new EgxModule(factory);
