@@ -75,6 +75,9 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
   
   self.entry_pointer = "nullptr";
   if (self.entry.isDefined()) {
+    if (self.entry == "") {
+      (sm.name + ": Empty entry function in state " + self.name).println();
+    }
     self.entry_pointer = "&" + statemachine.name + "::" + "Impl::" + self.entry;
     if (not statemachine.all_entry_exit.includes(self.entry)) {
       statemachine.all_entry_exit.add(self.entry);
@@ -83,6 +86,9 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
 
   self.exit_pointer = "nullptr";
   if (self.exit.isDefined()) {
+    if (self.exit == "") {
+      (sm.name + ": Empty exit function in state " + self.name).println();
+    }
     self.exit_pointer = "&" + statemachine.name + "::" + "Impl::" + self.exit;
     if (not statemachine.all_entry_exit.includes(self.exit)) {
       statemachine.all_entry_exit.add(self.exit);
@@ -127,6 +133,9 @@ operation Tuple transformTransition(statemachine : Tuple) {
   for (action in self.actions) {
     actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
     if (not statemachine.all_actions.includes(action)) {
+      if (action == "") {
+        (sm.name + ": Empty function behavior in transition starting from state " + self.start).println();
+      }
       statemachine.all_actions.add(action);
     }
   }
