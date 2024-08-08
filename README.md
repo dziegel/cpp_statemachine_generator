@@ -11,11 +11,12 @@ The Eclipse Epsilon <https://eclipse.dev/epsilon> framework is used to implement
 - Parallel statemachines
 - Fork/Join
 - Terminate
+- Sub statemachines
 
 ## Supported
 
 - States
-- Hierarchical state machines 
+- Hierarchical statemachines (Composite states)
 - Transitions
 - Transition actions
 - Guards
