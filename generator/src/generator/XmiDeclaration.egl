@@ -5,6 +5,7 @@
   var statemachine = sm.getModel();
   statemachine.transformStatemachine();
 
+  ("Generate declaration for statemachine " + sm.name).println();
   var declarationTemplate : Template = TemplateFactory.load("Declaration.egl");
   declarationTemplate.populate("statemachine", statemachine);
 %]

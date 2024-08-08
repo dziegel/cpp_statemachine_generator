@@ -54,7 +54,7 @@ operation t_state getModel() : Tuple {
   }
 
   result.transitions = new List();
-  for (transition in self.c_transition.sortBy(t | t.getSortKey())) {
+  for (transition in self.c_transition) {
     var t = transition.getModel();
     t.start = result.name;
     result.transitions.add(t);
@@ -81,12 +81,5 @@ operation t_transition getModel() : Tuple {
   }
   
   return result;
-}
-
-operation t_transition getSortKey() : String {
-  if ((not self.a_cond.isDefined()) or (self.a_cond = "else")) {
-    return "999999-";
-  }
-  return "0" + self.a_cond;
 }
 %]		

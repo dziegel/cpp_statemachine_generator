@@ -5,6 +5,7 @@
   var statemachine = sm.getModel();
   statemachine.transformStatemachine();
 
+  ("Generate interface for statemachine " + sm.name).println();
   var interfaceTemplate : Template = TemplateFactory.load("Interface.egl");
   interfaceTemplate.populate("statemachine", statemachine);
 %]

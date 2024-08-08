@@ -59,7 +59,7 @@ operation State getModel(sm : Tuple) : Tuple {
   }
 
   result.transitions = new List();
-  for (transition in self.outgoing.sortBy(t | t.getSortKey())) {
+  for (transition in self.outgoing) {
     transition.getModel(sm, result, result.transitions);
   }
     
@@ -110,7 +110,7 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
   }
 
   if ((self.target.isKindOf(Pseudostate)) and (self.target.kind = PseudostateKind#choice)) {
-    for (choice_transition in self.target.outgoing.sortBy(t | t.getSortKey())) {
+    for (choice_transition in self.target.outgoing) {
       var t = new Tuple();
       t.start = transition.start;
       t.trigger = transition.trigger;
@@ -120,17 +120,5 @@ operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : Lis
       choice_transition.getTarget(sm, t, transitions);
     }
   }
-}
-
-operation Transition getSortKey() : String {
-  if (self.guard = null) {
-    return "999999-";
-  }
-
-  var guard = self.guard.getGuard();
-  if (guard != "else") {
-    return "0" + guard;
-  }
-  return "999999-else";
 }
 %]

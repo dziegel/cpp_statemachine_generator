@@ -5,6 +5,7 @@
   var statemachine = sm.getModel();
   statemachine.transformStatemachine();
 
+  ("Generate instance for statemachine " + sm.name).println();
   var instanceTemplate : Template = TemplateFactory.load("Instance.egl");
   instanceTemplate.populate("statemachine", statemachine);
 %]
