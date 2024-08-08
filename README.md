@@ -6,10 +6,22 @@ This is a C++ statemachine generator that generates statemachines based on <http
 
 The Eclipse Epsilon <https://eclipse.dev/epsilon> framework is used to implement the generator.
 
-## NOT supported:
+## NOT supported
 
 - Parallel statemachines
 - Fork/Join
+- Terminate
+
+## Supported
+
+- States
+- Hierarchical state machines 
+- Transitions
+- Transition actions
+- Guards
+- Entry/exit actions
+- Shallow history
+- Choice states
 
 ## Usage
 
