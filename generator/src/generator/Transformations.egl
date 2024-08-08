@@ -156,7 +156,5 @@ operation Tuple transformTransition(statemachine : Tuple) {
     self.priority = "100";
     self.guards_list = "true";
   }
-
-  (self.guards_list + ": " + self.priority).println();
 }
 %]
