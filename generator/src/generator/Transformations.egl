@@ -150,11 +150,13 @@ operation Tuple transformTransition(statemachine : Tuple) {
   }
   self.has_guard = not guards.isEmpty();
   if (self.has_guard) {
-    self.priority = 100-guards.size();
+    self.priority = (100-guards.size()).toString().pad(3, "0", false);
     self.guards_list = guards.concat(" && ");
   } else {
-    self.priority = 100;
+    self.priority = "100";
     self.guards_list = "true";
   }
+
+  (self.guards_list + ": " + self.priority).println();
 }
 %]
