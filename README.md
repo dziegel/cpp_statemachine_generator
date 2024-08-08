@@ -6,6 +6,11 @@ This is a C++ statemachine generator that generates statemachines based on <http
 
 The Eclipse Epsilon <https://eclipse.dev/epsilon> framework is used to implement the generator.
 
+## NOT supported:
+
+- Parallel statemachines
+- Fork/Join
+
 ## Usage
 
 The generator is a Java JAR file. To generate, call it as follows:
