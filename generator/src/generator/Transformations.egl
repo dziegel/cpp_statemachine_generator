@@ -126,6 +126,9 @@ operation Tuple transformTransition(statemachine : Tuple) {
     self.target_variable_name = "kNone";
   } else {
     var target = statemachine.all_states.get(self.target_state_id);
+    if (target == null) {
+    	("Unable to find state id " + self.target_state_id).println();
+    }
     self.target_variable_name = target.variable_name;
   }
   
