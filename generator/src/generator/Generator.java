@@ -5,6 +5,7 @@ import java.io.File;
 import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
 import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.egl.formatter.language.JavaFormatter;
+import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.emc.uml.UmlModel;
 
@@ -27,10 +28,16 @@ public class Generator {
 			factory.setDefaultFormatter(new JavaFormatter());
 
 			if (filename.endsWith(".uml") || filename.endsWith(".xmi")) {
+				var tempFile = File.createTempFile("cleaned_", ".uml");
+				System.out.println("Cleaning XMI/UML model " + filename);
+				RemoveElementsByNamespace.RemoveRootElementsNotMatchingNamespace(filename, tempFile.getAbsolutePath(), "http://www.eclipse.org/uml2/5.0.0/UML");
+
 				System.out.println("Loading XMI/UML model " + filename);
 				var uml = new UmlModel();
-				uml.setModelFile(filename);
+				uml.setModelFile(tempFile.getAbsolutePath());
 				uml.setName("UML");
+				uml.putResourceLoadOption(EmfModel.PROPERTY_VALIDATE, false);
+				uml.putResourceLoadOption(EmfModel.PROPERTY_EXPAND, false);
 				uml.load();
 
 				var uml_module = new EgxModule(factory);
@@ -50,6 +57,8 @@ public class Generator {
 
 				uml_module.execute();
 				uml.close();
+				
+				tempFile.delete();
 			}
 
 			if (filename.endsWith(".scxml")) {
@@ -80,6 +89,7 @@ public class Generator {
 			}
 			System.out.println("Successful");
 		} catch (Exception ex) {
+			System.out.println("FAILED. Exception: ");
 			ex.printStackTrace();
 		}
 	}
