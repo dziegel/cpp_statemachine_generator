@@ -5,22 +5,27 @@ operation StateMachine getModel() : Tuple {
   var result = new Tuple();
   result.name = self.name;
   result.region = sm.regions.first.getModel(result);
+  
   return result;
 }
 
 operation Region getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
+  result.states = new List();
+  result.initial_state_id = null;
+  result.initial_history = false;
 
+  // Initial state
   var initial = self.subvertices.select(s | s.isKindOf(Pseudostate) and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
   if ((initial == null) or (initial.outgoing.first == null)) {
   	if (self.state != null) {
       (sm.name + ": Missing initial state in composite state " + self.state.name).println();
     }
   }
-  result.initial_id = initial.outgoing.first.target.id;
+  result.initial_state_id = initial.outgoing.first.target.id;
   result.initial_history = (initial.kind = PseudostateKind#shallowHistory);
 
-  result.states = new List();
+  // States in region
   for (state in self.subvertices.select(s | s.isKindOf(State))) {
     result.states.add(state.getModel(sm));
   }
@@ -38,87 +43,96 @@ operation Behavior getBody() : String {
 
 operation State getModel(sm : Tuple) : Tuple {
   var result = new Tuple();
+  result.region = null;
+  result.parent_state_id = null;
+  result.entry = null;
+  result.exit = null;
+  result.transitions_for_trigger = new Map();
   result.name = self.name;
   result.id = self.id;
-  result.region = null;
 
+  // Parent state
   if (self.container.state != null) {
   	result.parent_state_id = self.container.state.id;
   }
-  
+
+  // Entry/exit actions 
   if (self.entry != null) {
   	result.entry = self.entry.getBody();
   }
-
   if (self.exit != null) {
   	result.exit = self.exit.getBody();
   }
   
+  // Subregions 
   if (not self.regions.isEmpty()) {
     result.region = self.regions.first.getModel(sm);
   }
 
-  result.transitions = new List();
-  for (transition in self.outgoing) {
-    transition.getModel(sm, result, result.transitions);
+  // Transitions
+  for (xmi_transition in self.outgoing) {
+    var transition = xmi_transition.getModel(sm, result);
+
+    if (not result.transitions_for_trigger.containsKey(transition.trigger)) {
+      result.transitions_for_trigger.put(transition.trigger, new List());
+    }
+    result.transitions_for_trigger.get(transition.trigger).add(transition);
   }
     
   return result;
 }
 
-operation Transition getModel(sm : Tuple, state : Tuple, transitions : List) : Tuple {
+operation Transition getModel(sm : Tuple, state : Tuple) : Tuple {
   var result = new Tuple();
-  result.start = state.name;
-  result.internal = (self.kind != TransitionKind#external);
-  var trigger = self.trigger.first.event;
-  if (trigger.isKindOf(SignalEvent) and (trigger.signal != null)) {
-    result.trigger = trigger.signal.name;
-  } else {
-    result.trigger = trigger.name;
-  }
   result.actions = new List();
   result.guards = new List();
+  result.all_transitions = new List();
+  result.guard = null;
+  result.target_state_id = null;
+  result.trigger = null;
+  result.start = state.name;
+  result.internal = (self.kind != TransitionKind#external);
 
-  self.getTarget(sm, result, transitions);
-  return result;
-}
-
-operation Constraint getGuard() : String {
-  var guard = "else";
-  if ((self.specification != null) and self.specification.isKindOf(OpaqueExpression)) {
-    guard = self.specification.bodies.first;
-  } else {
-    guard = self.name;
+  // Trigger
+  if (self.trigger.isDefined() and (self.trigger != null) and (self.trigger.first != null)) {
+    var trigger = self.trigger.first.event;
+    if (trigger.isKindOf(SignalEvent) and (trigger.signal != null)) {
+      result.trigger = trigger.signal.name;
+    } else {
+      result.trigger = trigger.name;
+    }
   }
-  return guard;
-}
 
-operation Transition getTarget(sm : Tuple, transition : Tuple, transitions : List) {
-  if (self.effect != null) {
-    transition.actions.add(self.effect.getBody());
+  // Actions
+  if (self.effect.isDefined() and (self.effect != null)) {
+    result.actions.add(self.effect.getBody());
   }
-  if (self.guard != null) {
-    var guard = self.guard.getGuard();
+
+  // Guard
+  if (self.guard.isDefined() and (self.guard != null)) {
+    var guard = "else";
+    if (self.guard.specification.isDefined() and self.guard.specification.isKindOf(OpaqueExpression)) {
+      guard = self.guard.specification.bodies.first;
+    } else {
+      guard = self.guard.name;
+    }
     if (guard != "else") {
-      transition.guards.add(guard);
+      result.guards.add(guard);
     }
   }
 
+  // Target state
   if (self.target.isKindOf(State)) {
-    transition.target_state_id = self.target.id;
-    transitions.add(transition);
+    result.target_state_id = self.target.id;
   }
 
-  if ((self.target.isKindOf(Pseudostate)) and (self.target.kind = PseudostateKind#choice)) {
-    for (choice_transition in self.target.outgoing) {
-      var t = new Tuple();
-      t.start = transition.start;
-      t.trigger = transition.trigger;
-      t.internal = transition.internal;
-      t.actions = transition.actions.clone();
-      t.guards = transition.guards.clone();
-      choice_transition.getTarget(sm, t, transitions);
+  // Choice/Junction state
+  if ((self.target.isKindOf(Pseudostate)) and ((self.target.kind = PseudostateKind#choice) or (self.target.kind = PseudostateKind#junction))) {
+    for (xmi_choice_transition in self.target.outgoing) {
+      result.all_transitions.add(xmi_choice_transition.getModel(sm, state));
     }
   }
+
+  return result;
 }
 %]

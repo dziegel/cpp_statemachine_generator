@@ -1,0 +1,19 @@
+        [%=transition.actions_list%]
+[%
+        if (transition.internal) {
+%]
+      return [%=statemachine.name%]::NoTransition();
+[%     
+        }
+        if (transition.target_variable_name != null) {
+%]
+      return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%]);        
+[%     
+      }
+
+      var transitionRootTemplate : Template = TemplateFactory.load("InstanceHandlerTransitionRoot.egl");
+      transitionRootTemplate.populate("state", state);
+      transitionRootTemplate.populate("statemachine", statemachine);
+      transitionRootTemplate.populate("transition", transition);
+%]
+[%=transitionRootTemplate.process()%]

@@ -1,41 +1,29 @@
 static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped_name%]Handler([%=statemachine.name%]::ImplPtr impl, [%=statemachine.name%]::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function being called in here
+	(void)impl; // impl parameter is unused when there is no guard function or action being called in here
 
     switch([%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event))
     {
 [%
-    for (an_event in state.all_events) {
+    for (trigger in state.all_events) {
 %]
-    case [%=statemachine.name%]_GET_STATIC_EVENT_ID([%=an_event%]):
+    case [%=statemachine.name%]_GET_STATIC_EVENT_ID([%=trigger%]):
 [%
-      var transitions_for_event = state.all_event_transitions.get(an_event);
-      for (transition in transitions_for_event) {
+      var transition = state.transitions_for_trigger_transformed.get(trigger);
+
+      var transitionRootTemplate : Template = TemplateFactory.load("InstanceHandlerTransitionRoot.egl");
+      transitionRootTemplate.populate("state", state);
+      transitionRootTemplate.populate("statemachine", statemachine);
+      transitionRootTemplate.populate("transition", transition);
 %]
-      if ([%=transition.guards_list%])
-      {
-[%
-          if (transition.actions_list.length() = 0) {
-%]
-        return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%]);
-[%
-          } else {
-%]
-        static const auto kActions = std::to_array<[%=statemachine.name%]::[%=statemachine.transition_action_type%]>({[%=transition.actions_list%]});
-        return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%], kActions);
-[%
-          }
-%]
-      }
-[%
-      }
-%]
-      return [%=statemachine.name%]::UnhandledEvent();
-      
+[%=transitionRootTemplate.process()%]
+      break;
+
 [%
     }
 %]
     default:
-        return [%=statemachine.name%]::UnhandledEvent();
+      break;
     }
+  return [%=statemachine.name%]::UnhandledEvent();
 }

@@ -2,10 +2,11 @@ package generator;
 
 import java.io.File;
 
+import javax.xml.XMLConstants;
+
 import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
 import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.egl.formatter.language.JavaFormatter;
-import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.emc.uml.UmlModel;
 
@@ -36,8 +37,7 @@ public class Generator {
 				var uml = new UmlModel();
 				uml.setModelFile(tempFile.getAbsolutePath());
 				uml.setName("UML");
-				uml.putResourceLoadOption(EmfModel.PROPERTY_VALIDATE, false);
-				uml.putResourceLoadOption(EmfModel.PROPERTY_EXPAND, false);
+				uml.putResourceLoadOption(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 				uml.load();
 
 				var uml_module = new EgxModule(factory);

@@ -1,0 +1,72 @@
+Statemachine
+  -- after model parser
+  name: String
+  region: Region
+
+  -- after model transformation
+  transition_type: String -- Transtion class name
+  transition_action_type: String -- Transition action type name
+  state_type: String -- State type name
+  history_state_type: String -- History state type name
+  event_type: String -- Event type name
+  impl_type: String -- Implementation type name
+  impl_ptr_type: String -- Implementation pointer type name
+  all_states: Map<String, State> -- Map state id -> State
+  all_actions: List<String>
+  all_guards: List<String>
+  all_entry_exit: List<String>
+
+  
+
+Region
+  -- after model parser
+  initial_state_id: String
+  initial_history: Boolean
+  states: List<State>
+
+  -- after model transformation
+  initial_variable_name: String
+
+  
+  
+State
+  -- after model parser
+  name: String
+  id: String
+  region: nullable<Region>
+  parent_state_id: nullable<String>
+  entry: String
+  exit: String
+  transitions_for_trigger: Map<String, List<Transition>>
+  
+  -- after model transformation
+  initial_variable_pointer: String
+  state_type: String
+  scoped_name: String
+  readable_scoped_name: String -- State name
+  variable_name: String -- State variable name
+  state_type: String
+  parent_variable_pointer: String
+  entry_pointer: String  
+  exit_pointer: String  
+  all_events: List<String>
+  transitions_for_trigger_transformed: Map<String, List<Transition>>
+
+  
+  
+Transition
+  -- after model parser
+  start: String
+  internal: bool
+  trigger: nullable<String>
+  guards: List<String>
+  actions: List<String>
+  target_state_id: nullable<String>
+  all_transitions: List<Transition>
+
+  -- after model transformation
+  guards_list: String
+  actions_list: String
+  target_variable_name: nullable<String>
+  trans_conditional: List<Transition> 
+  trans_unconditional: List<Transition> 

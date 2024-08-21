@@ -13,66 +13,72 @@ operation Tuple transformStatemachine() {
   self.all_guards = new List();
   self.all_entry_exit = new List();
   
-  self.region.transformRegionStates(self, null);
-  self.region.transformRegionTransitions(self, null);
+  self.region.regionCollectStates(self, null);
+  self.region.regionTransform(self, null);
   
   self.all_actions = self.all_actions.sortBy(a | a);
   self.all_guards = self.all_guards.sortBy(g | g);
   self.all_entry_exit = self.all_entry_exit.sortBy(e | e);
 }
 
-operation Tuple transformRegionStates(statemachine : Tuple, parent_state : Tuple) {
+operation Tuple regionCollectStates(statemachine : Tuple, parent_state : Tuple) {
   self.states = self.states.sortBy(s | s.name);
+  
   for (state in self.states) {
-    state.transformState(statemachine, self, parent_state);
+    statemachine.all_states.put(state.id, state);
 
-    if(self.initial_history) {
-      parent_state.state_type = statemachine.history_state_type;
+    // State variable name
+    if (parent_state != null) {
+      state.scoped_name = parent_state.scoped_name + state.name;
+      state.readable_scoped_name = parent_state.readable_scoped_name + "::" + state.name;
+    } else {
+      state.scoped_name = state.name;
+      state.readable_scoped_name = state.name;
     }
+    state.variable_name = "k" + state.scoped_name;
 
-    if (state.region.isDefined()) {
-      state.region.transformRegionStates(statemachine, state);
+    if (state.region != null) {
+      state.region.regionCollectStates(statemachine, state);
   	}
   }
 }
 
-operation Tuple transformRegionTransitions(statemachine : Tuple, parent_state : Tuple) {
-  var initial = statemachine.all_states.get(self.initial_id);
-  self.initial_variable_name = initial.variable_name;
-
+operation Tuple regionTransform(statemachine : Tuple, parent_state : Tuple) {
+  // Transform states
   for (state in self.states) {
- 	if (state.region.isDefined()) {
-      state.region.transformRegionTransitions(statemachine, state);
-  	}
-
-    state.transformTransitions(statemachine);
+    state.stateTransform(statemachine, self, parent_state);
   }
+
+  // Handle history state type
+  if(self.initial_history) {
+    parent_state.state_type = statemachine.history_state_type;
+  }
+
+  // Initial variable name
+  var initial = statemachine.all_states.get(self.initial_state_id);
+  if (initial == null) {
+    ("Unable to find state id " + self.initial_state_id).println();
+  }
+  self.initial_variable_name = initial.variable_name;
 }
 
-operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_state : Tuple) {
-  if ((self.region == null) and self.transitions.isEmpty()) {
-    (statemachine.name + ": No outgoing transitions for state " + self.name).println();
-  }
+operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_state : Tuple) {
+  self.transitions_for_trigger_transformed = new Map();
+//  if ((self.region == null) and self.transitions.isEmpty()) {
+//    (statemachine.name + ": No outgoing transitions for state " + self.name).println();
+//  }
 
-  statemachine.all_states.put(self.id, self);
-
-  if (parent_state.isDefined()) {
-    self.scoped_name = parent_state.scoped_name + self.name;
-    self.readable_scoped_name = parent_state.readable_scoped_name + "::" + self.name;
-  } else {
-    self.scoped_name = self.name;
-    self.readable_scoped_name = self.name;
-  }
-  self.variable_name = "k" + self.scoped_name;
-
+  // State type
   self.state_type = statemachine.state_type;
 
+  // Parent state
   self.parent_variable_pointer = "nullptr";
   if (self.parent_state_id.isDefined()) {
     var parent = statemachine.all_states.get(self.parent_state_id);
     self.parent_variable_pointer = "&" + statemachine.name + "::" + parent.variable_name;
   }
   
+  // Entry action
   self.entry_pointer = "nullptr";
   if (self.entry.isDefined()) {
     if (self.entry == "") {
@@ -84,6 +90,7 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
     }
   }
 
+  // Exit action
   self.exit_pointer = "nullptr";
   if (self.exit.isDefined()) {
     if (self.exit == "") {
@@ -94,47 +101,60 @@ operation Tuple transformState(statemachine : Tuple, region : Tuple, parent_stat
       statemachine.all_entry_exit.add(self.exit);
     }
   }
-}
 
-operation Tuple transformTransitions(statemachine : Tuple) {
+  // Initial state
   self.initial_variable_pointer = "nullptr";
-  if (self.region.isDefined()) {
+  if (self.region != null) {
+    // Transform subregion of state
+    self.region.regionTransform(statemachine, self);
+
+    // Initial state
     self.initial_variable_pointer = "&" + statemachine.name + "::" + self.region.initial_variable_name;
   }
 
-  for (transition in self.transitions) {
-    transition.transformTransition(statemachine);
-  }
-  self.transitions = self.transitions.sortBy(t | t.trigger + "-" + t.priority + "-" + t.start + t.target_state_id);
-
-  self.all_events = new List();  
-  for (transition in self.transitions) {
-    if (not self.all_events.includes(transition.trigger)) {
-      self.all_events.add(transition.trigger);
+  // Collect all events
+  self.all_events = new List();
+  for (trigger in self.transitions_for_trigger.keySet()) {
+    if (not self.all_events.includes(trigger)) {
+      self.all_events.add(trigger);
     }
   }
   self.all_events = self.all_events.sortBy(e | e);
 
-  self.all_event_transitions = new Map();
-  for (event in self.all_events) {
-    self.all_event_transitions.put(event, self.transitions.select(t | t.trigger = event));
+  // Transform transitions of state
+  for (trigger in self.transitions_for_trigger.keySet()) {
+    var transitions = new Tuple();
+    transitions.trans_conditional = new List();
+    transitions.trans_unconditional = new List();
+
+	for (transition in self.transitions_for_trigger.get(trigger)) {
+      transition.transitionTransform(statemachine, self, trigger);
+      
+      if (not transition.guards.isEmpty()) {
+        transitions.trans_conditional.add(transition);
+      } else {
+        transitions.trans_unconditional.add(transition);
+      }
+	}
+    if (transitions.trans_unconditional.size() > 1) {
+      ("More than one unconditional transition in state " + self.name + " for trigger " + trigger).println();
+    }
+    
+    self.transitions_for_trigger_transformed.put(trigger, transitions);
   }
 }
 
-operation Tuple transformTransition(statemachine : Tuple) {
-  if (self.internal) {
-    self.target_variable_name = "kNone";
-  } else {
-    var target = statemachine.all_states.get(self.target_state_id);
-    if (target == null) {
-    	("Unable to find state id " + self.target_state_id).println();
-    }
-    self.target_variable_name = target.variable_name;
-  }
-  
+operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger: String) {
+  self.trans_conditional = new List();
+  self.trans_unconditional = new List();
+  self.actions_list = "";
+  self.guards_list = "";
+  self.target_variable_name = null;
+
+  // Collect all actions
   var actions = new List();
   for (action in self.actions) {
-    actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
+    actions.add("impl->" + action + "(event)");
     if (not statemachine.all_actions.includes(action)) {
       if (action == "") {
         (sm.name + ": Empty function behavior in transition starting from state " + self.start).println();
@@ -142,8 +162,11 @@ operation Tuple transformTransition(statemachine : Tuple) {
       statemachine.all_actions.add(action);
     }
   }
-  self.actions_list = actions.concat(", ");
-
+  if (not actions.isEmpty()) {
+    self.actions_list = actions.concat("; ") + ";";
+  }
+  
+  // Collect all guards and create guards_list
   var guards = new List();
   for (guard in self.guards) {
     guards.add("impl->" + guard + "(event)");
@@ -151,13 +174,29 @@ operation Tuple transformTransition(statemachine : Tuple) {
       statemachine.all_guards.add(guard);
     }
   }
-  self.has_guard = not guards.isEmpty();
-  if (self.has_guard) {
-    self.priority = (100-guards.size()).toString().pad(3, "0", false);
-    self.guards_list = guards.concat(" && ");
-  } else {
-    self.priority = "100";
-    self.guards_list = "true";
+  self.guards_list = guards.concat(" && ");
+
+  // Transition has a target state
+  if(not self.internal and (self.target_state_id != null)) {
+    var target = statemachine.all_states.get(self.target_state_id);
+    if (target == null) {
+    	("Unable to find state id " + self.target_state_id).println();
+    }
+    self.target_variable_name = target.variable_name;
+  }
+  
+  // Transform subtransitions (choice/junction)
+  for (transition in self.all_transitions) {
+    transition.transitionTransform(statemachine, state, trigger);
+      
+    if (not transition.guards.isEmpty()) {
+      self.trans_conditional.add(transition);
+    } else {
+      self.trans_unconditional.add(transition);
+    }
+  }
+  if (self.trans_unconditional.size() > 1) {
+    ("More than one unconditional transition in state " + self.name + " for trigger " + trigger).println();
   }
 }
 %]
