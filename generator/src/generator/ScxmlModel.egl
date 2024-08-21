@@ -7,10 +7,10 @@ operation t_scxml getModel() : Tuple {
   
   var region = new Tuple();
   result.region = region;
-  region.initial_id = self.a_initial;
+  region.initial_state_id = self.a_initial;
   region.initial_history = false;
-
   region.states = new List();  
+
   for (state in self.c_state) {
     region.states.add(state.getModel());
   }
@@ -23,6 +23,10 @@ operation t_state getModel() : Tuple {
   result.name = self.a_id;
   result.id = self.a_id;
   result.region = null;
+  result.parent_state_id = null;
+  result.entry = null;
+  result.exit = null;
+  result.transitions_for_trigger = new Map();
 
   if (self.e_onentry.isDefined() and self.e_onentry.e_script.isDefined()) {
   	result.entry = self.e_onentry.e_script.a_src;
@@ -37,11 +41,11 @@ operation t_state getModel() : Tuple {
     result.region = region;
 
     if (self.e_initial.isDefined() and self.e_initial.e_transition.isDefined()) {
-      region.initial_id = self.e_initial.e_transition.a_target;
+      region.initial_state_id = self.e_initial.e_transition.a_target;
       region.initial_history = false;
     }
     if (self.e_history.isDefined() and self.e_history.e_transition.isDefined()) {
-      region.initial_id = self.e_history.e_transition.a_target;
+      region.initial_state_id = self.e_history.e_transition.a_target;
       region.initial_history = true;
     }
     
@@ -53,29 +57,32 @@ operation t_state getModel() : Tuple {
     }
   }
 
-  result.transitions = new List();
-  for (transition in self.c_transition) {
-    var t = transition.getModel();
-    t.start = result.name;
-    result.transitions.add(t);
+  for (scxml_transition in self.c_transition) {
+    var transition = scxml_transition.getModel(result);
+
+    if (not result.transitions_for_trigger.containsKey(transition.trigger)) {
+      result.transitions_for_trigger.put(transition.trigger, new List());
+    }
+    result.transitions_for_trigger.get(transition.trigger).add(transition);
   }
-    
+
   return result;
 }
 
-operation t_transition getModel() : Tuple {
+operation t_transition getModel(state: Tuple) : Tuple {
   var result = new Tuple();
-  
+  result.actions = new List();
+  result.guards = new List();
+  result.all_transitions = new List();
   result.target_state_id = self.a_target;
+  result.start = state.name;
   result.internal = (self.a_type = "internal");
   result.trigger = self.a_event;
 
-  result.actions = new List();
   for (script in self.c_script) {
     result.actions.add(script.a_src);
   }
 
-  result.guards = new List();
   if (self.a_cond.isDefined()) {
     result.guards.add(self.a_cond);
   }

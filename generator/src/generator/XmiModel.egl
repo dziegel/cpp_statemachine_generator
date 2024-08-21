@@ -87,7 +87,6 @@ operation Transition getModel(sm : Tuple, state : Tuple) : Tuple {
   result.actions = new List();
   result.guards = new List();
   result.all_transitions = new List();
-  result.guard = null;
   result.target_state_id = null;
   result.trigger = null;
   result.start = state.name;
