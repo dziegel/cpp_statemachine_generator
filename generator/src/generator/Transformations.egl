@@ -128,7 +128,7 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
     transitions.trans_unconditional = new List();
 
 	for (transition in self.transitions_for_trigger.get(trigger)) {
-      transition.transitionTransform(statemachine, self, trigger);
+      transition.transitionTransform(statemachine, self, trigger, new List());
       
       if (not transition.guards.isEmpty()) {
         transitions.trans_conditional.add(transition);
@@ -144,26 +144,23 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
   }
 }
 
-operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger: String) {
+operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger: String, all_actions: List) {
   self.trans_conditional = new List();
   self.trans_unconditional = new List();
-  self.actions_list = "";
   self.guards_list = "";
   self.target_variable_name = null;
+  self.actions_list = null;
 
   // Collect all actions
   var actions = new List();
   for (action in self.actions) {
-    actions.add("impl->" + action + "(event)");
+    all_actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
     if (not statemachine.all_actions.includes(action)) {
       if (action == "") {
         (sm.name + ": Empty function behavior in transition starting from state " + self.start).println();
       }
       statemachine.all_actions.add(action);
     }
-  }
-  if (not actions.isEmpty()) {
-    self.actions_list = actions.concat("; ") + ";";
   }
   
   // Collect all guards and create guards_list
@@ -175,6 +172,12 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
     }
   }
   self.guards_list = guards.concat(" && ");
+  
+  if (self.internal) {
+    if (not all_actions.isEmpty()) {
+      self.actions_list = all_actions.concat(", ");
+    }
+  }
 
   // Transition has a target state
   if(not self.internal and (self.target_state_id != null)) {
@@ -183,11 +186,17 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
     	("Unable to find state id " + self.target_state_id).println();
     }
     self.target_variable_name = target.variable_name;
+
+    if (not all_actions.isEmpty()) {
+      self.actions_list = all_actions.concat(", ");
+    }
   }
   
   // Transform subtransitions (choice/junction)
   for (transition in self.all_transitions) {
-    transition.transitionTransform(statemachine, state, trigger);
+    var new_all_actions = new List();
+    new_all_actions.addAll(all_actions);
+    transition.transitionTransform(statemachine, state, trigger, new_all_actions);
       
     if (not transition.guards.isEmpty()) {
       self.trans_conditional.add(transition);

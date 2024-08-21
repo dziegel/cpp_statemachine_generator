@@ -1,5 +1,5 @@
 // Statemachine XmiTest instance
-// Generated: 21.08.24, 08:12
+// Generated: 21.08.24, 21:04
 
 #pragma once
 
@@ -36,8 +36,7 @@ static XmiTest::Transition State_1StateWithSameNameHandler(XmiTest::ImplPtr impl
 	switch(XmiTest_GET_INSTANCE_EVENT_ID(event))
 	{
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_7):
-		
-		return XmiTest::TransitionTo(XmiTest::kState_1State_4);        
+		return XmiTest::TransitionTo(XmiTest::kState_1State_4);
 		break;
 		
 		default:
@@ -55,21 +54,24 @@ static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest:
 	switch(XmiTest_GET_INSTANCE_EVENT_ID(event))
 	{
 		case XmiTest_GET_STATIC_EVENT_ID(Internal):
-		impl->State2InternalAction(event);
-		return XmiTest::NoTransition();
+		{
+			static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::State2InternalAction});
+			return XmiTest::TransitionTo(XmiTest::kNone, kActions);
+		}
 		break;
 		
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_3):
 		if (impl->State2Transition3Guard(event))
 		{
-			impl->Transition3Action1(event);
-			return XmiTest::TransitionTo(XmiTest::kState_1StateWithSameName);        
+			{
+				static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::Transition3Action1});
+				return XmiTest::TransitionTo(XmiTest::kState_1StateWithSameName, kActions);
+			}
 		}
 		break;
 		
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_6):
-		
-		return XmiTest::TransitionTo(XmiTest::kState_1State_4);        
+		return XmiTest::TransitionTo(XmiTest::kState_1State_4);
 		break;
 		
 		default:
@@ -87,8 +89,7 @@ static XmiTest::Transition State_1State_4Handler(XmiTest::ImplPtr impl, XmiTest:
 	switch(XmiTest_GET_INSTANCE_EVENT_ID(event))
 	{
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_8):
-		
-		return XmiTest::TransitionTo(XmiTest::kState_1State_2);        
+		return XmiTest::TransitionTo(XmiTest::kState_1State_2);
 		break;
 		
 		default:
@@ -106,21 +107,24 @@ static XmiTest::Transition State_1State_4StateWithSameNameHandler(XmiTest::ImplP
 	switch(XmiTest_GET_INSTANCE_EVENT_ID(event))
 	{
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_4):
-		
-		return XmiTest::TransitionTo(XmiTest::kState_1State_4State_5);        
+		return XmiTest::TransitionTo(XmiTest::kState_1State_4State_5);
 		break;
 		
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_7):
 		if (impl->ChoiceGuard1(event))
 		{
-			impl->ChoiceAction1(event);
+		
 			if (impl->ChoiceGuard2(event))
 			{
-				impl->ChoiceAction2(event);
-				return XmiTest::TransitionTo(XmiTest::kState_1State_4State_5);        
+				{
+					static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::ChoiceAction2});
+					return XmiTest::TransitionTo(XmiTest::kState_1State_4State_5, kActions);
+				}
 			}
-			impl->ChoiceAction3(event);
-			return XmiTest::TransitionTo(XmiTest::kState_1StateWithSameName);        
+			{
+				static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::ChoiceAction3});
+				return XmiTest::TransitionTo(XmiTest::kState_1StateWithSameName, kActions);
+			}
 		}
 		break;
 		
@@ -139,8 +143,7 @@ static XmiTest::Transition State_1State_4State_5Handler(XmiTest::ImplPtr impl, X
 	switch(XmiTest_GET_INSTANCE_EVENT_ID(event))
 	{
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_3):
-		
-		return XmiTest::TransitionTo(XmiTest::kState_1State_4StateWithSameName);        
+		return XmiTest::TransitionTo(XmiTest::kState_1State_4StateWithSameName);
 		break;
 		
 		default:

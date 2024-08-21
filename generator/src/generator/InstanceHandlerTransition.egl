@@ -1,13 +1,24 @@
-        [%=transition.actions_list%]
+[%
+        var actions = "";
+        var closing_bracket = "";
+        if (transition.actions_list != null) {
+           actions = ", kActions";
+           closing_bracket = "}";
+%]
+        {
+        static const auto kActions = std::to_array<[%=statemachine.name%]::[%=statemachine.transition_action_type%]>({[%=transition.actions_list%]});
+[%
+        }
+%]
 [%
         if (transition.internal) {
 %]
-      return [%=statemachine.name%]::NoTransition();
+      return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::kNone[%=actions%]);
 [%     
         }
         if (transition.target_variable_name != null) {
 %]
-      return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%]);        
+      return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%][%=actions%]);
 [%     
       }
 
@@ -16,4 +27,5 @@
       transitionRootTemplate.populate("statemachine", statemachine);
       transitionRootTemplate.populate("transition", transition);
 %]
+[%=closing_bracket%]
 [%=transitionRootTemplate.process()%]
