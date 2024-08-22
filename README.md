@@ -23,6 +23,7 @@ The Eclipse Epsilon <https://eclipse.dev/epsilon> framework is used to implement
 - Entry/exit actions
 - Shallow history
 - Choice states
+- Junction states
 
 ## Usage
 
