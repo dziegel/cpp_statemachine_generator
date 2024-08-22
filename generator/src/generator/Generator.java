@@ -62,7 +62,7 @@ public class Generator {
 			}
 
 			if (filename.endsWith(".scxml")) {
-				System.out.println("Generating SCXML model " + filename);
+				System.out.println("Loading SCXML model " + filename);
 				var scxml = new PlainXmlModel();
 				scxml.setFile(new File(filename));
 				scxml.setName("SCXML");
