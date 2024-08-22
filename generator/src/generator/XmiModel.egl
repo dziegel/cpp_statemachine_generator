@@ -104,12 +104,7 @@ operation Transition getModel(sm : Tuple, state : Tuple) : Tuple {
 
   // Actions
   if (self.effect.isDefined() and (self.effect != null)) {
-    var body = self.effect.getBody();
-    if (body.matches(".*,.*")) {
-      result.actions.addAll(body.split(","));
-    } else {
-      result.actions.add(body.trim());
-    }
+    result.actions.add(self.effect.getBody());
   }
 
   // Guard
@@ -121,11 +116,7 @@ operation Transition getModel(sm : Tuple, state : Tuple) : Tuple {
       guard = self.guard.name;
     }
     if (guard != "else") {
-      if (guard.matches(".*,.*")) {
-        result.guards.addAll(guard.split(","));
-      } else {
-        result.guards.add(guard.trim());
-      }
+      result.guards.add(guard.trim());
     }
   }
 

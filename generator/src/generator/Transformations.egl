@@ -146,6 +146,18 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
   }
 }
 
+operation List splitEntries() : List {
+  var result = new List();
+  for (entry in self) {
+    if (entry.matches(".*,.*")) {
+      result.addAll(entry.split(","));
+    } else {
+      result.add(entry);
+    }
+  }
+  return result;
+}
+
 operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger: String, all_actions: List) {
   self.trans_conditional = new List();
   self.trans_unconditional = new List();
@@ -155,7 +167,7 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
 
   // Collect all actions
   var actions = new List();
-  for (action in self.actions) {
+  for (action in self.actions.splitEntries()) {
     all_actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
     if (not statemachine.all_actions.includes(action)) {
       if (action == "") {
@@ -167,7 +179,7 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
   
   // Collect all guards and create guards_list
   var guards = new List();
-  for (guard in self.guards) {
+  for (guard in self.guards.splitEntries()) {
     guards.add("impl->" + guard + "(event)");
     if (not statemachine.all_guards.includes(guard)) {
       statemachine.all_guards.add(guard);
