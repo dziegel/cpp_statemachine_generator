@@ -83,7 +83,7 @@ operation t_transition getModel(state: Tuple) : Tuple {
     result.actions.add(script.a_src);
   }
 
-  if (self.a_cond.isDefined()) {
+  if (self.a_cond.isDefined() and (self.a_cond != "else")) {
     result.guards.add(self.a_cond);
   }
   

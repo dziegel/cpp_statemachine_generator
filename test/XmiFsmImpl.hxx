@@ -22,6 +22,8 @@ private:
     void ChoiceAction2(XmiTestBase::Event event) override;
     bool choice_action3_called_ = false;
     void ChoiceAction3(XmiTestBase::Event event) override;
+    bool choice_action4_called_ = false;
+    void ChoiceAction4(XmiTestBase::Event event) override;
     bool state2_internal_action_called_ = false;
     void State2InternalAction(XmiTestBase::Event event) override;
     bool transition3_action1_called_ = false;
@@ -31,6 +33,8 @@ private:
     bool ChoiceGuard1(XmiTestBase::Event event) override;
     bool choice_guard2_result_ = false;
     bool ChoiceGuard2(XmiTestBase::Event event) override;
+    bool choice_guard3_result_ = false;
+    bool ChoiceGuard3(XmiTestBase::Event event) override;
     bool state2_transition3_guard_result_ = false;
     bool State2Transition3Guard(XmiTestBase::Event event) override;
 

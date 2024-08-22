@@ -1,5 +1,5 @@
 // Statemachine XmiTest instance
-// Generated: 21.08.24, 21:04
+// Generated: 21.08.24, 22:20
 
 #pragma once
 
@@ -119,6 +119,15 @@ static XmiTest::Transition State_1State_4StateWithSameNameHandler(XmiTest::ImplP
 				{
 					static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::ChoiceAction2});
 					return XmiTest::TransitionTo(XmiTest::kState_1State_4State_5, kActions);
+				}
+			}
+			
+			if (impl->ChoiceGuard3(event))
+			{
+			
+				{
+					static const auto kActions = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::ChoiceAction3, &XmiTest::Impl::ChoiceAction4});
+					return XmiTest::TransitionTo(XmiTest::kState_1State_2, kActions);
 				}
 			}
 			{

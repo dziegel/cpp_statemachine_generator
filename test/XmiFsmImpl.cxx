@@ -114,6 +114,8 @@ void XmiFsmImpl::Test()
 
     // Choice: One guard return true
     choice_guard1_result_ = true;
+    choice_guard2_result_ = false;
+    choice_guard3_result_ = false;
     fsm_.React(Transition_7::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1StateWithSameName);
     assert(choice_action1_called_);
@@ -136,13 +138,38 @@ void XmiFsmImpl::Test()
     CheckAllFalse();
 
     // Choice: Two guards return true
+    choice_guard1_result_ = true;
     choice_guard2_result_ = true;
+    choice_guard3_result_ = false;
     fsm_.React(Transition_7::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4State_5);
     assert(choice_action1_called_);
     choice_action1_called_ = false;
     assert(choice_action2_called_);
     choice_action2_called_ = false;
+    CheckAllFalse();
+
+    // Return to State_1::State_4::StateWithSameName
+    fsm_.React(Transition_3::MakeShared());
+    assert(fsm_.CurrentState() == &XmiTest::kState_1State_4StateWithSameName);
+    CheckAllFalse();
+
+    // Choice: Two guards return true, part 2
+    choice_guard1_result_ = true;
+    choice_guard2_result_ = false;
+    choice_guard3_result_ = true;
+    fsm_.React(Transition_7::MakeShared());
+    assert(fsm_.CurrentState() == &XmiTest::kState_1State_2);
+    assert(choice_action1_called_);
+    choice_action1_called_ = false;
+    assert(choice_action3_called_);
+    choice_action3_called_ = false;
+    assert(choice_action4_called_);
+    choice_action4_called_ = false;
+    assert(state2_on_entry_called_);
+    state2_on_entry_called_ = false;
+    assert(state4_on_exit_called_);
+    state4_on_exit_called_ = false;
     CheckAllFalse();
 
     assert(pool_->FillLevel() == kPoolSize);
@@ -155,6 +182,7 @@ void XmiFsmImpl::CheckAllFalse() const
     assert(choice_action1_called_ == false);
     assert(choice_action2_called_ == false);
     assert(choice_action3_called_ == false);
+    assert(choice_action4_called_ == false);
     assert(state2_internal_action_called_ == false);
     assert(transition3_action1_called_ == false);
 
@@ -187,6 +215,11 @@ void XmiFsmImpl::ChoiceAction3(XmiTestBase::Event /*event*/)
     std::cout << std::source_location::current().function_name() << "\n";
     choice_action3_called_ = true;
 }
+void XmiFsmImpl::ChoiceAction4(XmiTestBase::Event /*event*/)
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    choice_action4_called_ = true;
+}
 void XmiFsmImpl::State2InternalAction(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
@@ -207,6 +240,11 @@ bool XmiFsmImpl::ChoiceGuard2(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     return choice_guard2_result_;
+}
+bool XmiFsmImpl::ChoiceGuard3(XmiTestBase::Event /*event*/)
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    return choice_guard3_result_;
 }
 bool XmiFsmImpl::State2Transition3Guard(XmiTestBase::Event /*event*/)
 {

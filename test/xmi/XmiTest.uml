@@ -28,6 +28,14 @@
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_WCnOoLtAEe6r94MfzN2GzQ" name="State2InternalAction"/>
             <trigger xmi:type="uml:Trigger" xmi:id="_SRqFgLtAEe6r94MfzN2GzQ" event="_SA33gLtAEe6r94MfzN2GzQ"/>
           </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_TjK5kF_4Ee-nkouQL1JVbw" guard="_WMCZQF_4Ee-nkouQL1JVbw" source="_O9Cb8F_4Ee-nkouQL1JVbw" target="_tPkY4Lr9Ee6r94MfzN2GzQ">
+            <ownedRule xmi:type="uml:Constraint" xmi:id="_WMCZQF_4Ee-nkouQL1JVbw" name="else"/>
+          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_aGUdgF_4Ee-nkouQL1JVbw" guard="_clnxgF_4Ee-nkouQL1JVbw" source="_O9Cb8F_4Ee-nkouQL1JVbw" target="_tIYuUF_6Ee-nkouQL1JVbw">
+            <ownedRule xmi:type="uml:Constraint" xmi:id="_clnxgF_4Ee-nkouQL1JVbw" name="ChoiceGuard3"/>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_iktmIF_4Ee-nkouQL1JVbw" name="ChoiceAction4"/>
+          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_ubZOUF_6Ee-nkouQL1JVbw" source="_tIYuUF_6Ee-nkouQL1JVbw" target="_a2OqELr9Ee6r94MfzN2GzQ"/>
           <subvertex xmi:type="uml:State" xmi:id="_a2OqELr9Ee6r94MfzN2GzQ" name="State_2">
             <entry xmi:type="uml:FunctionBehavior" xmi:id="_lMZtsLs_Ee6r94MfzN2GzQ" name="State2OnEntry"/>
           </subvertex>
@@ -56,7 +64,7 @@
                 <ownedRule xmi:type="uml:Constraint" xmi:id="_xd_coLxnEe6cZuHlyUXtcQ" name="ChoiceGuard2"/>
                 <effect xmi:type="uml:FunctionBehavior" xmi:id="_-dgAALxnEe6cZuHlyUXtcQ" name="ChoiceAction2"/>
               </transition>
-              <transition xmi:type="uml:Transition" xmi:id="_oApYcLxnEe6cZuHlyUXtcQ" guard="_ukWWALxnEe6cZuHlyUXtcQ" source="_hlMX8LxnEe6cZuHlyUXtcQ" target="_tPkY4Lr9Ee6r94MfzN2GzQ">
+              <transition xmi:type="uml:Transition" xmi:id="_oApYcLxnEe6cZuHlyUXtcQ" guard="_ukWWALxnEe6cZuHlyUXtcQ" source="_hlMX8LxnEe6cZuHlyUXtcQ" target="_O9Cb8F_4Ee-nkouQL1JVbw">
                 <ownedRule xmi:type="uml:Constraint" xmi:id="_ukWWALxnEe6cZuHlyUXtcQ" name="else"/>
                 <effect xmi:type="uml:FunctionBehavior" xmi:id="_BXnAsLxoEe6cZuHlyUXtcQ" name="ChoiceAction3"/>
               </transition>
@@ -64,8 +72,10 @@
               <subvertex xmi:type="uml:State" xmi:id="_27rR0Lr9Ee6r94MfzN2GzQ" name="StateWithSameName"/>
               <subvertex xmi:type="uml:Pseudostate" xmi:id="_7dXUULr9Ee6r94MfzN2GzQ" name="" kind="shallowHistory"/>
               <subvertex xmi:type="uml:Pseudostate" xmi:id="_hlMX8LxnEe6cZuHlyUXtcQ" name="Choice7" kind="choice"/>
+              <subvertex xmi:type="uml:Pseudostate" xmi:id="_O9Cb8F_4Ee-nkouQL1JVbw" name="Choice11" kind="choice"/>
             </region>
           </subvertex>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_tIYuUF_6Ee-nkouQL1JVbw" name="Junction13" kind="junction"/>
         </region>
       </subvertex>
       <subvertex xmi:type="uml:Pseudostate" xmi:id="_2ciUMLr8Ee60g8u59OCKgQ" name=""/>

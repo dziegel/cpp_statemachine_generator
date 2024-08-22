@@ -1,5 +1,5 @@
 // Statemachine XmiTest declaration
-// Generated: 21.08.24, 21:03
+// Generated: 21.08.24, 22:20
 
 #pragma once
 
