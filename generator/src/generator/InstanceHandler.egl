@@ -1,6 +1,6 @@
 static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped_name%]Handler([%=statemachine.name%]::ImplPtr impl, [%=statemachine.name%]::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function being called in here
+    (void)impl; // impl parameter is unused when there is no guard function being called in here
 
 [%
     if (not state.all_events.isEmpty()) {

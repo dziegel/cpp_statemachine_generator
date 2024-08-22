@@ -18,7 +18,7 @@ operation Region getModel(sm : Tuple) : Tuple {
   // Initial state
   var initial = self.subvertices.select(s | s.isKindOf(Pseudostate) and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
   if ((initial == null) or (initial.outgoing.first == null)) {
-  	if (self.state != null) {
+    if (self.state != null) {
       (sm.name + ": Missing initial state in composite state " + self.state.name).println();
     }
   }
@@ -53,15 +53,15 @@ operation State getModel(sm : Tuple) : Tuple {
 
   // Parent state
   if (self.container.state != null) {
-  	result.parent_state_id = self.container.state.id;
+    result.parent_state_id = self.container.state.id;
   }
 
   // Entry/exit actions 
   if (self.entry != null) {
-  	result.entry = self.entry.getBody();
+    result.entry = self.entry.getBody();
   }
   if (self.exit != null) {
-  	result.exit = self.exit.getBody();
+    result.exit = self.exit.getBody();
   }
   
   // Subregions 

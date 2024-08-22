@@ -1,23 +1,23 @@
 rule StatemachineDeclaration
-	transform sm : UML!StateMachine {
+    transform sm : UML!StateMachine {
 
-	template : "XmiDeclaration.egl"
-		
-	target : sm.name + "Declaration.hxx"
+    template : "XmiDeclaration.egl"
+        
+    target : sm.name + "Declaration.hxx"
 }
 
 rule StatemachineInstance
-	transform sm : UML!StateMachine {
-	
-	template : "XmiInstance.egl"
-	
-	target : sm.name + "Instance.hxx"
+    transform sm : UML!StateMachine {
+    
+    template : "XmiInstance.egl"
+    
+    target : sm.name + "Instance.hxx"
 }
 
 rule StatemachineInterface
-	transform sm : UML!StateMachine {
-	
-	template : "XmiInterface.egl"
-	
-	target : "I" + sm.name + "Impl.hxx"
+    transform sm : UML!StateMachine {
+    
+    template : "XmiInterface.egl"
+    
+    target : "I" + sm.name + "Impl.hxx"
 }
