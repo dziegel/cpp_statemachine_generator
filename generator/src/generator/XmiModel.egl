@@ -19,7 +19,7 @@ operation Region getModel(sm : Tuple) : Tuple {
   var initial = self.subvertices.select(s | s.isKindOf(Pseudostate) and ((s.kind = PseudostateKind#initial) or (s.kind = PseudostateKind#shallowHistory))).first;
   if ((initial == null) or (initial.outgoing.first == null)) {
     if (self.state != null) {
-      (sm.name + ": Missing initial state in composite state " + self.state.name).println();
+      (sm.name + ": Missing initial state in composite state " + self.state.name).errln();
     }
   }
   result.initial_state_id = initial.outgoing.first.target.id;
@@ -104,7 +104,12 @@ operation Transition getModel(sm : Tuple, state : Tuple) : Tuple {
 
   // Actions
   if (self.effect.isDefined() and (self.effect != null)) {
-    result.actions.add(self.effect.getBody());
+    var body = self.effect.getBody();
+    if (body.matches(".*,.*")) {
+      result.actions.addAll(body.split(","));
+    } else {
+      result.actions.add(body.trim());
+    }
   }
 
   // Guard
@@ -116,7 +121,11 @@ operation Transition getModel(sm : Tuple, state : Tuple) : Tuple {
       guard = self.guard.name;
     }
     if (guard != "else") {
-      result.guards.add(guard);
+      if (guard.matches(".*,.*")) {
+        result.guards.addAll(guard.split(","));
+      } else {
+        result.guards.add(guard.trim());
+      }
     }
   }
 

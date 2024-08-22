@@ -28,6 +28,8 @@ private:
     void State2InternalAction(XmiTestBase::Event event) override;
     bool transition3_action1_called_ = false;
     void Transition3Action1(XmiTestBase::Event event) override;
+    bool comma_action_called_ = false;
+    void CommaAction2(XmiTestBase::Event event) override;
 
     bool choice_guard1_result_ = false;
     bool ChoiceGuard1(XmiTestBase::Event event) override;
@@ -35,6 +37,7 @@ private:
     bool ChoiceGuard2(XmiTestBase::Event event) override;
     bool choice_guard3_result_ = false;
     bool ChoiceGuard3(XmiTestBase::Event event) override;
+    bool CommaGuard(XmiTestBase::Event event) override;
     bool state2_transition3_guard_result_ = false;
     bool State2Transition3Guard(XmiTestBase::Event event) override;
 

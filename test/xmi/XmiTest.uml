@@ -56,8 +56,8 @@
                 <trigger xmi:type="uml:Trigger" xmi:id="_FqmB4LtBEe6r94MfzN2GzQ" event="_FZ2QILtBEe6r94MfzN2GzQ"/>
               </transition>
               <transition xmi:type="uml:Transition" xmi:id="_iQMcwLxnEe6cZuHlyUXtcQ" guard="_5qwpwLxnEe6cZuHlyUXtcQ" source="_27rR0Lr9Ee6r94MfzN2GzQ" target="_hlMX8LxnEe6cZuHlyUXtcQ">
-                <ownedRule xmi:type="uml:Constraint" xmi:id="_5qwpwLxnEe6cZuHlyUXtcQ" name="ChoiceGuard1"/>
-                <effect xmi:type="uml:FunctionBehavior" xmi:id="_8Rs20LxnEe6cZuHlyUXtcQ" name="ChoiceAction1"/>
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_5qwpwLxnEe6cZuHlyUXtcQ" name="ChoiceGuard1,CommaGuard"/>
+                <effect xmi:type="uml:FunctionBehavior" xmi:id="_8Rs20LxnEe6cZuHlyUXtcQ" name="ChoiceAction1,CommaAction2"/>
                 <trigger xmi:type="uml:Trigger" xmi:id="_1JA84LxnEe6cZuHlyUXtcQ" event="_T1GqsLs_Ee6r94MfzN2GzQ"/>
               </transition>
               <transition xmi:type="uml:Transition" xmi:id="_ldKIALxnEe6cZuHlyUXtcQ" guard="_xd_coLxnEe6cZuHlyUXtcQ" source="_hlMX8LxnEe6cZuHlyUXtcQ" target="_0PA3QLr9Ee6r94MfzN2GzQ">

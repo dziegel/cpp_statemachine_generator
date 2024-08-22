@@ -126,6 +126,8 @@ void XmiFsmImpl::Test()
     state3_on_entry_called_ = false;
     assert(state4_on_exit_called_);
     state4_on_exit_called_ = false;
+    assert(comma_action_called_);
+    comma_action_called_ = false;
     CheckAllFalse();
 
     // Return to State_1::State_4::StateWithSameName
@@ -147,6 +149,8 @@ void XmiFsmImpl::Test()
     choice_action1_called_ = false;
     assert(choice_action2_called_);
     choice_action2_called_ = false;
+    assert(comma_action_called_);
+    comma_action_called_ = false;
     CheckAllFalse();
 
     // Return to State_1::State_4::StateWithSameName
@@ -170,6 +174,8 @@ void XmiFsmImpl::Test()
     state2_on_entry_called_ = false;
     assert(state4_on_exit_called_);
     state4_on_exit_called_ = false;
+    assert(comma_action_called_);
+    comma_action_called_ = false;
     CheckAllFalse();
 
     assert(pool_->FillLevel() == kPoolSize);
@@ -185,6 +191,7 @@ void XmiFsmImpl::CheckAllFalse() const
     assert(choice_action4_called_ == false);
     assert(state2_internal_action_called_ == false);
     assert(transition3_action1_called_ == false);
+    assert(comma_action_called_ == false);
 
     assert(state1_on_entry_called_ == false);
     assert(state2_on_entry_called_ == false);
@@ -230,6 +237,11 @@ void XmiFsmImpl::Transition3Action1(XmiTestBase::Event /*event*/)
     std::cout << std::source_location::current().function_name() << "\n";
     transition3_action1_called_ = true;
 }
+void XmiFsmImpl::CommaAction2(XmiTestBase::Event /*event*/)
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    comma_action_called_ = true;
+}
 
 bool XmiFsmImpl::ChoiceGuard1(XmiTestBase::Event /*event*/)
 {
@@ -250,6 +262,11 @@ bool XmiFsmImpl::State2Transition3Guard(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     return state2_transition3_guard_result_;
+}
+bool XmiFsmImpl::CommaGuard(XmiTestBase::Event /*event*/)
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    return true;
 }
 
 void XmiFsmImpl::State1OnEntry()
