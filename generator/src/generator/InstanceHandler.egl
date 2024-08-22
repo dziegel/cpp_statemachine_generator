@@ -1,7 +1,10 @@
 static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped_name%]Handler([%=statemachine.name%]::ImplPtr impl, [%=statemachine.name%]::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function or action being called in here
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
 
+[%
+    if (not state.all_events.isEmpty()) {
+%]
     switch([%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event))
     {
 [%
@@ -25,5 +28,12 @@ static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped
     default:
       break;
     }
+[%
+    } else {
+%]
+  (void) event; // No outgoing transitions
+[%
+    }
+%]
   return [%=statemachine.name%]::UnhandledEvent();
 }

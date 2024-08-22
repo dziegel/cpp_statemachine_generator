@@ -1,12 +1,10 @@
 [%
         var actions = "";
-        var closing_bracket = "";
         if (transition.actions_list != null) {
-           actions = ", kActions";
-           closing_bracket = "}";
+           statemachine.unique_id = statemachine.unique_id + 1;
+           actions = ", kActions" + statemachine.unique_id;
 %]
-        {
-        static const auto kActions = std::to_array<[%=statemachine.name%]::[%=statemachine.transition_action_type%]>({[%=transition.actions_list%]});
+        static const auto kActions[%=statemachine.unique_id%] = std::to_array<[%=statemachine.name%]::[%=statemachine.transition_action_type%]>({[%=transition.actions_list%]});
 [%
         }
 %]
@@ -27,5 +25,4 @@
       transitionRootTemplate.populate("statemachine", statemachine);
       transitionRootTemplate.populate("transition", transition);
 %]
-[%=closing_bracket%]
 [%=transitionRootTemplate.process()%]
