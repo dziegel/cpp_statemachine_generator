@@ -1,23 +1,23 @@
 [%
-      var transitionTemplate : Template = TemplateFactory.load("InstanceHandlerTransition.egl");
-      transitionTemplate.populate("state", state);
-      transitionTemplate.populate("statemachine", statemachine);
+  var transitionTemplate : Template = TemplateFactory.load("InstanceHandlerTransition.egl");
+  transitionTemplate.populate("state", state);
+  transitionTemplate.populate("statemachine", statemachine);
 
-      for (transition in transition.trans_conditional) {
-        transitionTemplate.populate("transition", transition);
+  for (transition in transition.trans_conditional) {
+    transitionTemplate.populate("transition", transition);
 %]
-        if ([%=transition.guards_list%])
-        {
+    if ([%=transition.guards_list%])
+    {
 [%=transitionTemplate.process()%]
-        }
+    }
 [%     
-      }
+  }
 %]
 [%
-      for (transition in transition.trans_unconditional) {
-        transitionTemplate.populate("transition", transition);
+  for (transition in transition.trans_unconditional) {
+    transitionTemplate.populate("transition", transition);
 %]
 [%=transitionTemplate.process()%]
 [%     
-      }
+  }
 %]

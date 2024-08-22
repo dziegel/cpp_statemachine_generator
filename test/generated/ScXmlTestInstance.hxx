@@ -1,5 +1,5 @@
 // Statemachine ScXmlTest instance
-// Generated: 21.08.24, 21:44
+// Generated: 22.08.24, 11:29
 
 #pragma once
 
@@ -17,13 +17,9 @@
 // State State_1
 static ScXmlTest::Transition State_1Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function or action being called in here
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
-	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
-	{
-		default:
-		break;
-	}
+	(void) event; // No outgoing transitions
 	return ScXmlTest::UnhandledEvent();
 }
 const ScXmlTest::State ScXmlTest::kState_1("State_1", &State_1Handler, nullptr, &ScXmlTest::kState_1State_2, &ScXmlTest::Impl::State1OnEntry, nullptr);
@@ -31,24 +27,20 @@ const ScXmlTest::State ScXmlTest::kState_1("State_1", &State_1Handler, nullptr, 
 // State State_1::State_2
 static ScXmlTest::Transition State_1State_2Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function or action being called in here
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
 	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{
 		case ScXmlTest_GET_STATIC_EVENT_ID(Internal):
-		{
-			static const auto kActions = std::to_array<ScXmlTest::Transition::ActionType>({&ScXmlTest::Impl::State2InternalAction});
-			return ScXmlTest::TransitionTo(ScXmlTest::kNone, kActions);
-		}
+		static const auto kActions1 = std::to_array<ScXmlTest::Transition::ActionType>({&ScXmlTest::Impl::State2InternalAction});
+		return ScXmlTest::TransitionTo(ScXmlTest::kNone, kActions1);
 		break;
 		
 		case ScXmlTest_GET_STATIC_EVENT_ID(Transition_3):
 		if (impl->State2Transition3Guard(event))
 		{
-			{
-				static const auto kActions = std::to_array<ScXmlTest::Transition::ActionType>({&ScXmlTest::Impl::Transition3Action1, &ScXmlTest::Impl::Transition3Action2});
-				return ScXmlTest::TransitionTo(ScXmlTest::kState_1State_3, kActions);
-			}
+			static const auto kActions2 = std::to_array<ScXmlTest::Transition::ActionType>({&ScXmlTest::Impl::Transition3Action1, &ScXmlTest::Impl::Transition3Action2});
+			return ScXmlTest::TransitionTo(ScXmlTest::kState_1State_3, kActions2);
 		}
 		break;
 		
@@ -66,7 +58,7 @@ const ScXmlTest::State ScXmlTest::kState_1State_2("State_1::State_2", &State_1St
 // State State_1::State_3
 static ScXmlTest::Transition State_1State_3Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function or action being called in here
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
 	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{
@@ -84,7 +76,7 @@ const ScXmlTest::State ScXmlTest::kState_1State_3("State_1::State_3", &State_1St
 // State State_1::State_4
 static ScXmlTest::Transition State_1State_4Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function or action being called in here
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
 	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{
@@ -102,7 +94,7 @@ const ScXmlTest::HistoryState ScXmlTest::kState_1State_4("State_1::State_4", &St
 // State State_1::State_4::State_5
 static ScXmlTest::Transition State_1State_4State_5Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function or action being called in here
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
 	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{
@@ -120,7 +112,7 @@ const ScXmlTest::State ScXmlTest::kState_1State_4State_5("State_1::State_4::Stat
 // State State_1::State_4::State_6
 static ScXmlTest::Transition State_1State_4State_6Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
 {
-	(void)impl; // impl parameter is unused when there is no guard function or action being called in here
+	(void)impl; // impl parameter is unused when there is no guard function being called in here
 	
 	switch(ScXmlTest_GET_INSTANCE_EVENT_ID(event))
 	{

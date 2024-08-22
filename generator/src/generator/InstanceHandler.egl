@@ -1,39 +1,39 @@
 static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped_name%]Handler([%=statemachine.name%]::ImplPtr impl, [%=statemachine.name%]::Event event)
 {
-    (void)impl; // impl parameter is unused when there is no guard function being called in here
+  (void)impl; // impl parameter is unused when there is no guard function being called in here
 
 [%
-    if (not state.all_events.isEmpty()) {
+  if (not state.all_events.isEmpty()) {
 %]
-    switch([%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event))
-    {
+switch([%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event))
+{
 [%
     for (trigger in state.all_events) {
 %]
-    case [%=statemachine.name%]_GET_STATIC_EVENT_ID([%=trigger%]):
+case [%=statemachine.name%]_GET_STATIC_EVENT_ID([%=trigger%]):
 [%
-      var transition = state.transitions_for_trigger_transformed.get(trigger);
+    var transition = state.transitions_for_trigger_transformed.get(trigger);
 
-      var transitionRootTemplate : Template = TemplateFactory.load("InstanceHandlerTransitionRoot.egl");
-      transitionRootTemplate.populate("state", state);
-      transitionRootTemplate.populate("statemachine", statemachine);
-      transitionRootTemplate.populate("transition", transition);
+    var transitionRootTemplate : Template = TemplateFactory.load("InstanceHandlerTransitionRoot.egl");
+    transitionRootTemplate.populate("state", state);
+    transitionRootTemplate.populate("statemachine", statemachine);
+    transitionRootTemplate.populate("transition", transition);
 %]
 [%=transitionRootTemplate.process()%]
-      break;
+break;
 
 [%
     }
 %]
-    default:
-      break;
-    }
+default:
+break;
+}
 [%
-    } else {
+  } else {
 %]
-  (void) event; // No outgoing transitions
+(void) event; // No outgoing transitions
 [%
-    }
+}
 %]
-  return [%=statemachine.name%]::UnhandledEvent();
+return [%=statemachine.name%]::UnhandledEvent();
 }

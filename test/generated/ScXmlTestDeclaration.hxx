@@ -1,5 +1,5 @@
 // Statemachine ScXmlTest declaration
-// Generated: 21.08.24, 21:44
+// Generated: 22.08.24, 11:29
 
 #pragma once
 
