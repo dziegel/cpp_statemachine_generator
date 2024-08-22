@@ -66,9 +66,9 @@ operation Tuple regionTransform(statemachine : Tuple, parent_state : Tuple) {
 
 operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_state : Tuple) {
   self.transitions_for_trigger_transformed = new Map();
-//  if ((self.region == null) and self.transitions.isEmpty()) {
-//    (statemachine.name + ": No outgoing transitions for state " + self.name).println();
-//  }
+  if ((self.region == null) and self.transitions_for_trigger.isEmpty()) {
+    (statemachine.name + ": No outgoing transitions from state " + self.name).println();
+  }
 
   // State type
   self.state_type = statemachine.state_type;
