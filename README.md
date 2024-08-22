@@ -1,4 +1,4 @@
-# cpp_statemachine_generator
+# C++ statemachine generator
 
 ## Introduction
 
