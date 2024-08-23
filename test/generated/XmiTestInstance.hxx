@@ -1,5 +1,5 @@
 // Statemachine XmiTest instance
-// Generated: 23.08.24, 06:47
+// Generated: 23.08.24, 20:41
 
 #pragma once
 
@@ -50,14 +50,14 @@ static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest:
 	switch(XmiTest_GET_INSTANCE_EVENT_ID(event))
 	{
 		case XmiTest_GET_STATIC_EVENT_ID(Internal):
-		static const auto kActions1 = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::State2InternalAction});
+		static const auto kActions1 = std::to_array<XmiTest::ActionType>({&XmiTest::Impl::State2InternalAction});
 		return XmiTest::NoTransition(kActions1);
 		break;
 		
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_3):
 		if (impl->State2Transition3Guard(event))
 		{
-			static const auto kActions2 = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::Transition3Action1});
+			static const auto kActions2 = std::to_array<XmiTest::ActionType>({&XmiTest::Impl::Transition3Action1});
 			return XmiTest::TransitionTo(XmiTest::kState_1StateWithSameName, kActions2);
 		}
 		break;
@@ -107,15 +107,15 @@ static XmiTest::Transition State_1State_4StateWithSameNameHandler(XmiTest::ImplP
 		{
 			if (impl->ChoiceGuard2(event))
 			{
-				static const auto kActions3 = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::CommaAction2, &XmiTest::Impl::ChoiceAction2});
+				static const auto kActions3 = std::to_array<XmiTest::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::CommaAction2, &XmiTest::Impl::ChoiceAction2});
 				return XmiTest::TransitionTo(XmiTest::kState_1State_4State_5, kActions3);
 			}
 			if (impl->ChoiceGuard3(event))
 			{
-				static const auto kActions4 = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::CommaAction2, &XmiTest::Impl::ChoiceAction3, &XmiTest::Impl::ChoiceAction4});
+				static const auto kActions4 = std::to_array<XmiTest::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::CommaAction2, &XmiTest::Impl::ChoiceAction3, &XmiTest::Impl::ChoiceAction4});
 				return XmiTest::TransitionTo(XmiTest::kState_1State_2, kActions4);
 			}
-			static const auto kActions5 = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::CommaAction2, &XmiTest::Impl::ChoiceAction3});
+			static const auto kActions5 = std::to_array<XmiTest::ActionType>({&XmiTest::Impl::ChoiceAction1, &XmiTest::Impl::CommaAction2, &XmiTest::Impl::ChoiceAction3});
 			return XmiTest::TransitionTo(XmiTest::kState_1StateWithSameName, kActions5);
 		}
 		break;
