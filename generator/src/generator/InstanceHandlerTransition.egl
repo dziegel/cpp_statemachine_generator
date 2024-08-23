@@ -1,8 +1,10 @@
 [%
   var actions = "";
+  var actions_with_comma = "";
   if (transition.actions_list != null) {
     statemachine.unique_id = statemachine.unique_id + 1;
-    actions = ", kActions" + statemachine.unique_id;
+    actions = "kActions" + statemachine.unique_id;
+    actions_with_comma = ", " + actions;
 %]
 static const auto kActions[%=statemachine.unique_id%] = std::to_array<[%=statemachine.name%]::[%=statemachine.transition_action_type%]>({[%=transition.actions_list%]});
 [%
@@ -11,12 +13,12 @@ static const auto kActions[%=statemachine.unique_id%] = std::to_array<[%=statema
 [%
   if (transition.internal) {
 %]
-return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::kNone[%=actions%]);
+return [%=statemachine.name%]::NoTransition([%=actions%]);
 [%     
   }
   if (transition.target_variable_name != null) {
 %]
-return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%][%=actions%]);
+return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%][%=actions_with_comma%]);
 [%     
  }
 

@@ -1,5 +1,5 @@
 // Statemachine XmiTest instance
-// Generated: 22.08.24, 09:32
+// Generated: 23.08.24, 06:47
 
 #pragma once
 
@@ -51,7 +51,7 @@ static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest:
 	{
 		case XmiTest_GET_STATIC_EVENT_ID(Internal):
 		static const auto kActions1 = std::to_array<XmiTest::Transition::ActionType>({&XmiTest::Impl::State2InternalAction});
-		return XmiTest::TransitionTo(XmiTest::kNone, kActions1);
+		return XmiTest::NoTransition(kActions1);
 		break;
 		
 		case XmiTest_GET_STATIC_EVENT_ID(Transition_3):
