@@ -1,5 +1,5 @@
 // Statemachine ScXmlTest instance
-// Generated: 22.08.24, 11:29
+// Generated: 23.08.24, 06:49
 
 #pragma once
 
@@ -33,7 +33,7 @@ static ScXmlTest::Transition State_1State_2Handler(ScXmlTest::ImplPtr impl, ScXm
 	{
 		case ScXmlTest_GET_STATIC_EVENT_ID(Internal):
 		static const auto kActions1 = std::to_array<ScXmlTest::Transition::ActionType>({&ScXmlTest::Impl::State2InternalAction});
-		return ScXmlTest::TransitionTo(ScXmlTest::kNone, kActions1);
+		return ScXmlTest::NoTransition(kActions1);
 		break;
 		
 		case ScXmlTest_GET_STATIC_EVENT_ID(Transition_3):
