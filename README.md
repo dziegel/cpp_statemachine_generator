@@ -37,6 +37,10 @@ examples:
     java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.uml ./generated
     java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.scxml ./generated
 
+## Catia Magic Cyber-Systems Engineer support
+
+To generate statemachines from an Catia Magic Cyber-Systems Engineer model, export it to Eclipse UML2 5.x XMI (File->Export To->Eclipse UML2...) and generate exported file via command line as usual. 
+
 ## License
 
 Apache-2.0
