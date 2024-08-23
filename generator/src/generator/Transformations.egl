@@ -212,6 +212,10 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
     new_all_actions.addAll(all_actions);
     transition.transitionTransform(statemachine, state, trigger, new_all_actions);
       
+    if (transition.trigger != null) {
+      ("Transition starting from state " + state.name + " with trigger " + trigger + " has a trigger in a choice transition " + transition.trigger + " - this is not supported").errln();
+    }
+      
     if (not transition.guards.isEmpty()) {
       self.trans_conditional.add(transition);
     } else {
