@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a C++ statemachine generator that generates statemachines based on <https://github.com/dziegel/cpp_event_framework> from an XMI model (tested with Eclipse Papyrus <https://www.eclipse.org/papyrus>) or an SCXML model (tested with QtCreator <https://www.qt.io/product/development-tools>).
+This is a C++ statemachine generator that generates statemachines based on <https://github.com/dziegel/cpp_event_framework> from an XMI model (tested with Eclipse Papyrus <https://www.eclipse.org/papyrus> and Catia Magic Cyber-Systems Engineer <https://www.3ds.com/de/produkte-und-services/catia/produkte/catia-magic/magic-cyber-systems-engineer/> support) or an SCXML model (tested with QtCreator <https://www.qt.io/product/development-tools>).
 
 The Eclipse Epsilon <https://eclipse.dev/epsilon> framework is used to implement the generator.
 
