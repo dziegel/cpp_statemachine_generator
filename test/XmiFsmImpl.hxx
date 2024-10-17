@@ -43,6 +43,7 @@ private:
 
     bool state1_on_entry_called_ = false;
     void State1OnEntry() override;
+    void State1OnExit() override;
     bool state2_on_entry_called_ = false;
     void State2OnEntry() override;
     bool state3_on_entry_called_ = false;

@@ -33,10 +33,14 @@ class Transition_8 : public cpp_event_framework::NextSignal<Transition_8, Transi
 class Internal : public cpp_event_framework::NextSignal<Internal, Transition_8>
 {
 };
+class SelfTransition : public cpp_event_framework::NextSignal<SelfTransition, Internal>
+{
+};
 
 using PoolSizeCalculator =
     cpp_event_framework::SignalPoolElementSizeCalculator<Transition_1, Transition_2, Transition_3, Transition_4,
-                                                         Transition_6, Transition_7, Transition_8, Internal>;
+                                                         Transition_6, Transition_7, Transition_8, Internal,
+                                                         SelfTransition>;
 
 class IXmiFsmImpl;
 using XmiTestBase = cpp_event_framework::Statemachine<IXmiFsmImpl, const cpp_event_framework::Signal::SPtr&>;

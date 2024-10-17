@@ -274,6 +274,10 @@ void XmiFsmImpl::State1OnEntry()
     std::cout << std::source_location::current().function_name() << "\n";
     state1_on_entry_called_ = true;
 }
+void XmiFsmImpl::State1OnExit()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+}
 void XmiFsmImpl::State2OnEntry()
 {
     std::cout << std::source_location::current().function_name() << "\n";
