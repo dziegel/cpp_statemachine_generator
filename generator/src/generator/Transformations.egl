@@ -7,8 +7,6 @@ operation Tuple transformStatemachine() {
   self.event_type = "Event";
   self.impl_type = "Impl";
   self.impl_ptr_type = "ImplPtr";
-
-  self.unique_id = 0;
   
   self.all_states = new Map();
   self.all_actions = new List();

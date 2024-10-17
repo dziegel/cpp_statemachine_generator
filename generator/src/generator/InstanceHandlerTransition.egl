@@ -2,11 +2,11 @@
   var actions = "";
   var actions_with_comma = "";
   if (transition.actions_list != null) {
-    statemachine.unique_id = statemachine.unique_id + 1;
-    actions = "kActions" + statemachine.unique_id;
+    unique_id.id = unique_id.id + 1;
+    actions = "kActions" + unique_id.id;
     actions_with_comma = ", " + actions;
 %]
-static const auto kActions[%=statemachine.unique_id%] = std::to_array<[%=statemachine.name%]::[%=statemachine.transition_action_type%]>({[%=transition.actions_list%]});
+static const auto kActions[%=unique_id.id%] = std::to_array<[%=statemachine.name%]::[%=statemachine.transition_action_type%]>({[%=transition.actions_list%]});
 [%
   }
 %]

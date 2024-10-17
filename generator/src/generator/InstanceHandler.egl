@@ -4,6 +4,8 @@ static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped
 
 [%
   if (not state.all_events.isEmpty()) {
+  var unique_id = new Tuple();
+  unique_id.id = 0;
 %]
 switch([%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event))
 {
@@ -16,6 +18,7 @@ case [%=statemachine.name%]_GET_STATIC_EVENT_ID([%=trigger%]):
 
     var transitionRootTemplate : Template = TemplateFactory.load("InstanceHandlerTransitionRoot.egl");
     transitionRootTemplate.populate("state", state);
+    transitionRootTemplate.populate("unique_id", unique_id);
     transitionRootTemplate.populate("statemachine", statemachine);
     transitionRootTemplate.populate("transition", transition);
 %]

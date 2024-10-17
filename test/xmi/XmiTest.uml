@@ -6,8 +6,12 @@
   <packagedElement xmi:type="uml:StateMachine" xmi:id="_jJpHMLr8Ee60g8u59OCKgQ" name="XmiTest">
     <region xmi:type="uml:Region" xmi:id="_j2PHcLr8Ee60g8u59OCKgQ" name="Region1">
       <transition xmi:type="uml:Transition" xmi:id="_4iNAMLr8Ee60g8u59OCKgQ" source="_2ciUMLr8Ee60g8u59OCKgQ" target="_yxCS0Lr8Ee60g8u59OCKgQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_OWhgoG7BEe-Hrv9TL11c5Q" source="_yxCS0Lr8Ee60g8u59OCKgQ" target="_yxCS0Lr8Ee60g8u59OCKgQ">
+        <trigger xmi:type="uml:Trigger" xmi:id="_d0BJYG7BEe-Hrv9TL11c5Q" name="SelfTransition" event="_1d9PIG7BEe-Hrv9TL11c5Q"/>
+      </transition>
       <subvertex xmi:type="uml:State" xmi:id="_yxCS0Lr8Ee60g8u59OCKgQ" name="State_1">
-        <entry xmi:type="uml:FunctionBehavior" xmi:id="_hzxlALs_Ee6r94MfzN2GzQ" name="State1OnEntry"/>
+        <entry xmi:type="uml:FunctionBehavior" xmi:id="_hzxlALs_Ee6r94MfzN2GzQ" name="State1OnEntry" visibility="public"/>
+        <exit xmi:type="uml:FunctionBehavior" xmi:id="_Yya3wG7BEe-Hrv9TL11c5Q" name="State1OnExit"/>
         <region xmi:type="uml:Region" xmi:id="_a14r0Lr9Ee6r94MfzN2GzQ" name="Region1">
           <transition xmi:type="uml:Transition" xmi:id="_6EdnsLr9Ee6r94MfzN2GzQ" source="_ehpy8Lr9Ee6r94MfzN2GzQ" target="_a2OqELr9Ee6r94MfzN2GzQ"/>
           <transition xmi:type="uml:Transition" xmi:id="_BVwEALr-Ee6r94MfzN2GzQ" guard="_POxYwLs_Ee6r94MfzN2GzQ" source="_a2OqELr9Ee6r94MfzN2GzQ" target="_tPkY4Lr9Ee6r94MfzN2GzQ">
@@ -68,6 +72,9 @@
                 <ownedRule xmi:type="uml:Constraint" xmi:id="_ukWWALxnEe6cZuHlyUXtcQ" name="else"/>
                 <effect xmi:type="uml:FunctionBehavior" xmi:id="_BXnAsLxoEe6cZuHlyUXtcQ" name="ChoiceAction3"/>
               </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_nqPnoG7BEe-Hrv9TL11c5Q" source="_vKf0gLr9Ee6r94MfzN2GzQ" target="_vKf0gLr9Ee6r94MfzN2GzQ">
+                <trigger xmi:type="uml:Trigger" xmi:id="_3yzmoG7BEe-Hrv9TL11c5Q" event="_1d9PIG7BEe-Hrv9TL11c5Q"/>
+              </transition>
               <subvertex xmi:type="uml:State" xmi:id="_0PA3QLr9Ee6r94MfzN2GzQ" name="State_5"/>
               <subvertex xmi:type="uml:State" xmi:id="_27rR0Lr9Ee6r94MfzN2GzQ" name="StateWithSameName"/>
               <subvertex xmi:type="uml:Pseudostate" xmi:id="_7dXUULr9Ee6r94MfzN2GzQ" name="" kind="shallowHistory"/>
@@ -87,4 +94,5 @@
   <packagedElement xmi:type="uml:SignalEvent" xmi:id="_xc7rMLs_Ee6r94MfzN2GzQ" name="Transition_6"/>
   <packagedElement xmi:type="uml:SignalEvent" xmi:id="_SA33gLtAEe6r94MfzN2GzQ" name="Internal"/>
   <packagedElement xmi:type="uml:SignalEvent" xmi:id="_FZ2QILtBEe6r94MfzN2GzQ" name="Transition_4"/>
+  <packagedElement xmi:type="uml:SignalEvent" xmi:id="_1d9PIG7BEe-Hrv9TL11c5Q" name="SelfTransition"/>
 </uml:Model>

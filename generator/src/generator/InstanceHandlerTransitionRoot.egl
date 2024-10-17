@@ -2,6 +2,7 @@
   var transitionTemplate : Template = TemplateFactory.load("InstanceHandlerTransition.egl");
   transitionTemplate.populate("state", state);
   transitionTemplate.populate("statemachine", statemachine);
+  transitionTemplate.populate("unique_id", unique_id);
 
   for (transition in transition.trans_conditional) {
     transitionTemplate.populate("transition", transition);
