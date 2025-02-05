@@ -1,5 +1,5 @@
 // Statemachine XmiTest implementation interface
-// Generated: 17.10.24, 21:37
+// Generated: 05.02.25, 22:34
 
 #pragma once
 
@@ -30,6 +30,8 @@ class IXmiTestImpl
 	virtual void State2OnEntry() = 0;
 	virtual void State3OnEntry() = 0;
 	virtual void State3OnExit() = 0;
-	virtual void State4OnEntry() = 0;
-	virtual void State4OnExit() = 0;
+	virtual void State4OnEntry1() = 0;
+	virtual void State4OnEntry2() = 0;
+	virtual void State4OnExit1() = 0;
+	virtual void State4OnExit2() = 0;
 };

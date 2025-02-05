@@ -4,8 +4,8 @@ static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped
 
 [%
   if (not state.all_events.isEmpty()) {
-  var unique_id = new Tuple();
-  unique_id.id = 0;
+    var unique_id = new Tuple();
+    unique_id.id = 0;
 %]
 switch([%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event))
 {

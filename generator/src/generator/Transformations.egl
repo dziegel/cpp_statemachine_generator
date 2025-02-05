@@ -3,6 +3,7 @@ operation Tuple transformStatemachine() {
   self.transition_type = "Transition";
   self.transition_action_type = "ActionType";
   self.state_type = "State";
+  self.state_entry_exit_type = "State::EntryExitType";
   self.history_state_type = "HistoryState";
   self.event_type = "Event";
   self.impl_type = "Impl";
@@ -19,6 +20,22 @@ operation Tuple transformStatemachine() {
   self.all_actions = self.all_actions.sortBy(a | a);
   self.all_guards = self.all_guards.sortBy(g | g);
   self.all_entry_exit = self.all_entry_exit.sortBy(e | e);
+}
+
+operation List splitEntries() : List {
+  var result = new List();
+  for (entry in self) {
+    if (entry.matches(".*,.*")) {
+      result.addAll(entry.split(","));
+    } else {
+      result.add(entry);
+    }
+  }
+  return result;
+}
+
+operation String splitEntries() : List {
+  return self.split(",");
 }
 
 operation Tuple regionCollectStates(statemachine : Tuple, parent_state : Tuple) {
@@ -79,27 +96,41 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
   }
   
   // Entry action
-  self.entry_pointer = "nullptr";
+  self.entry_var = "{}";
   if (self.entry.isDefined()) {
+    self.entry_var = statemachine.name + "_" + self.name + "_entry";
+
     if (self.entry == "") {
       (sm.name + ": Empty entry function in state " + self.name).errln();
     }
-    self.entry_pointer = "&" + statemachine.name + "::" + "Impl::" + self.entry;
-    if (not statemachine.all_entry_exit.includes(self.entry)) {
-      statemachine.all_entry_exit.add(self.entry);
+
+    var entry_pointers_list = new List();
+    for (entry in self.entry.splitEntries()) {
+      entry_pointers_list.add("&" + statemachine.name + "::" + "Impl::" + entry);
+      if (not statemachine.all_entry_exit.includes(entry)) {
+        statemachine.all_entry_exit.add(entry);
+      }
     }
+    self.entry_pointers = entry_pointers_list.concat(", ");
   }
 
   // Exit action
-  self.exit_pointer = "nullptr";
+  self.exit_var = "{}";
   if (self.exit.isDefined()) {
+    self.exit_var = statemachine.name + "_" + self.name + "_exit";
+
     if (self.exit == "") {
       (sm.name + ": Empty exit function in state " + self.name).errln();
     }
-    self.exit_pointer = "&" + statemachine.name + "::" + "Impl::" + self.exit;
-    if (not statemachine.all_entry_exit.includes(self.exit)) {
-      statemachine.all_entry_exit.add(self.exit);
+
+    var exit_pointers_list = new List();
+    for (ex in self.exit.splitEntries()) {
+      exit_pointers_list.add("&" + statemachine.name + "::" + "Impl::" + ex);
+      if (not statemachine.all_entry_exit.includes(ex)) {
+        statemachine.all_entry_exit.add(ex);
+      }
     }
+    self.exit_pointers = exit_pointers_list.concat(", ");
   }
 
   // Initial state
@@ -142,18 +173,6 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
     
     self.transitions_for_trigger_transformed.put(trigger, transitions);
   }
-}
-
-operation List splitEntries() : List {
-  var result = new List();
-  for (entry in self) {
-    if (entry.matches(".*,.*")) {
-      result.addAll(entry.split(","));
-    } else {
-      result.add(entry);
-    }
-  }
-  return result;
 }
 
 operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger: String, all_actions: List) {

@@ -1,7 +1,9 @@
 // Statemachine XmiTest instance
-// Generated: 17.10.24, 21:37
+// Generated: 05.02.25, 22:34
 
 #pragma once
+
+#include <array>
 
 // Override the following defines according to your needs if you are not using cpp_event_framework:
 
@@ -30,7 +32,9 @@ static XmiTest::Transition State_1Handler(XmiTest::ImplPtr impl, XmiTest::Event 
 	}
 	return XmiTest::UnhandledEvent();
 }
-const XmiTest::State XmiTest::kState_1("State_1", &State_1Handler, nullptr, &XmiTest::kState_1State_2, &XmiTest::Impl::State1OnEntry, &XmiTest::Impl::State1OnExit);
+static const auto XmiTest_State_1_entry = std::to_array<XmiTest::State::EntryExitType>({&XmiTest::Impl::State1OnEntry});
+static const auto XmiTest_State_1_exit = std::to_array<XmiTest::State::EntryExitType>({&XmiTest::Impl::State1OnExit});
+const XmiTest::State XmiTest::kState_1("State_1", &State_1Handler, nullptr, &XmiTest::kState_1State_2, XmiTest_State_1_entry, XmiTest_State_1_exit);
 
 // State State_1::StateWithSameName
 static XmiTest::Transition State_1StateWithSameNameHandler(XmiTest::ImplPtr impl, XmiTest::Event event)
@@ -48,7 +52,9 @@ static XmiTest::Transition State_1StateWithSameNameHandler(XmiTest::ImplPtr impl
 	}
 	return XmiTest::UnhandledEvent();
 }
-const XmiTest::State XmiTest::kState_1StateWithSameName("State_1::StateWithSameName", &State_1StateWithSameNameHandler, &XmiTest::kState_1, nullptr, &XmiTest::Impl::State3OnEntry, &XmiTest::Impl::State3OnExit);
+static const auto XmiTest_StateWithSameName_entry = std::to_array<XmiTest::State::EntryExitType>({&XmiTest::Impl::State3OnEntry});
+static const auto XmiTest_StateWithSameName_exit = std::to_array<XmiTest::State::EntryExitType>({&XmiTest::Impl::State3OnExit});
+const XmiTest::State XmiTest::kState_1StateWithSameName("State_1::StateWithSameName", &State_1StateWithSameNameHandler, &XmiTest::kState_1, nullptr, XmiTest_StateWithSameName_entry, XmiTest_StateWithSameName_exit);
 
 // State State_1::State_2
 static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest::Event event)
@@ -79,7 +85,8 @@ static XmiTest::Transition State_1State_2Handler(XmiTest::ImplPtr impl, XmiTest:
 	}
 	return XmiTest::UnhandledEvent();
 }
-const XmiTest::State XmiTest::kState_1State_2("State_1::State_2", &State_1State_2Handler, &XmiTest::kState_1, nullptr, &XmiTest::Impl::State2OnEntry, nullptr);
+static const auto XmiTest_State_2_entry = std::to_array<XmiTest::State::EntryExitType>({&XmiTest::Impl::State2OnEntry});
+const XmiTest::State XmiTest::kState_1State_2("State_1::State_2", &State_1State_2Handler, &XmiTest::kState_1, nullptr, XmiTest_State_2_entry, {});
 
 // State State_1::State_4
 static XmiTest::Transition State_1State_4Handler(XmiTest::ImplPtr impl, XmiTest::Event event)
@@ -101,7 +108,9 @@ static XmiTest::Transition State_1State_4Handler(XmiTest::ImplPtr impl, XmiTest:
 	}
 	return XmiTest::UnhandledEvent();
 }
-const XmiTest::HistoryState XmiTest::kState_1State_4("State_1::State_4", &State_1State_4Handler, &XmiTest::kState_1, &XmiTest::kState_1State_4State_5, &XmiTest::Impl::State4OnEntry, &XmiTest::Impl::State4OnExit);
+static const auto XmiTest_State_4_entry = std::to_array<XmiTest::State::EntryExitType>({&XmiTest::Impl::State4OnEntry1, &XmiTest::Impl::State4OnEntry2});
+static const auto XmiTest_State_4_exit = std::to_array<XmiTest::State::EntryExitType>({&XmiTest::Impl::State4OnExit1, &XmiTest::Impl::State4OnExit2});
+const XmiTest::HistoryState XmiTest::kState_1State_4("State_1::State_4", &State_1State_4Handler, &XmiTest::kState_1, &XmiTest::kState_1State_4State_5, XmiTest_State_4_entry, XmiTest_State_4_exit);
 
 // State State_1::State_4::StateWithSameName
 static XmiTest::Transition State_1State_4StateWithSameNameHandler(XmiTest::ImplPtr impl, XmiTest::Event event)
@@ -137,7 +146,7 @@ static XmiTest::Transition State_1State_4StateWithSameNameHandler(XmiTest::ImplP
 	}
 	return XmiTest::UnhandledEvent();
 }
-const XmiTest::State XmiTest::kState_1State_4StateWithSameName("State_1::State_4::StateWithSameName", &State_1State_4StateWithSameNameHandler, &XmiTest::kState_1State_4, nullptr, nullptr, nullptr);
+const XmiTest::State XmiTest::kState_1State_4StateWithSameName("State_1::State_4::StateWithSameName", &State_1State_4StateWithSameNameHandler, &XmiTest::kState_1State_4, nullptr, {}, {});
 
 // State State_1::State_4::State_5
 static XmiTest::Transition State_1State_4State_5Handler(XmiTest::ImplPtr impl, XmiTest::Event event)
@@ -155,4 +164,4 @@ static XmiTest::Transition State_1State_4State_5Handler(XmiTest::ImplPtr impl, X
 	}
 	return XmiTest::UnhandledEvent();
 }
-const XmiTest::State XmiTest::kState_1State_4State_5("State_1::State_4::State_5", &State_1State_4State_5Handler, &XmiTest::kState_1State_4, nullptr, nullptr, nullptr);
+const XmiTest::State XmiTest::kState_1State_4State_5("State_1::State_4::State_5", &State_1State_4State_5Handler, &XmiTest::kState_1State_4, nullptr, {}, {});

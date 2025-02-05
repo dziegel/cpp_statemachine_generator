@@ -49,8 +49,8 @@
             <exit xmi:type="uml:FunctionBehavior" xmi:id="_najK0LtAEe6r94MfzN2GzQ" name="State3OnExit"/>
           </subvertex>
           <subvertex xmi:type="uml:State" xmi:id="_vKf0gLr9Ee6r94MfzN2GzQ" name="State_4">
-            <entry xmi:type="uml:FunctionBehavior" xmi:id="_zi2ZYLtAEe6r94MfzN2GzQ" name="State4OnEntry"/>
-            <exit xmi:type="uml:FunctionBehavior" xmi:id="_0_Pe4LtAEe6r94MfzN2GzQ" name="State4OnExit"/>
+            <entry xmi:type="uml:FunctionBehavior" xmi:id="_zi2ZYLtAEe6r94MfzN2GzQ" name="State4OnEntry1,State4OnEntry2"/>
+            <exit xmi:type="uml:FunctionBehavior" xmi:id="_0_Pe4LtAEe6r94MfzN2GzQ" name="State4OnExit1,State4OnExit2"/>
             <region xmi:type="uml:Region" xmi:id="_0O9z8Lr9Ee6r94MfzN2GzQ" name="Region1">
               <transition xmi:type="uml:Transition" xmi:id="_8tQO4Lr9Ee6r94MfzN2GzQ" source="_7dXUULr9Ee6r94MfzN2GzQ" target="_0PA3QLr9Ee6r94MfzN2GzQ"/>
               <transition xmi:type="uml:Transition" xmi:id="_6QjngLtAEe6r94MfzN2GzQ" source="_0PA3QLr9Ee6r94MfzN2GzQ" target="_27rR0Lr9Ee6r94MfzN2GzQ">

@@ -5,7 +5,21 @@
 %]
 // State [%=state.readable_scoped_name%]
 [%=handlerTemplate.process()%]
-const [%=statemachine.name%]::[%=state.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.readable_scoped_name%]", &[%=state.scoped_name%]Handler, [%=state.parent_variable_pointer%], [%=state.initial_variable_pointer%], [%=state.entry_pointer%], [%=state.exit_pointer%]);
+[%
+  if (state.entry_var != "{}") {
+%]
+static const auto [%=state.entry_var%] = std::to_array<[%=statemachine.name%]::[%=statemachine.state_entry_exit_type%]>({[%=state.entry_pointers%]});
+[%
+  }
+%]
+[%
+  if (state.exit_var != "{}") {
+%]
+static const auto [%=state.exit_var%] = std::to_array<[%=statemachine.name%]::[%=statemachine.state_entry_exit_type%]>({[%=state.exit_pointers%]});
+[%
+  }
+%]
+const [%=statemachine.name%]::[%=state.state_type%] [%=statemachine.name%]::[%=state.variable_name%]("[%=state.readable_scoped_name%]", &[%=state.scoped_name%]Handler, [%=state.parent_variable_pointer%], [%=state.initial_variable_pointer%], [%=state.entry_var%], [%=state.exit_var%]);
 [%
   if (state.region.isDefined()) {
     var regionTemplate : Template = TemplateFactory.load("InstanceRegion.egl");

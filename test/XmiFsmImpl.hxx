@@ -50,10 +50,14 @@ private:
     void State3OnEntry() override;
     bool state3_on_exit_called_ = false;
     void State3OnExit() override;
-    bool state4_on_entry_called_ = false;
-    void State4OnEntry() override;
-    bool state4_on_exit_called_ = false;
-    void State4OnExit() override;
+    bool state4_on_entry1_called_ = false;
+    void State4OnEntry1() override;
+    bool state4_on_entry2_called_ = false;
+    void State4OnEntry2() override;
+    bool state4_on_exit1_called_ = false;
+    void State4OnExit1() override;
+    bool state4_on_exit2_called_ = false;
+    void State4OnExit2() override;
 
     void CheckAllFalse() const;
 };

@@ -81,8 +81,10 @@ void XmiFsmImpl::Test()
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4State_5);
     assert(state3_on_exit_called_);
     state3_on_exit_called_ = false;
-    assert(state4_on_entry_called_);
-    state4_on_entry_called_ = false;
+    assert(state4_on_entry1_called_);
+    state4_on_entry1_called_ = false;
+    assert(state4_on_entry2_called_);
+    state4_on_entry2_called_ = false;
     CheckAllFalse();
 
     // Transition in history compartment
@@ -93,8 +95,10 @@ void XmiFsmImpl::Test()
     // Step out of history compartment
     fsm_.React(Transition_8::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_2);
-    assert(state4_on_exit_called_);
-    state4_on_exit_called_ = false;
+    assert(state4_on_exit1_called_);
+    state4_on_exit1_called_ = false;
+    assert(state4_on_exit2_called_);
+    state4_on_exit2_called_ = false;
     assert(state2_on_entry_called_);
     state2_on_entry_called_ = false;
     CheckAllFalse();
@@ -102,8 +106,10 @@ void XmiFsmImpl::Test()
     // Reenter history compartment, history must be preserved
     fsm_.React(Transition_6::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4StateWithSameName);
-    assert(state4_on_entry_called_);
-    state4_on_entry_called_ = false;
+    assert(state4_on_entry1_called_);
+    state4_on_entry1_called_ = false;
+    assert(state4_on_entry2_called_);
+    state4_on_entry2_called_ = false;
     CheckAllFalse();
 
     // Choice: No guards return true
@@ -124,8 +130,10 @@ void XmiFsmImpl::Test()
     choice_action3_called_ = false;
     assert(state3_on_entry_called_);
     state3_on_entry_called_ = false;
-    assert(state4_on_exit_called_);
-    state4_on_exit_called_ = false;
+    assert(state4_on_exit1_called_);
+    state4_on_exit1_called_ = false;
+    assert(state4_on_exit2_called_);
+    state4_on_exit2_called_ = false;
     assert(comma_action_called_);
     comma_action_called_ = false;
     CheckAllFalse();
@@ -135,8 +143,10 @@ void XmiFsmImpl::Test()
     assert(fsm_.CurrentState() == &XmiTest::kState_1State_4StateWithSameName);
     assert(state3_on_exit_called_);
     state3_on_exit_called_ = false;
-    assert(state4_on_entry_called_);
-    state4_on_entry_called_ = false;
+    assert(state4_on_entry1_called_);
+    state4_on_entry1_called_ = false;
+    assert(state4_on_entry2_called_);
+    state4_on_entry2_called_ = false;
     CheckAllFalse();
 
     // Choice: Two guards return true
@@ -172,8 +182,10 @@ void XmiFsmImpl::Test()
     choice_action4_called_ = false;
     assert(state2_on_entry_called_);
     state2_on_entry_called_ = false;
-    assert(state4_on_exit_called_);
-    state4_on_exit_called_ = false;
+    assert(state4_on_exit1_called_);
+    state4_on_exit1_called_ = false;
+    assert(state4_on_exit2_called_);
+    state4_on_exit2_called_ = false;
     assert(comma_action_called_);
     comma_action_called_ = false;
     CheckAllFalse();
@@ -197,8 +209,10 @@ void XmiFsmImpl::CheckAllFalse() const
     assert(state2_on_entry_called_ == false);
     assert(state3_on_entry_called_ == false);
     assert(state3_on_exit_called_ == false);
-    assert(state4_on_entry_called_ == false);
-    assert(state4_on_exit_called_ == false);
+    assert(state4_on_entry1_called_ == false);
+    assert(state4_on_entry2_called_ == false);
+    assert(state4_on_exit1_called_ == false);
+    assert(state4_on_exit2_called_ == false);
 }
 
 void XmiFsmImpl::UnhandledEvent()
@@ -293,13 +307,23 @@ void XmiFsmImpl::State3OnExit()
     std::cout << std::source_location::current().function_name() << "\n";
     state3_on_exit_called_ = true;
 }
-void XmiFsmImpl::State4OnEntry()
+void XmiFsmImpl::State4OnEntry1()
 {
     std::cout << std::source_location::current().function_name() << "\n";
-    state4_on_entry_called_ = true;
+    state4_on_entry1_called_ = true;
 }
-void XmiFsmImpl::State4OnExit()
+void XmiFsmImpl::State4OnEntry2()
 {
     std::cout << std::source_location::current().function_name() << "\n";
-    state4_on_exit_called_ = true;
+    state4_on_entry2_called_ = true;
+}
+void XmiFsmImpl::State4OnExit1()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    state4_on_exit1_called_ = true;
+}
+void XmiFsmImpl::State4OnExit2()
+{
+    std::cout << std::source_location::current().function_name() << "\n";
+    state4_on_exit2_called_ = true;
 }

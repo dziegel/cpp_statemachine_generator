@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <array>
+
 // Override the following defines according to your needs if you are not using cpp_event_framework:
 
 #ifndef [%=statemachine.name%]_GET_INSTANCE_EVENT_ID
