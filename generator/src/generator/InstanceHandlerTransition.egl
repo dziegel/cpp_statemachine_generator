@@ -14,12 +14,12 @@ static const auto kActions[%=unique_id.id%] = std::to_array<[%=statemachine.name
   if (transition.internal) {
 %]
 return [%=statemachine.name%]::NoTransition([%=actions%]);
-[%     
+[%
   }
   if (transition.target_variable_name != null) {
 %]
 return [%=statemachine.name%]::TransitionTo([%=statemachine.name%]::[%=transition.target_variable_name%][%=actions_with_comma%]);
-[%     
+[%
  }
 
  var transitionRootTemplate : Template = TemplateFactory.load("InstanceHandlerTransitionRoot.egl");

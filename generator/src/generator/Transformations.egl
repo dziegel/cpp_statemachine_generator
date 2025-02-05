@@ -178,6 +178,9 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
   // Collect all guards and create guards_list
   var guards = new List();
   for (guard in self.guards.splitEntries()) {
+    if (guard == "") {
+      (sm.name + ": Empty guard in transition starting from state " + self.start).errln();
+    }
     guards.add("impl->" + guard + "(event)");
     if (not statemachine.all_guards.includes(guard)) {
       statemachine.all_guards.add(guard);
@@ -198,6 +201,12 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
       ("Unable to find state id " + self.target_state_id).errln();
     }
     self.target_variable_name = target.variable_name;
+
+    for (action in all_actions) {
+      if (action == "") {
+        (sm.name + ": Empty action in transition " + self.start + " => " + target.name).errln();
+      }
+    }
 
     if (not all_actions.isEmpty()) {
       self.actions_list = all_actions.concat(", ");
