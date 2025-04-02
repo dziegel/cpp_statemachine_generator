@@ -22,9 +22,18 @@ operation Tuple transformStatemachine() {
   self.all_entry_exit = self.all_entry_exit.sortBy(e | e);
 }
 
+operation String cleanString() : String {
+  var val = self.replace(" ", "");
+  val = val.replace("\n", "");
+  val = val.replace("\r", "");
+  val = val.replace(";", ",");
+  return val;
+}
+
 operation List splitEntries() : List {
   var result = new List();
   for (entry in self) {
+    entry = entry.cleanString();
     if (entry.matches(".*,.*")) {
       result.addAll(entry.split(","));
     } else {
@@ -35,7 +44,7 @@ operation List splitEntries() : List {
 }
 
 operation String splitEntries() : List {
-  return self.split(",");
+  return self.cleanString().split(",");
 }
 
 operation Tuple regionCollectStates(statemachine : Tuple, parent_state : Tuple) {
