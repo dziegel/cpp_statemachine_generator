@@ -29,13 +29,13 @@ The Eclipse Epsilon <https://eclipse.dev/epsilon> framework is used to implement
 
 The generator is a Java JAR file. To generate, call it as follows:
 
-    java -jar StatemachineGenerator-x.y.z.jar <uml> <out_path>
+    java -jar net.ziegelmeier.statemachinegenerator-x.y.z.jar <uml> <out_path>
 
 examples:
 
-    java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.xmi ./generated
-    java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.uml ./generated
-    java -jar StatemachineGenerator-1.4.0.jar PathToMyDiagram.scxml ./generated
+    java -jar net.ziegelmeier.statemachinegenerator-1.7.1.jar  PathToMyDiagram.xmi ./generated
+    java -jar net.ziegelmeier.statemachinegenerator-1.7.1.jar  PathToMyDiagram.uml ./generated
+    java -jar net.ziegelmeier.statemachinegenerator-1.7.1.jar  PathToMyDiagram.scxml ./generated
 
 ## Catia Magic Cyber-Systems Engineer support
 
