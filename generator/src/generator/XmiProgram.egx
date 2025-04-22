@@ -3,6 +3,10 @@ rule StatemachineDeclaration
 
     template : "XmiDeclaration.egl"
         
+    parameters : Map {
+		"stereotype" = stereotype
+    }
+    
     target : sm.name + "Declaration.hxx"
 }
 
@@ -10,6 +14,10 @@ rule StatemachineInstance
     transform sm : UML!StateMachine {
     
     template : "XmiInstance.egl"
+
+    parameters : Map {
+		"stereotype" = stereotype
+    }
     
     target : sm.name + "Instance.hxx"
 }
@@ -18,6 +26,10 @@ rule StatemachineInterface
     transform sm : UML!StateMachine {
     
     template : "XmiInterface.egl"
+
+    parameters : Map {
+		"stereotype" = stereotype
+    }
     
     target : "I" + sm.name + "Impl.hxx"
 }

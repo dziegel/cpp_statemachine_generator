@@ -3,6 +3,9 @@
   import "Transformations.egl";
 
   var statemachine = sm.getModel();
+  if (not statemachine.generate) {
+  	return;
+  }
   statemachine.transformStatemachine();
 
   ("Generate instance for statemachine " + sm.name).println();

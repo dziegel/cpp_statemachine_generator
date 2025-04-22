@@ -9,17 +9,23 @@ import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.egl.formatter.language.JavaFormatter;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.emc.uml.UmlModel;
+import org.eclipse.epsilon.eol.execute.context.Variable;
 
 public class Generator {
 	public static void main(String[] args) throws Exception {
 		try {
-			if (args.length != 2) {
-				System.err.println("Usage: java -jar StatemachineGenerator.jar <uml> <out_path>");
+			if (args.length < 2) {
+				System.err.println("Usage: java -jar StatemachineGenerator.jar <uml> <out_path> [stereotypename]");
 				return;
 			}
-
+			
 			var filename = args[0];
 			var out_path = new File(args[1]).toURI().toString();
+
+			var stereotype = "";
+			if (args.length == 3) {
+				stereotype = args[2];
+			}
 
 			var loader = ClassLoader.getSystemClassLoader();
 
@@ -49,7 +55,8 @@ public class Generator {
 					}
 					uml.close();
 					return;
-				}
+				}				
+				uml_module.getContext().getFrameStack().put(Variable.createReadOnlyVariable("stereotype", stereotype));
 				uml_module.getContext().getModelRepository().addModel(uml);
 				uml_module.getContext().setUserInput(new UserInput());
 

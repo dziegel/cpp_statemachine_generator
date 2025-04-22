@@ -4,8 +4,23 @@
 operation StateMachine getModel() : Tuple {
   var result = new Tuple();
   result.name = self.name;
+
+  if (stereotype != "") {
+    result.generate = false;
+ 
+	  // Cameo "Applied stereotype"
+    for (rels in self.getTargetDirectedRelationships()) {
+      for (rel in rels.getRelatedElements()) {
+        if (rel.name == stereotype) {
+          result.generate = true;
+        }
+      }  
+    }
+  } else {
+    result.generate = true;
+  }
+
   result.region = sm.regions.first.getModel(result);
-  
   return result;
 }
 
