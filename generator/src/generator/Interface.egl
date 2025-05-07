@@ -8,9 +8,9 @@ class I[%=statemachine.name%]Impl
 public:
   virtual ~I[%=statemachine.name%]Impl() = default;
 
-  // Actions
+  // Actions, Entry/Exit
 [%
-  for (action in statemachine.all_actions) {
+  for (action in statemachine.all_actions_entry_exit) {
 %]
   virtual void [%=action%]([%=statemachine.name%]Base::Event event) = 0;
 [%
@@ -22,15 +22,6 @@ public:
   for (guard in statemachine.all_guards) {
 %]
   virtual bool [%=guard%]([%=statemachine.name%]Base::Event event) = 0;
-[%
-  }
-%]
-
-// Entry/Exit
-[%
-  for (entry_exit in statemachine.all_entry_exit) {
-%]
-  virtual void [%=entry_exit%]() = 0;
 [%
   }
 %]

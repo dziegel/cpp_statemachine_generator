@@ -42,22 +42,22 @@ private:
     bool State2Transition3Guard(XmiTestBase::Event event) override;
 
     bool state1_on_entry_called_ = false;
-    void State1OnEntry() override;
-    void State1OnExit() override;
+    void State1OnEntry(XmiTestBase::Event event) override;
+    void State1OnExit(XmiTestBase::Event event) override;
     bool state2_on_entry_called_ = false;
-    void State2OnEntry() override;
+    void State2OnEntry(XmiTestBase::Event event) override;
     bool state3_on_entry_called_ = false;
-    void State3OnEntry() override;
+    void State3OnEntry(XmiTestBase::Event event) override;
     bool state3_on_exit_called_ = false;
-    void State3OnExit() override;
+    void State3OnExit(XmiTestBase::Event event) override;
     bool state4_on_entry1_called_ = false;
-    void State4OnEntry1() override;
+    void State4OnEntry1(XmiTestBase::Event event) override;
     bool state4_on_entry2_called_ = false;
-    void State4OnEntry2() override;
+    void State4OnEntry2(XmiTestBase::Event event) override;
     bool state4_on_exit1_called_ = false;
-    void State4OnExit1() override;
+    void State4OnExit1(XmiTestBase::Event event) override;
     bool state4_on_exit2_called_ = false;
-    void State4OnExit2() override;
+    void State4OnExit2(XmiTestBase::Event event) override;
 
     void CheckAllFalse() const;
 };

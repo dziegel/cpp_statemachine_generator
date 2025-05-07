@@ -10,16 +10,14 @@ operation Tuple transformStatemachine(reportErrors : Boolean) {
   self.impl_ptr_type = "ImplPtr";
   
   self.all_states = new Map();
-  self.all_actions = new List();
+  self.all_actions_entry_exit = new List();
   self.all_guards = new List();
-  self.all_entry_exit = new List();
   
   self.region.regionCollectStates(self, null);
   self.region.regionTransform(self, null, reportErrors);
   
-  self.all_actions = self.all_actions.sortBy(a | a);
+  self.all_actions_entry_exit = self.all_actions_entry_exit.sortBy(a | a);
   self.all_guards = self.all_guards.sortBy(g | g);
-  self.all_entry_exit = self.all_entry_exit.sortBy(e | e);
 }
 
 operation String cleanString() : String {
@@ -116,8 +114,8 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
     var entry_pointers_list = new List();
     for (entry in self.entry.splitEntries()) {
       entry_pointers_list.add("&" + statemachine.name + "::" + "Impl::" + entry);
-      if (not statemachine.all_entry_exit.includes(entry)) {
-        statemachine.all_entry_exit.add(entry);
+      if (not statemachine.all_actions_entry_exit.includes(entry)) {
+        statemachine.all_actions_entry_exit.add(entry);
       }
     }
     self.entry_pointers = entry_pointers_list.concat(", ");
@@ -135,8 +133,8 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
     var exit_pointers_list = new List();
     for (ex in self.exit.splitEntries()) {
       exit_pointers_list.add("&" + statemachine.name + "::" + "Impl::" + ex);
-      if (not statemachine.all_entry_exit.includes(ex)) {
-        statemachine.all_entry_exit.add(ex);
+      if (not statemachine.all_actions_entry_exit.includes(ex)) {
+        statemachine.all_actions_entry_exit.add(ex);
       }
     }
     self.exit_pointers = exit_pointers_list.concat(", ");
@@ -195,11 +193,11 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
   var actions = new List();
   for (action in self.actions.splitEntries()) {
     all_actions.add("&" + statemachine.name + "::" + statemachine.impl_type + "::" + action);
-    if (not statemachine.all_actions.includes(action)) {
+    if (not statemachine.all_actions_entry_exit.includes(action)) {
       if (reportErrors and (action == "")) {
         (sm.name + ": Empty function behavior in transition starting from state " + self.start).errln();
       }
-      statemachine.all_actions.add(action);
+      statemachine.all_actions_entry_exit.add(action);
     }
   }
   

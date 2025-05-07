@@ -283,46 +283,46 @@ bool XmiFsmImpl::CommaGuard(XmiTestBase::Event /*event*/)
     return true;
 }
 
-void XmiFsmImpl::State1OnEntry()
+void XmiFsmImpl::State1OnEntry(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state1_on_entry_called_ = true;
 }
-void XmiFsmImpl::State1OnExit()
+void XmiFsmImpl::State1OnExit(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
 }
-void XmiFsmImpl::State2OnEntry()
+void XmiFsmImpl::State2OnEntry(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state2_on_entry_called_ = true;
 }
-void XmiFsmImpl::State3OnEntry()
+void XmiFsmImpl::State3OnEntry(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state3_on_entry_called_ = true;
 }
-void XmiFsmImpl::State3OnExit()
+void XmiFsmImpl::State3OnExit(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state3_on_exit_called_ = true;
 }
-void XmiFsmImpl::State4OnEntry1()
+void XmiFsmImpl::State4OnEntry1(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state4_on_entry1_called_ = true;
 }
-void XmiFsmImpl::State4OnEntry2()
+void XmiFsmImpl::State4OnEntry2(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state4_on_entry2_called_ = true;
 }
-void XmiFsmImpl::State4OnExit1()
+void XmiFsmImpl::State4OnExit1(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state4_on_exit1_called_ = true;
 }
-void XmiFsmImpl::State4OnExit2()
+void XmiFsmImpl::State4OnExit2(XmiTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state4_on_exit2_called_ = true;

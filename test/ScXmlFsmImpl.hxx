@@ -26,17 +26,17 @@ private:
     bool State2Transition3Guard(ScXmlTestBase::Event event) override;
 
     bool state1_on_entry_called_ = false;
-    void State1OnEntry() override;
+    void State1OnEntry(ScXmlTestBase::Event event) override;
     bool state2_on_entry_called_ = false;
-    void State2OnEntry() override;
+    void State2OnEntry(ScXmlTestBase::Event event) override;
     bool state3_on_entry_called_ = false;
-    void State3OnEntry() override;
+    void State3OnEntry(ScXmlTestBase::Event event) override;
     bool state3_on_exit_called_ = false;
-    void State3OnExit() override;
+    void State3OnExit(ScXmlTestBase::Event event) override;
     bool state4_on_entry_called_ = false;
-    void State4OnEntry() override;
+    void State4OnEntry(ScXmlTestBase::Event event) override;
     bool state4_on_exit_called_ = false;
-    void State4OnExit() override;
+    void State4OnExit(ScXmlTestBase::Event event) override;
 
     void CheckAllFalse() const;
 };

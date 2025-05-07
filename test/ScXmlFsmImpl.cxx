@@ -144,32 +144,32 @@ bool ScXmlFsmImpl::State2Transition3Guard(ScXmlTestBase::Event /*event*/)
     return state2_transition3_guard_result_;
 }
 
-void ScXmlFsmImpl::State1OnEntry()
+void ScXmlFsmImpl::State1OnEntry(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state1_on_entry_called_ = true;
 }
-void ScXmlFsmImpl::State2OnEntry()
+void ScXmlFsmImpl::State2OnEntry(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state2_on_entry_called_ = true;
 }
-void ScXmlFsmImpl::State3OnEntry()
+void ScXmlFsmImpl::State3OnEntry(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state3_on_entry_called_ = true;
 }
-void ScXmlFsmImpl::State3OnExit()
+void ScXmlFsmImpl::State3OnExit(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state3_on_exit_called_ = true;
 }
-void ScXmlFsmImpl::State4OnEntry()
+void ScXmlFsmImpl::State4OnEntry(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state4_on_entry_called_ = true;
 }
-void ScXmlFsmImpl::State4OnExit()
+void ScXmlFsmImpl::State4OnExit(ScXmlTestBase::Event /*event*/)
 {
     std::cout << std::source_location::current().function_name() << "\n";
     state4_on_exit_called_ = true;
