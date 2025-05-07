@@ -8,7 +8,7 @@ operation StateMachine getModel() : Tuple {
   if (stereotype != "") {
     result.generate = false;
  
-	  // Cameo "Applied stereotype"
+    // Cameo "Applied stereotype"
     for (rels in self.getTargetDirectedRelationships()) {
       for (rel in rels.getRelatedElements()) {
         if (rel.name == stereotype) {
@@ -110,10 +110,12 @@ operation Transition getModel(sm : Tuple, state : Tuple) : Tuple {
   // Trigger
   if (self.trigger.isDefined() and (self.trigger != null) and (self.trigger.first != null)) {
     var trigger = self.trigger.first.event;
-    if (trigger.isKindOf(SignalEvent) and (trigger.signal != null)) {
-      result.trigger = trigger.signal.name;
-    } else {
-      result.trigger = trigger.name;
+    if (trigger != null) {
+      if (trigger.isKindOf(SignalEvent) and (trigger.signal != null)) {
+        result.trigger = trigger.signal.name;
+      } else {
+        result.trigger = trigger.name;
+      }
     }
   }
 
@@ -130,7 +132,7 @@ operation Transition getModel(sm : Tuple, state : Tuple) : Tuple {
     } else {
       guard = self.guard.name;
     }
-    if (guard != "else") {
+    if ((guard != "") and (guard != "else")) {
       result.guards.add(guard.trim());
     }
   }
