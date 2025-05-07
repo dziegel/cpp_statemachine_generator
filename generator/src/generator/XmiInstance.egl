@@ -6,7 +6,7 @@
   if (not statemachine.generate) {
   	return;
   }
-  statemachine.transformStatemachine();
+  statemachine.transformStatemachine(false);
 
   ("Generate instance for statemachine " + sm.name).println();
   var instanceTemplate : Template = TemplateFactory.load("Instance.egl");

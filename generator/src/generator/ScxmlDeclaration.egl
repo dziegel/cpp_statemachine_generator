@@ -3,7 +3,7 @@
   import "Transformations.egl";
 
   var statemachine = sm.getModel();
-  statemachine.transformStatemachine();
+  statemachine.transformStatemachine(true);
 
   ("Generate declaration for statemachine " + sm.name).println();
   var declarationTemplate : Template = TemplateFactory.load("Declaration.egl");

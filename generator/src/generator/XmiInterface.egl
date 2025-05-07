@@ -6,7 +6,7 @@
   if (not statemachine.generate) {
   	return;
   }
-  statemachine.transformStatemachine();
+  statemachine.transformStatemachine(false);
 
   ("Generate interface for statemachine " + sm.name).println();
   var interfaceTemplate : Template = TemplateFactory.load("Interface.egl");
