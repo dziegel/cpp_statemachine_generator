@@ -1,5 +1,5 @@
 // Statemachine ScXmlTest instance
-// Generated: 5/7/25, 9:13 PM
+// Generated: 1/7/26, 8:17 PM
 
 #pragma once
 
@@ -56,8 +56,8 @@ static ScXmlTest::Transition State_1State_2Handler(ScXmlTest::ImplPtr impl, ScXm
 	}
 	return ScXmlTest::UnhandledEvent();
 }
-static const auto ScXmlTest_State_2_entry = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State2OnEntry});
-const ScXmlTest::State ScXmlTest::kState_1State_2("State_1::State_2", &State_1State_2Handler, &ScXmlTest::kState_1, nullptr, ScXmlTest_State_2_entry, {});
+static const auto ScXmlTest_State_1State_2_entry = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State2OnEntry});
+const ScXmlTest::State ScXmlTest::kState_1State_2("State_1::State_2", &State_1State_2Handler, &ScXmlTest::kState_1, nullptr, ScXmlTest_State_1State_2_entry, {});
 
 // State State_1::State_3
 static ScXmlTest::Transition State_1State_3Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
@@ -75,9 +75,9 @@ static ScXmlTest::Transition State_1State_3Handler(ScXmlTest::ImplPtr impl, ScXm
 	}
 	return ScXmlTest::UnhandledEvent();
 }
-static const auto ScXmlTest_State_3_entry = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State3OnEntry});
-static const auto ScXmlTest_State_3_exit = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State3OnExit});
-const ScXmlTest::State ScXmlTest::kState_1State_3("State_1::State_3", &State_1State_3Handler, &ScXmlTest::kState_1, nullptr, ScXmlTest_State_3_entry, ScXmlTest_State_3_exit);
+static const auto ScXmlTest_State_1State_3_entry = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State3OnEntry});
+static const auto ScXmlTest_State_1State_3_exit = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State3OnExit});
+const ScXmlTest::State ScXmlTest::kState_1State_3("State_1::State_3", &State_1State_3Handler, &ScXmlTest::kState_1, nullptr, ScXmlTest_State_1State_3_entry, ScXmlTest_State_1State_3_exit);
 
 // State State_1::State_4
 static ScXmlTest::Transition State_1State_4Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)
@@ -95,9 +95,9 @@ static ScXmlTest::Transition State_1State_4Handler(ScXmlTest::ImplPtr impl, ScXm
 	}
 	return ScXmlTest::UnhandledEvent();
 }
-static const auto ScXmlTest_State_4_entry = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State4OnEntry});
-static const auto ScXmlTest_State_4_exit = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State4OnExit});
-const ScXmlTest::HistoryState ScXmlTest::kState_1State_4("State_1::State_4", &State_1State_4Handler, &ScXmlTest::kState_1, &ScXmlTest::kState_1State_4State_5, ScXmlTest_State_4_entry, ScXmlTest_State_4_exit);
+static const auto ScXmlTest_State_1State_4_entry = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State4OnEntry});
+static const auto ScXmlTest_State_1State_4_exit = std::to_array<ScXmlTest::State::EntryExitType>({&ScXmlTest::Impl::State4OnExit});
+const ScXmlTest::HistoryState ScXmlTest::kState_1State_4("State_1::State_4", &State_1State_4Handler, &ScXmlTest::kState_1, &ScXmlTest::kState_1State_4State_5, ScXmlTest_State_1State_4_entry, ScXmlTest_State_1State_4_exit);
 
 // State State_1::State_4::State_5
 static ScXmlTest::Transition State_1State_4State_5Handler(ScXmlTest::ImplPtr impl, ScXmlTest::Event event)

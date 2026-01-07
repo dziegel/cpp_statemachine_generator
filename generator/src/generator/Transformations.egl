@@ -105,7 +105,7 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
   // Entry action
   self.entry_var = "{}";
   if (self.entry.isDefined()) {
-    self.entry_var = statemachine.name + "_" + self.name + "_entry";
+    self.entry_var = statemachine.name + "_" + self.scoped_name + "_entry";
 
     if (reportErrors and (self.entry == "")) {
       (sm.name + ": Empty entry function in state " + self.name).errln();
@@ -124,7 +124,7 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
   // Exit action
   self.exit_var = "{}";
   if (self.exit.isDefined()) {
-    self.exit_var = statemachine.name + "_" + self.name + "_exit";
+    self.exit_var = statemachine.name + "_" + self.scoped_name + "_exit";
 
     if (reportErrors and (self.exit == "")) {
       (sm.name + ": Empty exit function in state " + self.name).errln();
