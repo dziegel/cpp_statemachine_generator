@@ -53,7 +53,7 @@ operation Tuple regionCollectStates(statemachine : Tuple, parent_state : Tuple) 
 
     // State variable name
     if (parent_state != null) {
-      state.scoped_name = parent_state.scoped_name + state.name;
+      state.scoped_name = parent_state.scoped_name + "_" + state.name;
       state.readable_scoped_name = parent_state.readable_scoped_name + "::" + state.name;
     } else {
       state.scoped_name = state.name;

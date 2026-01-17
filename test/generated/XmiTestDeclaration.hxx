@@ -1,5 +1,5 @@
 // Statemachine XmiTest declaration
-// Generated: 1/7/26, 8:17 PM
+// Generated: 1/17/26, 9:21 PM
 
 #pragma once
 
@@ -11,19 +11,19 @@ class XmiTest final : public XmiTestBase
 	static const State kState_1;
 	
 	// State State_1::StateWithSameName
-	static const State kState_1StateWithSameName;
+	static const State kState_1_StateWithSameName;
 	
 	// State State_1::State_2
-	static const State kState_1State_2;
+	static const State kState_1_State_2;
 	
 	// State State_1::State_4
-	static const HistoryState kState_1State_4;
+	static const HistoryState kState_1_State_4;
 	
 	// State State_1::State_4::StateWithSameName
-	static const State kState_1State_4StateWithSameName;
+	static const State kState_1_State_4_StateWithSameName;
 	
 	// State State_1::State_4::State_5
-	static const State kState_1State_4State_5;
+	static const State kState_1_State_4_State_5;
 	
 	inline void Start()
 	{

@@ -28,7 +28,7 @@ void ScXmlFsmImpl::Test()
 
     // Start FSM. Entry actions of initial states must be called.
     fsm_.Start();
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_2);
     assert(state1_on_entry_called_);
     state1_on_entry_called_ = false;
     assert(state2_on_entry_called_);
@@ -37,14 +37,14 @@ void ScXmlFsmImpl::Test()
 
     // Send event that is not handled in state
     fsm_.React(EScXmlEvent::Transition_3);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_2);
     assert(on_unhandled_event_called_);
     on_unhandled_event_called_ = false;
     CheckAllFalse();
 
     // Internal transition, action must be called.
     fsm_.React(EScXmlEvent::Internal);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_2);
     assert(state2_internal_action_called_);
     state2_internal_action_called_ = false;
     CheckAllFalse();
@@ -52,7 +52,7 @@ void ScXmlFsmImpl::Test()
     // Guard returns false, no state change, no entry/exit
     state2_transition3_guard_result_ = false;
     fsm_.React(EScXmlEvent::Transition_3);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_2);
     assert(on_unhandled_event_called_);
     on_unhandled_event_called_ = false;
     CheckAllFalse();
@@ -60,7 +60,7 @@ void ScXmlFsmImpl::Test()
     // Guard returns true, state change, entry/exit called
     state2_transition3_guard_result_ = true;
     fsm_.React(EScXmlEvent::Transition_3);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_3);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_3);
     assert(transition3_action1_called_);
     transition3_action1_called_ = false;
     assert(transition3_action2_called_);
@@ -71,7 +71,7 @@ void ScXmlFsmImpl::Test()
 
     // Enter history compartment
     fsm_.React(EScXmlEvent::Transition_7);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_4State_5);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_4_State_5);
     assert(state3_on_exit_called_);
     state3_on_exit_called_ = false;
     assert(state4_on_entry_called_);
@@ -80,12 +80,12 @@ void ScXmlFsmImpl::Test()
 
     // Transition in history compartment
     fsm_.React(EScXmlEvent::Transition_3);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_4State_6);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_4_State_6);
     CheckAllFalse();
 
     // Step out of history compartment
     fsm_.React(EScXmlEvent::Transition_8);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_2);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_2);
     assert(state4_on_exit_called_);
     state4_on_exit_called_ = false;
     assert(state2_on_entry_called_);
@@ -94,7 +94,7 @@ void ScXmlFsmImpl::Test()
 
     // Reenter history compartment, history must be preserved
     fsm_.React(EScXmlEvent::Transition_6);
-    assert(fsm_.CurrentState() == &ScXmlTest::kState_1State_4State_6);
+    assert(fsm_.CurrentState() == &ScXmlTest::kState_1_State_4_State_6);
     assert(state4_on_entry_called_);
     state4_on_entry_called_ = false;
     CheckAllFalse();
