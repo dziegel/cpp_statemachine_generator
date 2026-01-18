@@ -1,4 +1,4 @@
-static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped_name%]Handler([%=statemachine.name%]::ImplPtr impl, [%=statemachine.name%]::Event event)
+	static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped_name%]Handler([%=statemachine.name%]::ImplPtr impl, [%=statemachine.name%]::Event event)
 {
   (void)impl; // impl parameter is unused when there is no guard function being called in here
 
@@ -6,14 +6,22 @@ static [%=statemachine.name%]::[%=statemachine.transition_type%] [%=state.scoped
   if (not state.all_events.isEmpty()) {
     var unique_id = new Tuple();
     unique_id.id = 0;
+    var any_trigger_found = false;
 %]
 switch([%=statemachine.name%]_GET_INSTANCE_EVENT_ID(event))
 {
 [%
     for (trigger in state.all_events) {
+      if (trigger == "ANY") {
+        any_trigger_found = true;      
+%]
+default:
+[%
+      } else {
 %]
 case [%=statemachine.name%]_GET_STATIC_EVENT_ID([%=trigger%]):
 [%
+      }
     var transition = state.transitions_for_trigger_transformed.get(trigger);
 
     var transitionRootTemplate : Template = TemplateFactory.load("InstanceHandlerTransitionRoot.egl");
@@ -27,9 +35,14 @@ break;
 
 [%
     }
+    if (not any_trigger_found)
+    {
 %]
 default:
 break;
+[%
+    }
+%]
 }
 [%
   } else {

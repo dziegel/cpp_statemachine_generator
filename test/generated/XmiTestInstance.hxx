@@ -1,5 +1,5 @@
 // Statemachine XmiTest instance
-// Generated: 1/17/26, 9:21 PM
+// Generated: 1/18/26, 9:40 AM
 
 #pragma once
 
@@ -48,7 +48,9 @@ static XmiTest::Transition State_1_StateWithSameNameHandler(XmiTest::ImplPtr imp
 		break;
 		
 		default:
+		return XmiTest::TransitionTo(XmiTest::kState_1_State_2);
 		break;
+		
 	}
 	return XmiTest::UnhandledEvent();
 }

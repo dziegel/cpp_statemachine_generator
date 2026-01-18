@@ -76,6 +76,25 @@ void XmiFsmImpl::Test()
     state3_on_entry_called_ = false;
     CheckAllFalse();
 
+    // ANY signal
+    fsm_.React(Transition_3::MakeShared());
+    assert(fsm_.CurrentState() == &XmiTest::kState_1_State_2);
+    assert(state3_on_exit_called_);
+    state3_on_exit_called_ = false;
+    assert(state2_on_entry_called_);
+    state2_on_entry_called_ = false;
+    CheckAllFalse();
+
+    // Back to kState_1_StateWithSameName
+    state2_transition3_guard_result_ = true;
+    fsm_.React(Transition_3::MakeShared());
+    assert(fsm_.CurrentState() == &XmiTest::kState_1_StateWithSameName);
+    assert(transition3_action1_called_);
+    transition3_action1_called_ = false;
+    assert(state3_on_entry_called_);
+    state3_on_entry_called_ = false;
+    CheckAllFalse();
+
     // Enter history compartment
     fsm_.React(Transition_7::MakeShared());
     assert(fsm_.CurrentState() == &XmiTest::kState_1_State_4_State_5);
@@ -112,7 +131,7 @@ void XmiFsmImpl::Test()
     state4_on_entry2_called_ = false;
     CheckAllFalse();
 
-    // Choice: No guards return true
+    // Choice: No guards return true + "ANY" event
     fsm_.React(Transition_7::MakeShared());
     assert(on_unhandled_event_called_);
     on_unhandled_event_called_ = false;

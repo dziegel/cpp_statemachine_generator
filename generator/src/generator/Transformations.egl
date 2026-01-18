@@ -158,6 +158,11 @@ operation Tuple stateTransform(statemachine : Tuple, region : Tuple, parent_stat
     }
   }
   self.all_events = self.all_events.sortBy(e | e);
+  // Ensure ANY (=default) transition is last in array
+  if (self.all_events.includes("ANY")) {
+  	self.all_events.remove("ANY");
+  	self.all_events.add("ANY");
+  }
 
   // Transform transitions of state
   for (trigger in self.transitions_for_trigger.keySet()) {
@@ -255,6 +260,7 @@ operation Tuple transitionTransform(statemachine : Tuple, state : Tuple, trigger
       self.trans_unconditional.add(transition);
     }
   }
+
   if (reportErrors and (self.trans_unconditional.size() > 1)) {
     ("More than one unconditional outgoing transition from state " + state.name + " for trigger " + trigger).errln();
   }

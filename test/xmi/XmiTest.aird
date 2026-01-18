@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description" uid="_W_vQ8PPnEfCyLsWeQnZDRA" selectedViews="_Xaq5cPPnEfCyLsWeQnZDRA _XbWO4PPnEfCyLsWeQnZDRA _XbcVgPPnEfCyLsWeQnZDRA _XbjDMPPnEfCyLsWeQnZDRA _XbxFoPPnEfCyLsWeQnZDRA _Xb5ogPPnEfCyLsWeQnZDRA _XcCLYPPnEfCyLsWeQnZDRA _XcLVUPPnEfCyLsWeQnZDRA _XcT4MPPnEfCyLsWeQnZDRA _XckW4PPnEfCyLsWeQnZDRA _XcqdgPPnEfCyLsWeQnZDRA" version="15.4.1.202403191723">
+  <semanticResources>pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml</semanticResources>
+  <semanticResources>pathmap://UML_PROFILES/Ecore.profile.uml</semanticResources>
+  <semanticResources>pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml</semanticResources>
+  <semanticResources>pathmap://UML_PROFILES/Standard.profile.uml</semanticResources>
+  <semanticResources>pathmap://UML_METAMODELS/UML.metamodel.uml</semanticResources>
+  <semanticResources>pathmap://UML_METAMODELS/Ecore.metamodel.uml</semanticResources>
+  <semanticResources>XmiTest.uml</semanticResources>
+  <ownedViews xmi:type="viewpoint:DView" uid="_Xaq5cPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.clazz/description/papyrus_class.odesign#//@ownedViewpoints[name='ClassDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XbWO4PPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.deployment/description/papyrus_deployment.odesign#//@ownedViewpoints[name='DeploymentDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XbcVgPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.pkg/description/papyrus_package.odesign#//@ownedViewpoints[name='PackageDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XbjDMPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.sequence/description/papyrus_sequence.odesign#//@ownedViewpoints[name='SequenceDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XbxFoPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.activity/description/papyrus_activity.odesign#//@ownedViewpoints[name='ActivityDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_Xb5ogPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.statemachine/description/papyrus_statemachine.odesign#//@ownedViewpoints[name='StateMachineDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XcCLYPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.compositestructure/description/papyrus_compositestructure.odesign#//@ownedViewpoints[name='CompositeStructureDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XcLVUPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.usecase/description/papyrus_usecase.odesign#//@ownedViewpoints[name='UseCaseDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XcT4MPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.component/description/papyrus_component.odesign#//@ownedViewpoints[name='ComponentDiagram']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XckW4PPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.properties.uml/description/umlProperties.odesign#//@ownedViewpoints[name='UmlProperties']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DView" uid="_XcqdgPPnEfCyLsWeQnZDRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.papyrus.sirius.uml.diagram.communication/description/papyrus_communication.odesign#//@ownedViewpoints[name='CommunicationDiagram']"/>
+  </ownedViews>
+</viewpoint:DAnalysis>
